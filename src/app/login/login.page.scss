@@ -1,0 +1,86 @@
+.login-content {
+    --background: #bb6b2c; 
+  
+   
+    &::part(scroll) {
+      display: grid;
+      place-items: center;    
+      min-height: 100%;         
+      padding: 0 24px;          
+    }
+  }
+  
+  
+  .login-card {
+    width: 100%;
+    max-width: 320px;          
+    text-align: center;
+  }
+  
+  
+  .logo {
+    font-family: 'Pacifico', 'Lobster', 'Comic Sans MS', cursive, system-ui;
+    font-size: 42px;
+    color: #fff;
+    margin-bottom: 40px;
+  }
+  
+
+  .form-group {
+    margin-bottom: 18px;
+    text-align: left;
+  
+    label {
+      display: block;
+      margin: 0 0 6px 4px;
+      font-size: 13px;
+      color: #fff;
+      font-weight: 600;
+    }
+  
+    ion-input {
+      --background: #fff;
+      --padding-start: 12px;
+      --padding-end: 12px;
+      --min-height: 44px;
+      border-radius: 8px;
+      border: 1px solid rgba(0,0,0,.15);
+      box-shadow: 0 2px 6px rgba(0,0,0,.15);
+      font-size: 14px;
+    }
+  }
+
+  .login-button {
+    --background: #6a390c;      /* marrom do print */
+    --border-radius: 22px;
+    --box-shadow: 0 4px 10px rgba(0,0,0,.25);
+    margin-top: 8px;
+    font-weight: 700;
+  }
+  
+ 
+  .links {
+    margin-top: 18px;
+    font-size: 12px;
+    color: #fff;
+  
+    p { margin: 0; }
+  
+    a {
+      display: block;
+      margin-top: 4px;
+      color: #fff;
+      font-weight: 700;
+      text-decoration: underline;
+    }
+  }
+  
+  
+  @supports not (selector(:host)) {
+    .login-content {
+      display: grid;
+      place-items: center;
+      min-height: 100vh;
+    }
+  }
+  
