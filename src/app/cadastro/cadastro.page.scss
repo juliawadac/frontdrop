@@ -1,0 +1,56 @@
+.cadastro-content {
+    --background: #b86b2b; // fundo marrom/laranja
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .logo-container {
+    margin-top: 40px;
+    margin-bottom: 20px;
+    text-align: center;
+  
+    img {
+      width: 140px;
+      height: auto;
+      border-radius: 50%;
+    }
+  }
+  
+  .cadastro-form {
+    width: 85%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .custom-input {
+    --background: #fff;
+    border-radius: 50%;
+    margin-bottom: 18px;
+    padding: 8px;
+    font-size: 14px;
+  }
+  
+  .btn-cadastrar {
+    --background: #8b4a1d; // marrom mais escuro
+    border-radius: 20px;
+    font-weight: bold;
+    margin-top: 20px;
+    height: 45px;
+  }
+  
+  .login-link {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 12px;
+  
+    a {
+      color: white;
+      text-decoration: none;
+    }
+  }
+  
+  .input{
+    border-radius: 100%;
+  }
