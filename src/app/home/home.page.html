@@ -1,20 +1,77 @@
-<ion-header [translucent]="true">
+
+
+<ion-header class="cabeca" [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Blank
+      Olá, Arthur Dezan
     </ion-title>
+    <ion-avatar class="logo" slot="end">
+      <img src="../../assets/sacola branca.png" alt="logo">
+    </ion-avatar>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+  <!-- CATEGORIAS -->
+  <div class="categorias">
+    <ion-button fill="clear">Comida</ion-button>
+    <ion-button fill="clear">Mercado</ion-button>
+    <ion-button fill="clear">Farmácia</ion-button>
+    <ion-button fill="clear">Construção</ion-button>
   </div>
+
+  <!-- SEÇÃO COMIDA -->
+  <h2 class="titulo">Comida</h2>
+  <div class="lista">
+    <ion-button expand="block" class="card-btn">🍔 Burger House</ion-button>
+    <ion-button expand="block" class="card-btn">🍕 Pizza Mania</ion-button>
+    <ion-button expand="block" class="card-btn">🍣 Sushi Prime</ion-button>
+  </div>
+
+  <!-- SEÇÃO MERCADO -->
+  <h2 class="titulo">Mercado</h2>
+  <div class="lista">
+    <ion-button expand="block" class="card-btn">🛒 Supermercado Bom Preço</ion-button>
+    <ion-button expand="block" class="card-btn">🥬 Hortifruti Vida Verde</ion-button>
+    <ion-button expand="block" class="card-btn">🥩 Açougue Premium</ion-button>
+  </div>
+
+  <!-- SEÇÃO FARMÁCIA -->
+  <h2 class="titulo">Farmácia</h2>
+  <div class="lista">
+    <ion-button expand="block" class="card-btn">💊 Drogaria Popular</ion-button>
+    <ion-button expand="block" class="card-btn">🧴 FarmaMais</ion-button>
+    <ion-button expand="block" class="card-btn">🌿 Saúde Natural</ion-button>
+  </div>
+
+  <!-- SEÇÃO CONSTRUÇÃO -->
+  <h2 class="titulo">Construção</h2>
+  <div class="lista">
+    <ion-button expand="block" class="card-btn">🏗️ Casa & Construção</ion-button>
+    <ion-button expand="block" class="card-btn">🔧 Ferramentas Pro</ion-button>
+    <ion-button expand="block" class="card-btn">🪚 Madeira Boa</ion-button>
+  </div>
+
 </ion-content>
+
+<!-- FOOTER MENU -->
+<ion-footer>
+  <ion-toolbar>
+    <div class="footer">
+      <ion-button fill="clear">
+        <ion-icon name="home-outline"></ion-icon>
+      </ion-button>
+      <ion-button fill="clear">
+        <ion-icon name="search-outline"></ion-icon>
+      </ion-button>
+      <ion-button fill="clear">
+        <ion-icon name="reader-outline"></ion-icon>
+      </ion-button>
+      <ion-button fill="clear">
+        <ion-icon name="person-outline"></ion-icon>
+      </ion-button>
+    </div>
+  </ion-toolbar>
+</ion-footer>
+
