@@ -1,48 +1,13 @@
-<ion-header>
+<ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title style="font-family: 'Cursive'; text-align: center;">Drop</ion-title>
+    <ion-title>cadastro</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" class="ion-padding" style="--background: #c37841; display: flex; justify-content: center; align-items: center;">
-  <div class="form-container">
-    <h2 style="text-align: center; color: white; margin-bottom: 20px;">Cadastro</h2>
-    <form>
-      <ion-item lines="none">
-        <ion-label position="floating" color="light">Nome</ion-label>
-        <ion-input placeholder="Digite seu nome"></ion-input>
-      </ion-item>
-
-      <ion-item lines="none">
-        <ion-label position="floating" color="light">Sobrenome</ion-label>
-        <ion-input placeholder="Digite seu sobrenome"></ion-input>
-      </ion-item>
-
-      <ion-item lines="none">
-        <ion-label position="floating" color="light">Email</ion-label>
-        <ion-input type="email" placeholder="Digite seu email"></ion-input>
-      </ion-item>
-
-      <ion-item lines="none">
-        <ion-label position="floating" color="light">Senha</ion-label>
-        <ion-input type="password" placeholder="Digite sua senha"></ion-input>
-      </ion-item>
-
-      <ion-item lines="none">
-        <ion-label position="floating" color="light">Endereço</ion-label>
-        <ion-input placeholder="Digite seu endereço"></ion-input>
-      </ion-item>
-
-      <ion-item lines="none">
-        <ion-label position="floating" color="light">Número do endereço</ion-label>
-        <ion-input type="number" placeholder="Digite seu número"></ion-input>
-      </ion-item>
-
-      <ion-button expand="block" style="margin-top: 20px; background-color: #97572d;">CADASTRAR</ion-button>
-
-      <p style="text-align: center; color: white; margin-top: 10px; font-size: 12px;">
-        Já tenho uma conta!
-      </p>
-    </form>
-  </div>
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">cadastro</ion-title>
+    </ion-toolbar>
+  </ion-header>
 </ion-content>
