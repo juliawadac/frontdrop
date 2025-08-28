@@ -24,17 +24,9 @@
     flex-direction: column;
   }
   
-  .custom-input {
-    --background: #fff;
-    border-radius: 50%;
-    margin-bottom: 18px;
-    padding: 8px;
-    font-size: 14px;
-  }
-  
   .btn-cadastrar {
     --background: #8b4a1d; // marrom mais escuro
-    border-radius: 20px;
+    --border-radius: 16px;
     font-weight: bold;
     margin-top: 20px;
     height: 45px;
@@ -52,5 +44,16 @@
   }
   
   .input{
-    border-radius: 100%;
+    ion-input {
+      --background: #ffffff; // cinza claro
+      --border-radius: 16px;
+      --padding-start: 12px;
+      padding-left: 15px;
+      min-height: 50px;
+    }
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 13px;
   }
