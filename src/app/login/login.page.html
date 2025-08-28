@@ -1,15 +1,12 @@
 <ion-content [fullscreen]="true" class="login-content">
   <div class="login-card">
-    <h1 class="logo">Drop</h1>
-
-    <div class="form-group">
-      <label>Email</label>
-      <ion-input type="email" placeholder="Digite seu email"></ion-input>
+    <div class="logo-container">
+      <img src="../../assets/logo_lado.png" alt="Logo Drop" class="logo-image"/>
     </div>
 
-    <div class="form-group">
-      <label>Senha</label>
-      <ion-input type="password" placeholder="Digite sua senha"></ion-input>
+    <div class="input">
+      <ion-input type="email" label="Email" label-placement="floating"  placeholder="Digite seu email"></ion-input>
+      <ion-input type="password" label="Senha" label-placement="floating"  placeholder="Digite sua senha"></ion-input>
     </div>
 
     <ion-button expand="block" class="login-button">ENTRAR</ion-button>

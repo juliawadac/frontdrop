@@ -42,7 +42,6 @@
     ion-input {
       --background: #fff;
       --padding-start: 12px;
-      --padding-end: 12px;
       --min-height: 44px;
       
       border: 1px solid rgba(0,0,0,.15);
@@ -84,4 +83,30 @@
       min-height: 100vh;
     }
   }
+
+  .input{
+    ion-input {
+      --background: #ffffff; // cinza claro
+      --border-radius: 16px;
+      --padding-start: 12px;
+      padding-left: 15px;
+      min-height: 50px;
+    }
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 17px;
+  }
   
+  .logo-container {
+    display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+  }
+  
+  .logo-image {
+    width: 150px; // ajuste para caber bem
+    height: auto;
+    border-radius: 50%;
+  }
