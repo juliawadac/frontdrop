@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { LoginPageRoutingModule } from './login-routing.module';
+import { CadastroPageRoutingModule } from './cadastro-routing.module';
 
-import { LoginPage } from './login.page';
+import { CadastroPage } from './cadastro.page';
 import { RouterModule } from '@angular/router';
 
 @NgModule({
@@ -14,11 +14,10 @@ import { RouterModule } from '@angular/router';
     CommonModule,
     FormsModule,
     IonicModule,
-    LoginPageRoutingModule,
+    CadastroPageRoutingModule,
     RouterModule,
-   
+    
   ],
-  declarations: [LoginPage]
-
+  declarations: [CadastroPage]
 })
-export class LoginPageModule {}
+export class CadastroPageModule {}
