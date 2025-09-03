@@ -51,7 +51,7 @@
   }
 
   .login-button {
-    --background: #6a390c;      /* marrom do print */
+    --background: #8b4a1d;      /* marrom do print */
     --border-radius: 22px;
     --box-shadow: 0 4px 10px rgba(0,0,0,.25);
     margin-top: 8px;
@@ -60,18 +60,13 @@
   
  
   .links {
-    margin-top: 18px;
+    text-align: center;
+    margin-top: 10px;
     font-size: 12px;
-    color: #fff;
-  
-    p { margin: 0; }
   
     a {
-      display: block;
-      margin-top: 4px;
-      color: #fff;
-      font-weight: 700;
-      text-decoration: underline;
+      color: white;
+      text-decoration: none;
     }
   }
   
@@ -89,8 +84,12 @@
       --background: #ffffff; // cinza claro
       --border-radius: 16px;
       --padding-start: 12px;
+      --color: black;
+      --highlight-color-focused: transparent;
+      --placeholder-color: rgb(0, 0, 0);
       padding-left: 15px;
       min-height: 50px;
+      text-align: left;
     }
     display: flex;
     justify-content: center;
