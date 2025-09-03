@@ -29,6 +29,7 @@
   margin-top: 5px;
 
   ion-button {
+    padding: none;
     font-size: 12px;
     --color: white;
     --background: transparent;
@@ -48,11 +49,18 @@
   gap: 10px;
   margin: 10px;
   justify-content: center;
+  text-align: center; 
+  margin-left: -7px;
   ion-button{
-    --background: #8d4e1f; 
+    --background: none;
+    
+     background-size: cover;
+  background-position: center; 
+  background-repeat: no-repeat; 
     color: white;
 
   }
+ 
 }
 
 .card-btn {
@@ -107,4 +115,9 @@ ion-footer {
       color: white;
     }
   }
+}
+
+.morzinho{
+  width: 100%;
+  height: 100%;
 }
