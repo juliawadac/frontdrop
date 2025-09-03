@@ -15,6 +15,12 @@ const routes: Routes = [
     path: 'login',
     loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
   },
+  {
+    path: 'sacola',
+    loadChildren: () => import('./sacola/sacola-module').then(m => m.SacolaPageModule)
+  }
+  
+
 ];
 
 @NgModule({
