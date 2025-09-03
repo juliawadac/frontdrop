@@ -1,12 +1,21 @@
 /* Arquivo .scss do componente */
 ion-content {
-    --background: #C27933; /* Define o fundo da tela */
-  }
+  --background: #C88545; /* cor de fundo */
+  position: relative;
+  z-index: 0;
+  
+}
 
 ion-toolbar {
     --background: #99521C;  /* Azul primário */
     --color: white;         /* Texto branco */
   }
+  ion-header {
+    position: relative;
+    z-index: 10;
+  }
+
+  
   
   .cart-container {
     display: flex;
@@ -19,7 +28,12 @@ ion-toolbar {
     flex-direction: column;
     padding: 16px;
     border-bottom: 1px solid #f0f0f0;  /* Cinza claro para divisão */
-  }
+    transition: all 0.1s ease-in-out;
+  
+    &.removing {
+      opacity: 0;
+      transform: translateX(50px);
+  }}
   
   .product-name {
     font-weight: bold;
@@ -44,13 +58,8 @@ ion-toolbar {
     padding: 16px;
   }
   
-  .add-button {
-    font-size: 24px;
-    --color: #99521C;  /* Azul para o ícone de adição */
-    align-items: center;
-    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
-    border-radius: 10%; /* Deixa o botão arredondado, se for circular */
-  }
+
+
   
   .order-summary {
     margin-top: auto;
@@ -154,4 +163,42 @@ ion-toolbar {
         --box-shadow: none;
       }
       
-      
+      ion-content {
+  --background: #C88545;
+  position: relative;
+  padding-bottom: 120px; /* Reserva espaço para o rodapé */
+}
+
+/* Container dos itens */
+
+/* Resumo do pedido fixo */
+.order-summary {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #C88545;
+  padding: 16px;
+  border-top: 2px solid #99521C;
+  box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.3);
+  z-index: 10;
+}
+
+/* Subtotal */
+.subtotal {
+  display: block;
+  text-align: right;
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 12px;
+}
+
+/* Botão do pedido */
+.place-order-button {
+  --background: #99521C;
+  --color: white;
+  font-weight: bold;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+}
