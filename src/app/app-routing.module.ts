@@ -15,28 +15,20 @@ const routes: Routes = [
     path: 'login',
     loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
   },
-<<<<<<< HEAD
   {
     path: 'sacola',
     loadChildren: () => import('./sacola/sacola-module').then(m => m.SacolaPageModule)
   }
   
-=======
-  
+  ,
   {
     path: 'cadastro',
     loadChildren: () => import('./cadastro/cadastro.module').then( m => m.CadastroPageModule)
   },
 
-  const routes: Routes = [
-    { path: 'home', loadChildren: () => import('./home/home.module').then(m => m.HomePageModule) },
-    { path: 'home', component: HomePage }
-  ];
-  
->>>>>>> 3a5ebf86719b591f518f7ec75693ca11d63edbaa
+
 
 ];
-
 
 @NgModule({
   imports: [
