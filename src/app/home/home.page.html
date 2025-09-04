@@ -15,43 +15,44 @@
 
   <!-- CATEGORIAS -->
   <div class="categorias">
-    <ion-button class="Nunito" fill="clear" >Comida</ion-button>
-    <ion-button class="Nunito" fill="clear" >Mercado</ion-button>
-    <ion-button class="Nunito" fill="clear">Farmácia</ion-button>
-    <ion-button class="Nunito" fill="clear">Construção</ion-button>
+    <ion-button class="Nunito" fill="clear" (click)="scrollTo('comida')" >Comida</ion-button>
+    <ion-button class="Nunito" fill="clear" (click)="scrollTo('mercado')" >Mercado</ion-button>
+    <ion-button class="Nunito" fill="clear" (click)="scrollTo('farmacia')">Farmácia</ion-button>
+    <ion-button class="Nunito" fill="clear"(click)="scrollTo('construcao')">Construção</ion-button>
   </div>
 
   <!-- SEÇÃO COMIDA -->
-  <h2 id="comida" class="titulo">Comida</h2>
-  <div class="lista">
-    <ion-button expand="block" class="mc"></ion-button>
-    <ion-button expand="block" class="pizzahut"></ion-button>
-    <ion-button expand="block" class="habibis"></ion-button>
-  </div>
+<h2 id="comida" class="titulo">Comida</h2>
+<div class="lista">
+  <div class="loja-card mc"></div>
+  <div class="loja-card pizzahut"></div>
+  <div class="loja-card habibis"></div>
+</div>
 
-  <!-- SEÇÃO MERCADO -->
-  <h2 id="mercado" class="titulo">Mercado</h2>
-  <div class="lista">
-    <ion-button expand="block" class="confianca"></ion-button>
-    <ion-button expand="block" class="atacadao"></ion-button>
-    <ion-button expand="block" class="tauste"></ion-button>
-  </div>
+<!-- SEÇÃO MERCADO -->
+<h2 id="mercado" class="titulo">Mercado</h2>
+<div class="lista">
+  <div class="loja-card confianca"></div>
+  <div class="loja-card atacadao"></div>
+  <div class="loja-card tauste"></div>
+</div>
 
-  <!-- SEÇÃO FARMÁCIA -->
-  <h2 id="farmacia" class="titulo">Farmácia</h2>
-  <div class="lista">
-    <ion-button expand="block" class="cruzvermelha"></ion-button>
-    <ion-button expand="block" class="drogaraia"></ion-button>
-    <ion-button expand="block" class="drogasil"></ion-button>
-  </div>
+<!-- SEÇÃO FARMÁCIA -->
+<h2 id="farmacia" class="titulo">Farmácia</h2>
+<div class="lista">
+  <div class="loja-card cruzvermelha"></div>
+  <div class="loja-card drogaraia"></div>
+  <div class="loja-card drogasil"></div>
+</div>
 
-  <!-- SEÇÃO CONSTRUÇÃO -->
-  <h2 id="construcao" class="titulo">Construção</h2>
-  <div class="lista">
-    <ion-button expand="block" class="casasol"></ion-button>
-    <ion-button expand="block" class="construmais"></ion-button>
-    <ion-button expand="block" class="lajesrodrigues"></ion-button>
-  </div>
+<!-- SEÇÃO CONSTRUÇÃO -->
+<h2 id="construcao" class="titulo">Construção</h2>
+<div class="lista">
+  <div class="loja-card casasol"></div>
+  <div class="loja-card construmais"></div>
+  <div class="loja-card lajesrodrigues"></div>
+</div>
+
 
 </ion-content>
 
