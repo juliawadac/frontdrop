@@ -3,22 +3,30 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
-
-  // Carrega as rotas das páginas (cada uma tem seu routing.module)
   {
     path: 'login',
     loadChildren: () =>
-      import('./login/login-routing.module').then(m => m.LoginPageRoutingModule),
+      import('./login/login-routing.module').then(m => m.LoginPageRoutingModule)
+  },
+  {
+    path: 'sacola',
+    loadChildren: () => import('./sacola/sacola-module').then(m => m.SacolaPageModule)
   },
   {
     path: 'cadastro',
     loadChildren: () =>
-      import('./cadastro/cadastro-routing.module').then(m => m.CadastroPageRoutingModule),
+      import('./cadastro/cadastro-routing.module').then(m => m.CadastroPageRoutingModule)
   },
    { 
     path: 'home', 
     loadChildren: () => import('./home/home.module').then(m => m.HomePageModule) 
-  }
+  },
+  {
+    path: 'estabelecimento',
+    loadComponent: () => import('./estabelecimento/estabelecimento.page').then( m => m.EstabelecimentoPage)
+  },
+
+
 ];
 
 @NgModule({

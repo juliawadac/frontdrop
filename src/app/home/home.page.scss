@@ -1,27 +1,248 @@
-#container {
+.cabeca {
+  ion-toolbar {
+    --background: #99521c;
+    --color: white;
+    height: 90px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    ion-title.Nunito {
+      font-family: "Nunito", sans-serif !important;
+      font-weight: 600; // ou o peso que quiser
+      font-style: normal;
+    }
+
+    .logo {
+      margin-right: 10px;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      overflow: hidden;
+    }
+  }
+}
+
+.categorias {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 5px;
+
+  ion-button.Nunito {
+    font-family: "Nunito", sans-serif !important; 
+    padding: none;
+    font-size: 12px;
+    --color: #5e2d08  ;
+    --background: transparent;
+    font-weight: bold;
+  }
+}
+
+.titulo {
+  margin: 15px 10px 5px 10px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #5e2d08;
+  font-family: "Nunito", sans-serif !important;
+}
+
+.lista {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 10px;
+  justify-content: center;
   text-align: center;
 
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
+
+
+  .mc {
+    --background: transparent;
+    --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    background-image: url('/assets/mcdonalds.png');
+    background-position: center;
+    height: 60px;
+
+  }
+
+  .pizzahut {
+    --background: transparent;
+    --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    background-image: url('/assets/pizzahut.png');
+    background-position: center;
+    height: 60px;
+
+  }
+
+  .habibis {
+    --background: transparent;
+    --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    background-image: url('/assets/habibs.png');
+    background-position: center;
+    height: 60px;
+
+
+  }
+
+  $nunito-weight: 400; // exemplo
+  $nunito-style: normal;
+
+  .nunito {
+    font-family: "Nunito", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: $nunito-weight;
+    font-style: $nunito-style;
+  }
+
+
+  .confianca {
+    --background: transparent;
+    --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    background-image: url('/assets/confianca.png');
+    background-position: center;
+    height: 60px;
+
+  }
+
+  .atacadao {
+    --background: transparent;
+    --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    background-image: url('/assets/atacadao.png');
+    background-position: center;
+    height: 60px;
+
+  }
+
+  .tauste {
+    --background: transparent;
+    --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    background-image: url('/assets/tauste.png');
+    background-position: center;
+    height: 60px;
+
+  }
+
+  .cruzvermelha {
+    --background: transparent;
+    --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    background-image: url('/assets/cruzvermelha.png');
+    background-position: center;
+    height: 60px;
+
+  }
+
+  .drogaraia {
+    --background: transparent;
+    --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    background-image: url('/assets/drogaraia.png');
+    background-position: center;
+    height: 60px;
+
+  }
+
+  .drogasil {
+    --background: transparent;
+    --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    background-image: url('/assets/drogasil.png');
+    background-position: center;
+    height: 60px;
+
+  }
+
+  .casasol {
+    --background: transparent;
+    --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    background-image: url('/assets/casasol.png');
+    background-position: center;
+    height: 60px;
+
+  }
+
+  .construmais {
+    --background: transparent;
+    --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    background-image: url('/assets/construmais.png');
+    background-position: center;
+    height: 60px;
+
+  }
+
+  .lajesrodrigues {
+    --background: transparent;
+    --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    background-image: url('/assets/lajesrodrigues.png');
+    background-position: center;
+    height: 60px;
+
+  }
+
 }
 
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
-}
-
-#container p {
+.card-btn {
+  --background: #d3d3d3;
+  --color: black;
+  --border-radius: 8px;
+  height: 60px;
   font-size: 16px;
-  line-height: 22px;
-
-  color: #8c8c8c;
-
-  margin: 0;
+  font-weight: 500;
+  text-transform: none; // evita maiúsculo automático
+  justify-content: flex-start;
+  padding-left: 15px;
 }
 
-#container a {
-  text-decoration: none;
+ion-content {
+  --background: white; // fundo laranja
+}
+
+ion-footer {
+  ion-toolbar {
+    --background: #99521c; // rodapé marrom
+  }
+
+  .footer {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+
+    ion-icon {
+      font-size: 22px;
+      color: white;
+      --ionicon-stroke-width: 48px;
+    }
+  }
+}
+
+ion-content {
+  --background: rgb(250, 220, 195);
+}
+
+ion-footer {
+  ion-toolbar {
+    --background: #99521c;
+  }
+
+  .footer {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+
+    ion-icon {
+      font-size: 24px;
+      color: white;
+    }
+  }
+
+
 }
