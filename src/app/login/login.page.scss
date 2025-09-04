@@ -56,6 +56,7 @@
     --box-shadow: 0 4px 10px rgba(0,0,0,.25);
     margin-top: 8px;
     font-weight: 700;
+    color: #ffffff;
   }
   
  
@@ -85,8 +86,8 @@
       --border-radius: 16px;
       --padding-start: 12px;
       --color: black;
-      --highlight-color-focused: transparent;
       --placeholder-color: rgb(0, 0, 0);
+      --highlight-color: black !important;
       padding-left: 15px;
       min-height: 50px;
       text-align: left;
@@ -108,4 +109,9 @@
     width: 150px; // ajuste para caber bem
     height: auto;
     border-radius: 50%;
+  }
+
+  ::ng-deep .sc-ion-input-md-h {
+    --highlight-height: 0 !important;
+    --border-width: 0 !important;
   }
