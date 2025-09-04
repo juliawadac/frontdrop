@@ -1,0 +1,204 @@
+/* Arquivo .scss do componente */
+ion-content {
+  --background: #C88545; /* cor de fundo */
+  position: relative;
+  z-index: 0;
+  
+}
+
+ion-toolbar {
+    --background: #99521C;  /* Azul primário */
+    --color: white;         /* Texto branco */
+  }
+  ion-header {
+    position: relative;
+    z-index: 10;
+  }
+
+  
+  
+  .cart-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  
+  .cart-item {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    border-bottom: 1px solid #f0f0f0;  /* Cinza claro para divisão */
+    transition: all 0.1s ease-in-out;
+  
+    &.removing {
+      opacity: 0;
+      transform: translateX(50px);
+  }}
+  
+  .product-name {
+    font-weight: bold;
+    font-size: 16px;
+    color: white;  /* Preto escuro para texto principal */
+  }
+  
+  .establishment-name {
+    font-size: 14px;
+    color: white;  /* Cinza médio para texto secundário */
+  }
+  
+  .price {
+    font-size: 16px;
+    color: white;  /* Preto para preço */
+    margin-top: 8px;
+  }
+  
+  .add-more {
+    display: flex;
+    justify-content: center;
+    padding: 16px;
+  }
+  
+
+
+  
+  .order-summary {
+    margin-top: auto;
+    padding: 16px;
+    border-top: 1px solid #f0f0f0;
+  }
+  
+  .subtotal {
+    display: block;
+    text-align: right;
+    font-size: 16px;
+    margin-bottom: 16px;
+    color: white;  /* Preto escuro */
+  }
+  
+  .place-order-button {
+    --background: #99521C;  /* Azul primário */
+    --color: white;
+    font-weight: bold;
+  }
+  
+  .tab-bar {
+    --background: #99521C;  /* Fundo branco */
+    --color: white;         /* Cinza para ícones inativos */
+    --color-selected: #99521C;  /* Azul para ícone ativo */
+  }
+  
+  .tab-icon {
+    font-size: 24px;
+  }
+
+/* filepath: /C:/Users/23654088856/frontdrop/src/app/sacola/sacola.component.scss */
+.cart-item {
+    position: relative; /* Necessário para posicionar o ícone */
+    display: flex;
+    align-items: center; /* Alinha os textos verticalmente */
+    padding: 16px;
+    border: 1px solid #99521C; /* Borda ao redor do card */
+    border-radius: 8px; /* Bordas arredondadas */
+    background-color: #99521C; /* Fundo branco para o card */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra para destaque */
+    margin-bottom: 16px; /* Espaçamento entre os cards */
+  }
+  
+  .trash-icon {
+    position: absolute; /* Posiciona o ícone na lateral esquerda */
+    right: 16px; /* Espaçamento da borda esquerda */
+    color: white; /* Ícone branco */
+    font-size: 24px; /* Tamanho do ícone */
+    cursor: pointer; /* Mostra que o ícone é clicável */
+  }
+  
+  .item-info {
+    margin-right: 70px; /* Espaçamento para evitar sobreposição com o ícone */
+    display: flex;
+    flex-direction: column; /* Textos empilhados */
+  }
+
+  .item-image {
+    width: 60px;             /* Largura do quadrado */
+    height: 60px;            /* Altura do quadrado */
+    border-radius: 8px;      /* Deixa os cantos levemente arredondados */
+    overflow: hidden;        /* Garante que a imagem não vaze */
+    margin-right: 12px;      /* Espaço entre a imagem e o texto */
+    flex-shrink: 0;          /* Impede que o quadrado diminua */
+    background-color: #f4f4f4; /* Fundo cinza caso não tenha imagem */
+    display: absolute;      
+    position: absolute;     
+    align-items: center;     
+    justify-content: left; 
+    margin-right: 300px;
+
+  }
+  
+  .item-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ajusta a imagem sem distorcer */
+  }
+
+  .back-button {
+        width: 24px;      /* Largura do ícone */
+        height: 24px;     /* Altura do ícone */
+        object-fit: contain; /* Mantém a proporção correta */
+        display: block;
+        margin-right: 350px;
+        position: absolute;
+        display: flex;
+        margin-top: -5px;
+      }
+
+      .center-title {
+        text-align: center;
+        width: 100%;
+        font-weight: bold;
+        color: white;
+      }
+      
+      .back-button {
+        --background: transparent;
+        --box-shadow: none;
+      }
+      
+      ion-content {
+  --background: #C88545;
+  position: relative;
+  padding-bottom: 120px; /* Reserva espaço para o rodapé */
+}
+
+/* Container dos itens */
+
+/* Resumo do pedido fixo */
+.order-summary {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #C88545;
+  padding: 16px;
+  border-top: 2px solid #99521C;
+  box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.3);
+  z-index: 10;
+}
+
+/* Subtotal */
+.subtotal {
+  display: block;
+  text-align: right;
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 12px;
+}
+
+/* Botão do pedido */
+.place-order-button {
+  --background: #99521C;
+  --color: white;
+  font-weight: bold;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+}

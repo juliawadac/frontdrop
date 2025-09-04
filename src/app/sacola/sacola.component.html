@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-toolbar style="--background: #99521C;">
+    <ion-buttons slot="start">
+      <ion-button
+        fill="clear"
+        class="back-button"
+        style="--color: white;"
+        [routerLink]="['/home']">
+        <ion-icon name="chevron-back-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="center-title">Minha Sacola</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <!-- Lista de itens -->
+  <div class="cart-container" *ngIf="cartItems.length > 0">
+    <div class="cart-item" *ngFor="let item of cartItems; let i = index">
+      <div class="item-image">
+        <img [src]="item.image" alt="Imagem do Produto" />
+      </div>
+
+      <div class="item-info">
+        <ion-label class="product-name">{{ item.name }}</ion-label>
+        <ion-label class="establishment-name">{{ item.store }}</ion-label>
+        <ion-label class="price">R$ {{ item.price | number:'1.2-2' }}</ion-label>
+      </div>
+
+      <ion-icon
+        name="trash-outline"
+        class="trash-icon"
+        (click)="removeItem(i)">
+      </ion-icon>
+    </div>
+  </div>
+
+
+
+
+<!-- Resumo do pedido fixo -->
+<div class="order-summary" *ngIf="cartItems.length > 0">
+  <ion-label class="subtotal">
+    Subtotal: R$ {{ subtotal | number:'1.2-2' }}
+  </ion-label>
+  <ion-button expand="block" class="place-order-button" style="--background: #99521C;">
+    REALIZAR PEDIDO
+  </ion-button>
+</div>
