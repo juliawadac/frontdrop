@@ -1,36 +1,27 @@
 <ion-content class="cadastro-content">
-
-  <!-- Logo -->
   <div class="logo-container">
     <img src="../../assets/logo_mini.png" alt="Logo Drop" />
   </div>
 
-  <!-- Formulário -->
   <form class="cadastro-form">
     <div class="input">
-      
-      <ion-input label="Nome" label-placement="floating"  placeholder="Digite seu nome"></ion-input>
+      <ion-input label="Nome" label-placement="floating" placeholder="Digite seu nome" [(ngModel)]="nome" name="nome"></ion-input>
 
-      <ion-input label="Sobrenome" label-placement="floating"  placeholder="Digite seu sobrenome"></ion-input>
+      <ion-input label="Sobrenome" label-placement="floating" placeholder="Digite seu sobrenome" [(ngModel)]="sobrenome" name="sobrenome"></ion-input>
 
-      <ion-input type="email" label="Email" label-placement="floating"  placeholder="Digite seu email"></ion-input>
+      <ion-input type="email" label="Email" label-placement="floating" placeholder="Digite seu email" [(ngModel)]="email" name="email"></ion-input>
 
-      <ion-input type="password" label="Senha" label-placement="floating"  placeholder="Digite sua senha"></ion-input>
+      <ion-input type="password" label="Senha" label-placement="floating" placeholder="Digite sua senha" [(ngModel)]="senha" name="senha"></ion-input>
 
-      <ion-input label="Endereço" label-placement="floating"  placeholder="Digite seu endereço"></ion-input>
+      <ion-input label="Endereço" label-placement="floating" placeholder="Digite seu endereço" [(ngModel)]="endereco" name="endereco"></ion-input>
 
-      <ion-input label="Número do Endereço" label-placement="floating"  placeholder="Digite seu número"></ion-input>
-
+      <ion-input label="Número do Endereço" label-placement="floating" placeholder="Digite seu número" [(ngModel)]="numero_endereco" name="numero"></ion-input>
     </div>
-    <!-- Botão -->
-    <ion-button expand="block" class="btn-cadastrar" clicked="cadastrar()">
-      CADASTRAR
-    </ion-button>
 
-    <!-- Link -->
-    <p class="login-link">
-      <a routerLink="/login">Já tenho uma conta !</a>
-    </p>
+    <ion-button expand="block" class="btn-cadastrar" (click)="cadastrar()">CADASTRAR</ion-button>
+
+  <div class="links">
+      <a routerLink="/login">Ja tenho uma conta !</a>
+    </div>
   </form>
-
 </ion-content>
