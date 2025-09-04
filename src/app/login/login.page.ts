@@ -16,21 +16,25 @@ export class LoginPage {
   email = '';
   senha = '';
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router) { }
 
   login() {
-    const body = { email: this.email, senha: this.senha };
+    const dadosDoLogin = {
+      email: this.email,
+      senha: this.senha
+    };
 
-    this.http.post('http://localhost:3000/login', body).subscribe({
-      next: (res: any) => {
-        // se a API retornar token:
-        if (res?.token) localStorage.setItem('token', res.token);
-        this.router.navigateByUrl('/home'); // ajuste a rota destino se necessário
-      },
-      error: (err) => {
-        console.error('Erro no login:', err);
-        alert('Email ou senha inválidos');
-      },
-    });
+    this.http.post('http://localhost:3000/usuarios/login', dadosDoLogin)
+      .subscribe({
+        next: (res: any) => {
+          // se a API retornar token:
+          if (res?.token) localStorage.setItem('token', res.token);
+          this.router.navigateByUrl('/home'); // ajuste a rota destino se necessário
+        },
+        error: (err) => {
+          console.error('Erro no login:', err);
+          alert('Email ou senha inválidos');
+        },
+      });
   }
 }
