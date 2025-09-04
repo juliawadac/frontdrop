@@ -25,17 +25,25 @@
 
 .categorias {
   display: flex;
-  justify-content: space-around;
-  margin-top: 5px;
+  flex-wrap: nowrap;        // força ficar em linha
+  overflow-x: auto;         // habilita rolagem horizontal
+  scrollbar-width: none;    // esconde barra no Firefox
+  -ms-overflow-style: none; // esconde barra no IE/Edge antigo
+  padding: 5px 10px;
+  gap: 8px;             
+}
 
-  ion-button.Nunito {
-    font-family: "Nunito", sans-serif !important; 
-    padding: none;
-    font-size: 12px;
-    --color: #5e2d08  ;
-    --background: transparent;
-    font-weight: bold;
-  }
+.categorias::-webkit-scrollbar {
+  display: none; // esconde barra no Chrome/Safari
+}
+
+.categorias ion-button.Nunito {
+  font-family: "Nunito", sans-serif !important;
+  font-size: 12px;  
+  --color: #5e2d08;
+  --background: transparent;
+  font-weight: bold;
+  flex: 0 0 auto; // impede o botão de "esticar"
 }
 
 .titulo {
@@ -63,6 +71,8 @@
     background-image: url('/assets/mcdonalds.png');
     background-position: center;
     height: 60px;
+    background-repeat: no-repeat;
+    background-size: cover;
 
   }
 
@@ -73,6 +83,9 @@
     background-image: url('/assets/pizzahut.png');
     background-position: center;
     height: 60px;
+    background-repeat: no-repeat;
+    background-size: cover;
+
 
   }
 
@@ -83,6 +96,8 @@
     background-image: url('/assets/habibs.png');
     background-position: center;
     height: 60px;
+    background-repeat: no-repeat;
+    background-size: cover;
 
 
   }
@@ -105,6 +120,8 @@
     background-image: url('/assets/confianca.png');
     background-position: center;
     height: 60px;
+    background-repeat: no-repeat;
+    background-size: cover;
 
   }
 
@@ -115,6 +132,8 @@
     background-image: url('/assets/atacadao.png');
     background-position: center;
     height: 60px;
+    background-repeat: no-repeat;
+    background-size: cover;
 
   }
 
@@ -125,6 +144,8 @@
     background-image: url('/assets/tauste.png');
     background-position: center;
     height: 60px;
+    background-repeat: no-repeat;
+    background-size: cover;
 
   }
 
@@ -135,6 +156,8 @@
     background-image: url('/assets/cruzvermelha.png');
     background-position: center;
     height: 60px;
+    background-repeat: no-repeat;
+    background-size: cover;
 
   }
 
@@ -145,6 +168,8 @@
     background-image: url('/assets/drogaraia.png');
     background-position: center;
     height: 60px;
+    background-repeat: no-repeat;
+    background-size: cover;
 
   }
 
@@ -155,6 +180,8 @@
     background-image: url('/assets/drogasil.png');
     background-position: center;
     height: 60px;
+    background-repeat: no-repeat;
+    background-size: cover;
 
   }
 
@@ -165,6 +192,8 @@
     background-image: url('/assets/casasol.png');
     background-position: center;
     height: 60px;
+    background-repeat: no-repeat;
+    background-size: cover;
 
   }
 
@@ -175,6 +204,8 @@
     background-image: url('/assets/construmais.png');
     background-position: center;
     height: 60px;
+    background-repeat: no-repeat;
+    background-size: cover;
 
   }
 
@@ -185,6 +216,8 @@
     background-image: url('/assets/lajesrodrigues.png');
     background-position: center;
     height: 60px;
+    background-repeat: no-repeat;
+    background-size: cover;
 
   }
 
@@ -225,7 +258,7 @@ ion-footer {
 }
 
 ion-content {
-  --background: rgb(250, 220, 195);
+  --background: #fadcc3;
 }
 
 ion-footer {
