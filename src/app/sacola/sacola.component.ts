@@ -14,16 +14,10 @@ export class SacolaPage {
   cartItems = [
     {
       name: 'produto',
-      store: 'Estabelecimento A',
-      price: 25.90,
+      store: 'loja',
+      price: 0.00,
       image: ''
     },
-    {
-      name: 'produto',
-      store: 'Estabelecimento B',
-      price: 45.50,
-      image: ''
-    }
   ];
 
   // Getter para calcular subtotal automaticamente

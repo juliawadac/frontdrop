@@ -1,0 +1,48 @@
+<ion-content class="perfil-container">
+  <!-- quadrado preto sobre o fundo -->
+  <div class="background-quad"></div>
+
+  <div class="perfil-header">
+    <div class="avatar-container">
+      <ion-avatar (click)="abrirSeletor()">
+        <img [src]="fotoPerfil || 'https://ionicframework.com/docs/img/demos/avatar.svg'" alt="Avatar">
+      </ion-avatar>
+    
+      <input type="file" accept="image/*" id="inputFoto" hidden (change)="onFileSelected($event)">
+    </div>
+    
+    <h2>arthur dezan</h2>
+  </div>
+
+  <div class="perfil-actions">
+    <ion-button expand="block" shape="round" style="--background: rgba(194, 105, 37, 0.664); font-weight: bold; color: white;">
+      Dados da conta
+    </ion-button>
+    <ion-button expand="block" shape="round" style="--background: rgba(194, 105, 37, 0.664); font-weight: bold; color: white; width: 190px;">
+      Endereços
+    </ion-button>
+  </div>
+</ion-content>
+
+<!-- Footer fora do ion-content -->
+<ion-tabs class="tabs">
+
+  <ion-tab-bar slot="bottom">
+    <ion-tab-button tab="tab1" href="">
+      <ion-icon name="home-outline"></ion-icon>
+    </ion-tab-button>
+
+    <ion-tab-button tab="tab2" href="/tabs/tab2">
+      <ion-icon name="search-outline"></ion-icon>
+    </ion-tab-button>
+
+    <ion-tab-button tab="tab3" href="/tabs/tab3">
+      <ion-icon name="reader-outline"></ion-icon>
+    </ion-tab-button>
+
+    <ion-tab-button tab="tab4" href="/tabs/tab2">
+      <ion-icon name="person-outline"></ion-icon>
+    </ion-tab-button>
+  </ion-tab-bar>
+
+</ion-tabs>
