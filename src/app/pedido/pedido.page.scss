@@ -1,0 +1,113 @@
+.cabeca {
+    ion-toolbar {
+      --background: #99521c;
+      --color: white;
+      height: 90px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+  
+      ion-title.Nunito {
+        font-family: "Nunito", sans-serif !important;
+        font-weight: 600; // ou o peso que quiser
+        font-style: normal;
+      }
+    }
+}
+
+
+.pedido-content {
+    --background: #d28d4a; // cor de fundo geral
+  
+    .titulo-pedido {
+      text-align: center;
+      font-weight: bold;
+      font-size: 1.3rem;
+      color: #fff;
+      background: #8b4e1f;
+      border-radius: 0 0 12px 12px;
+    }
+  
+    .tempo-entrega {
+      text-align: center;
+      font-size: 25px;
+      font-weight: bold;
+      margin: 16px 0;
+      color: #fff;
+      font-family: "Nunito", sans-serif !important;
+    }
+  
+    .pedido-card {
+      background: #a96128;
+      border-radius: 15px;
+      padding: 15px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      color: #fff;
+  
+      .entregar {
+        p {
+          margin: 0 0 8px;
+          font-size: 0.9rem;
+        }
+        img {
+          width: 100%;
+          border-radius: 10px;
+        }
+      }
+  
+      .valores {
+        margin-top: 10px;
+  
+        .linha {
+          display: flex;
+          justify-content: space-between;
+          font-size: 0.95rem;
+          margin: 4px 0;
+  
+          &.total {
+            font-weight: bold;
+            font-size: 1.1rem;
+          }
+        }
+      }
+  
+      hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #fff;
+        opacity: 0.5;
+      }
+  
+      .pagamento, .nota {
+        margin-top: 12px;
+  
+        p {
+          font-weight: bold;
+          margin: 0 0 4px;
+        }
+  
+        .opcao {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          font-size: 0.85rem;
+        }
+  
+        .trocar-btn {
+          --background: #d29b56;
+          --color: #fff;
+          --border-radius: 8px;
+          font-size: 0.7rem;
+        }
+      }
+    }
+  
+    .confirmar {
+      --background: #8b4e1f;
+      margin: 20px;
+      border-radius: 12px;
+      font-weight: bold;
+      font-size: 1rem;
+    }
+  }
+  

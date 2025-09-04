@@ -1,0 +1,60 @@
+
+<ion-header class="cabeca" [translucent]="true">
+  <ion-toolbar>
+    <ion-title class="Nunito">
+      Pedido
+    </ion-title>
+    <ion-avatar class="logo" slot="end">
+      <img src="../../assets/sacola branca.png" alt="logo">
+    </ion-avatar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="pedido-content">
+
+  <div class="tempo-entrega">
+    Hoje, 40-50 min
+  </div>
+
+  <ion-card class="pedido-card">
+    <div class="entregar">
+      <p>entregar em:</p>
+      <img src="assets/mapa.png" alt="mapa">
+    </div>
+
+    <div class="valores">
+      <div class="linha">
+        <span>subtotal</span>
+        <span>xx,xx</span>
+      </div>
+      <div class="linha">
+        <span>taxa de entrega</span>
+        <span>xx,xx</span>
+      </div>
+      <div class="linha total">
+        <span>Total</span>
+        <span>xx,xx</span>
+      </div>
+    </div>
+
+    <hr>
+
+    <div class="pagamento">
+      <p>Formas de pagamento</p>
+      <div class="opcao">
+        <span>Vale - Alelo Refeição / Visa Vale</span>
+        <ion-button size="small" class="trocar-btn">Trocar</ion-button>
+      </div>
+    </div>
+
+    <div class="nota">
+      <p>CNPJ/CPF na nota</p>
+      <ion-button size="small" class="trocar-btn">Trocar</ion-button>
+    </div>
+  </ion-card>
+
+  <ion-button expand="block" class="confirmar">
+    Confirmar Pedido
+  </ion-button>
+
+</ion-content>
