@@ -18,6 +18,8 @@
     background-color: rgba(226, 162, 66, 0.151); /* preto semi-transparente */
     z-index: 0; /* atrás do conteúdo */
     border-radius: 15px;
+    pointer-events: none;
+
   }
   
   .perfil-header {
