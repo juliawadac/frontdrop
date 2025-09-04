@@ -1,5 +1,5 @@
 .page-container {
-    --background: #a85b1f;
+    --background: #fadcc3;
     color: white;
   }
   
@@ -21,13 +21,22 @@
   }
   
   .info {
+    display: flex;
+    flex-direction: column;
     text-align: center;
     margin-top: 50px;
-    color: white;
+    color: #442005;
+    background-color: #99521c;
+    border-radius: 16px;
+    width: 90%;
+    align-items: center;
+    margin-left: 18px;
+    height: 30%;  
   
     h3 {
       margin: 5px 0;
       font-size: 16px;
+      margin-top: 10px;
     }
   
     h2 {
@@ -48,7 +57,7 @@
     margin-top: 20px;
   
     ion-card {
-      background: #a85b1f;
+      background: #99521c;
       color: white;
       border-radius: 12px;
       margin: 10px;
@@ -102,12 +111,11 @@
       }
     }
   }
-  
-  .footer {
-    background: #a85b1f;
-    color: white;
-    ion-icon {
-      font-size: 24px;
+
+  .tabs{
+    ion-tab-bar {
+      --background: #99521c;
+      --color: white;
+      --color-selected: #ffd700;
     }
   }
-  
