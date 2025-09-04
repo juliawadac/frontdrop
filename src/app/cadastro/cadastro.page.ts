@@ -1,16 +1,16 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonicModule } from '@ionic/angular';
+import { IonicModule, LoadingController, AlertController } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Router, RouterModule } from '@angular/router';
+import { AuthService, Usuario } from '../services/auth.service';
 
 @Component({
   selector: 'app-cadastro',
   templateUrl: './cadastro.page.html',
   styleUrls: ['./cadastro.page.scss'],
   standalone: true,
-  imports: [CommonModule, IonicModule, FormsModule, HttpClientModule, RouterModule],
+  imports: [CommonModule, IonicModule, FormsModule, RouterModule],
 })
 export class CadastroPage {
   nome = '';
@@ -18,42 +18,83 @@ export class CadastroPage {
   email = '';
   senha = '';
   endereco = '';
-  numero = '';
+  numero_endereco = ''; // 👈 corrigido aqui
+  isLoading = false;
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private loadingController: LoadingController,
+    private alertController: AlertController
+  ) {}
 
-  cadastrar() {
+  async cadastrar() {
     if (!this.nome || !this.sobrenome || !this.email || !this.senha) {
-      alert('Preencha todos os campos obrigatórios!');
+      await this.showAlert('Atenção', 'Preencha todos os campos obrigatórios (nome, sobrenome, email e senha)!');
       return;
     }
 
-    const dadosDoCadastro = {
-      nome: this.nome,
-      sobrenome: this.sobrenome,
-      email: this.email,
+    if (!this.isValidEmail(this.email)) {
+      await this.showAlert('Atenção', 'Por favor, digite um email válido');
+      return;
+    }
+
+    if (this.senha.length < 6) {
+      await this.showAlert('Atenção', 'A senha deve ter pelo menos 6 caracteres');
+      return;
+    }
+
+    const loading = await this.loadingController.create({
+      message: 'Cadastrando usuário...',
+      duration: 10000
+    });
+    await loading.present();
+
+    this.isLoading = true;
+
+    const dadosDoCadastro: Usuario = {
+      nome: this.nome.trim(),
+      sobrenome: this.sobrenome.trim(),
+      email: this.email.trim().toLowerCase(),
       senha: this.senha,
-      endereco: this.endereco,
-      numero: this.numero,
+      endereco: this.endereco.trim(),
+      numero_endereco: this.numero_endereco.trim(), // 👈 corrigido aqui
     };
 
-    this.http.post('http://localhost:3000/usuarios/cadastrar', dadosDoCadastro).subscribe({
-      next: () => {
-        alert('Cadastro realizado com sucesso!');
-        this.router.navigateByUrl('/login'); // redireciona para login após cadastro
-      },
-      error: (err) => {
-        console.error('Erro no cadastro:', err);
-        alert('Erro ao cadastrar. Verifique o console.');
-      },
+    try {
+      const response = await this.authService.cadastrar(dadosDoCadastro).toPromise();
+      
+      if (response?.Mensagem) {
+        await loading.dismiss();
+        await this.showAlert('Sucesso', 'Cadastro realizado com sucesso!');
+        this.router.navigateByUrl('/login');
+      } else {
+        await loading.dismiss();
+        await this.showAlert('Erro', 'Resposta inválida do servidor');
+      }
+    } catch (error: any) {
+      await loading.dismiss();
+      await this.showAlert('Erro', error.message || 'Erro ao cadastrar. Tente novamente.');
+    } finally {
+      this.isLoading = false;
+    }
+  }
+
+  private isValidEmail(email: string): boolean {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  }
+
+  private async showAlert(header: string, message: string) {
+    const alert = await this.alertController.create({
+      header,
+      message,
+      buttons: ['OK']
     });
+    await alert.present();
   }
 
   irParaLogin() {
     this.router.navigateByUrl('/login');
-  }
-
-  irParaCadastro() {
-    this.router.navigateByUrl('/cadastro');
   }
 }
