@@ -1,281 +1,341 @@
-.cabeca {
-  ion-toolbar {
-    --background: #99521c;
-    --color: white;
-    height: 90px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    ion-title.Nunito {
-      font-family: "Nunito", sans-serif !important;
-      font-weight: 600; // ou o peso que quiser
-      font-style: normal;
-    }
-
-    .logo {
-      margin-right: 10px;
-      width: 45px;
-      height: 45px;
-      border-radius: 50%;
-      overflow: hidden;
-    }
-  }
-}
-
-.categorias {
-  display: flex;
-  flex-wrap: nowrap;        // força ficar em linha
-  overflow-x: auto;         // habilita rolagem horizontal
-  scrollbar-width: none;    // esconde barra no Firefox
-  -ms-overflow-style: none; // esconde barra no IE/Edge antigo
-  padding: 5px 10px;
-  gap: 8px;             
-}
-
-.categorias::-webkit-scrollbar {
-  display: none; // esconde barra no Chrome/Safari
-}
-
-.categorias ion-button.Nunito {
-  font-family: "Nunito", sans-serif !important;
-  font-size: 12px;  
-  --color: #5e2d08;
-  --background: transparent;
-  font-weight: bold;
-  flex: 0 0 auto; // impede o botão de "esticar"
-}
-
-.titulo {
-  margin: 15px 10px 5px 10px;
-  font-size: 18px;
-  font-weight: bold;
-  color: #5e2d08;
-  font-family: "Nunito", sans-serif !important;
-}
-
-.lista {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin: 10px;
-  justify-content: center;
-  text-align: center;
-
-
-
-  .mc {
-    --background: transparent;
-    --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 12px;
-    background-image: url('/assets/mcdonalds.png');
-    background-position: center;
-    height: 60px;
-    background-repeat: no-repeat;
-    background-size: cover;
-
-  }
-
-  .pizzahut {
-    --background: transparent;
-    --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 12px;
-    background-image: url('/assets/pizzahut.png');
-    background-position: center;
-    height: 60px;
-    background-repeat: no-repeat;
-    background-size: cover;
-
-
-  }
-
-  .habibis {
-    --background: transparent;
-    --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 12px;
-    background-image: url('/assets/habibs.png');
-    background-position: center;
-    height: 60px;
-    background-repeat: no-repeat;
-    background-size: cover;
-
-
-  }
-
-  $nunito-weight: 400; // exemplo
-  $nunito-style: normal;
-
-  .nunito {
-    font-family: "Nunito", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: $nunito-weight;
-    font-style: $nunito-style;
-  }
-
-
-  .confianca {
-    --background: transparent;
-    --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 12px;
-    background-image: url('/assets/confianca.png');
-    background-position: center;
-    height: 60px;
-    background-repeat: no-repeat;
-    background-size: cover;
-
-  }
-
-  .atacadao {
-    --background: transparent;
-    --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 12px;
-    background-image: url('/assets/atacadao.png');
-    background-position: center;
-    height: 60px;
-    background-repeat: no-repeat;
-    background-size: cover;
-
-  }
-
-  .tauste {
-    --background: transparent;
-    --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 12px;
-    background-image: url('/assets/tauste.png');
-    background-position: center;
-    height: 60px;
-    background-repeat: no-repeat;
-    background-size: cover;
-
-  }
-
-  .cruzvermelha {
-    --background: transparent;
-    --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 12px;
-    background-image: url('/assets/cruzvermelha.png');
-    background-position: center;
-    height: 60px;
-    background-repeat: no-repeat;
-    background-size: cover;
-
-  }
-
-  .drogaraia {
-    --background: transparent;
-    --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 12px;
-    background-image: url('/assets/drogaraia.png');
-    background-position: center;
-    height: 60px;
-    background-repeat: no-repeat;
-    background-size: cover;
-
-  }
-
-  .drogasil {
-    --background: transparent;
-    --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 12px;
-    background-image: url('/assets/drogasil.png');
-    background-position: center;
-    height: 60px;
-    background-repeat: no-repeat;
-    background-size: cover;
-
-  }
-
-  .casasol {
-    --background: transparent;
-    --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 12px;
-    background-image: url('/assets/casasol.png');
-    background-position: center;
-    height: 60px;
-    background-repeat: no-repeat;
-    background-size: cover;
-
-  }
-
-  .construmais {
-    --background: transparent;
-    --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 12px;
-    background-image: url('/assets/construmais.png');
-    background-position: center;
-    height: 60px;
-    background-repeat: no-repeat;
-    background-size: cover;
-
-  }
-
-  .lajesrodrigues {
-    --background: transparent;
-    --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 12px;
-    background-image: url('/assets/lajesrodrigues.png');
-    background-position: center;
-    height: 60px;
-    background-repeat: no-repeat;
-    background-size: cover;
-
-  }
-
-}
-
-.card-btn {
-  --background: #d3d3d3;
-  --color: black;
-  --border-radius: 8px;
-  height: 60px;
-  font-size: 16px;
-  font-weight: 500;
-  text-transform: none; // evita maiúsculo automático
-  justify-content: flex-start;
-  padding-left: 15px;
-}
-
-ion-content {
-  --background: white; // fundo laranja
-}
-
-ion-footer {
-  ion-toolbar {
-    --background: #99521c; // rodapé marrom
-  }
-
-  .footer {
-    display: flex;
-    justify-content: space-around;
-    width: 100%;
-
-    ion-icon {
-      font-size: 22px;
-      color: white;
-      --ionicon-stroke-width: 48px;
-    }
-  }
-}
-
-ion-content {
+.home-container {
   --background: #fadcc3;
+  padding-bottom: 80px;
 }
 
-ion-footer {
-  ion-toolbar {
-    --background: #99521c;
+.header-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background: #99521c;
+  color: white;
+  border-radius: 0 0 24px 24px;
+  margin-bottom: 20px;
+
+  .user-greeting {
+    flex: 1;
+    
+    h1 {
+      font-size: 24px;
+      font-weight: 700;
+      margin: 0 0 8px;
+      color: white;
+    }
+
+    p {
+      font-size: 14px;
+      color: rgba(255,255,255,0.8);
+      margin: 0;
+    }
   }
 
-  .footer {
+  .profile-avatar {
+    width: 50px;
+    height: 50px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 50%;
     display: flex;
-    justify-content: space-around;
-    width: 100%;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid rgba(255,255,255,0.3);
+
+    &:hover {
+      background: rgba(255,255,255,0.3);
+      transform: scale(1.05);
+    }
 
     ion-icon {
       font-size: 24px;
       color: white;
     }
   }
+}
 
+.category-tabs {
+  display: flex;
+  justify-content: space-around;
+  background: white;
+  margin: 0 16px;
+  border-radius: 16px;
+  padding: 8px;
+  box-shadow: 0 4px 20px rgba(153,82,28,0.1);
+  margin-bottom: 24px;
 
+  .tab-item {
+    flex: 1;
+    text-align: center;
+    padding: 12px 8px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+
+    span {
+      font-size: 12px;
+      font-weight: 600;
+      color: #666;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    &.active {
+      background: #99521c;
+      
+      span {
+        color: white;
+      }
+    }
+
+    &:hover:not(.active) {
+      background: rgba(153,82,28,0.1);
+    }
+  }
+}
+
+.content-section {
+  padding: 0 16px;
+
+  .category-content {
+    animation: fadeInUp 0.5s ease forwards;
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      padding: 0 8px;
+
+      h2 {
+        font-size: 22px;
+        font-weight: 700;
+        color: #2c1810;
+        margin: 0;
+      }
+
+      ion-icon {
+        font-size: 24px;
+        color: #99521c;
+      }
+    }
+
+    .establishments-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+
+      .establishment-card {
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 6px 25px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+        cursor: pointer;
+
+        &:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+        }
+
+        &.featured {
+          box-shadow: 0 8px 30px rgba(153,82,28,0.2);
+        }
+
+        .card-background {
+          height: 120px;
+          position: relative;
+          background-size: cover;
+          background-position: center;
+          
+          &.mcdonalds {
+            background: linear-gradient(135deg, #ffcc02, #da291c);
+          }
+
+          &.pizzahut {
+            background: linear-gradient(135deg, #ee3124, #ffc72c);
+          }
+
+          &.habibs {
+            background: linear-gradient(135deg, #e31e24, #ffffff);
+          }
+
+          &.confianca {
+            background: linear-gradient(135deg, #1e88e5, #ffffff);
+          }
+
+          &.atacadao {
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+          }
+
+          &.extra {
+            background: linear-gradient(135deg, #0066cc, #ffffff);
+          }
+
+          &.farmacia {
+            background: linear-gradient(135deg, #00a651, #ffffff);
+          }
+
+          &.farmacia2 {
+            background: linear-gradient(135deg, #e31e24, #ffffff);
+          }
+
+          &.construcao {
+            background: linear-gradient(135deg, #00a651, #005c98);
+          }
+
+          &.construcao2 {
+            background: linear-gradient(135deg, #ff6b00, #0066cc);
+          }
+
+          .card-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+
+            .logo {
+              width: 50px;
+              height: 50px;
+              background: rgba(255,255,255,0.2);
+              border-radius: 12px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              border: 2px solid rgba(255,255,255,0.3);
+
+              img {
+                width: 35px;
+                height: 35px;
+                border-radius: 8px;
+              }
+
+              ion-icon {
+                font-size: 24px;
+                color: white;
+              }
+            }
+
+            .info {
+              flex: 1;
+
+              h3 {
+                font-size: 16px;
+                font-weight: 700;
+                margin: 0 0 8px;
+                color: white;
+              }
+
+              .details {
+                display: flex;
+                gap: 16px;
+
+                .rating, .time {
+                  display: flex;
+                  align-items: center;
+                  gap: 4px;
+                  font-size: 12px;
+                  color: rgba(255,255,255,0.9);
+
+                  ion-icon {
+                    font-size: 14px;
+                  }
+                }
+
+                .rating ion-icon {
+                  color: #ffd700;
+                }
+
+                .time ion-icon {
+                  color: rgba(255,255,255,0.7);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// Navegação fixa na parte inferior
+.fixed-bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #99521c;
+  z-index: 1000;
+  padding: 8px 0;
+  box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+
+  .nav-content {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0 16px;
+
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: rgba(255,255,255,0.7);
+      cursor: pointer;
+      padding: 8px 12px;
+      transition: all 0.3s ease;
+      border-radius: 12px;
+
+      &.active {
+        color: #ffd700;
+        background: rgba(255,215,0,0.1);
+      }
+
+      &:hover {
+        color: #ffd700;
+        transform: translateY(-2px);
+      }
+
+      ion-icon {
+        font-size: 22px;
+        margin-bottom: 4px;
+      }
+
+      span {
+        font-size: 12px;
+        font-weight: 600;
+      }
+    }
+  }
+}
+
+// Animações
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Responsividade
+@media (min-width: 768px) {
+  .content-section .category-content .establishments-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .category-tabs {
+    margin: 0 20%;
+  }
 }
