@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -19,26 +19,24 @@ interface CartItem {
   standalone: true,
   imports: [IonicModule, CommonModule, RouterModule]
 })
-export class SacolaPage {
-  // SEU ARRAY ORIGINAL - mantido e melhorado com interface
-  cartItems: CartItem[] = [
-    {
-      name: 'Big Mac',
-      store: 'McDonald\'s',
-      price: 25.90,
-      image: '../../assets/bigmac.png',
-      quantity: 1
-    },
-    {
-      name: 'Batata Frita Média',
-      store: 'McDonald\'s',
-      price: 8.90,
-      image: '../../assets/batata.png',
-      quantity: 2
-    }
-  ];
+export class SacolaPage implements OnInit {
+  cartItems: CartItem[] = [];
 
-  // SEU GETTER ORIGINAL - mantido exatamente como estava
+  ngOnInit() {
+    this.loadCartFromStorage();
+  }
+
+  private loadCartFromStorage() {
+    const savedCart = localStorage.getItem('carrinho');
+    if (savedCart) {
+      this.cartItems = JSON.parse(savedCart);
+    }
+  }
+
+  private saveCartToStorage() {
+    localStorage.setItem('carrinho', JSON.stringify(this.cartItems));
+  }
+
   get subtotal(): number {
     return this.cartItems.reduce((acc, item) => {
       const itemPrice = item.quantity ? item.price * item.quantity : item.price;
@@ -46,39 +44,47 @@ export class SacolaPage {
     }, 0);
   }
 
-  // SEU MÉTODO ORIGINAL - mantido e melhorado
-  removeItem(index: number) {
-    // Adicionando flag para animação
-    this.cartItems[index].removing = true;
+  addItem(item: CartItem) {
+    const existingItemIndex = this.cartItems.findIndex(
+      cartItem => cartItem.name === item.name && cartItem.store === item.store
+    );
 
-    const itemElement = document.querySelectorAll('.cart-item-enhanced')[index];
-    itemElement?.classList.add('removing');
+    if (existingItemIndex !== -1) {
+      this.cartItems[existingItemIndex].quantity! += item.quantity || 1;
+    } else {
+      this.cartItems.push({ ...item });
+    }
 
-    setTimeout(() => {
-      this.cartItems.splice(index, 1);
-      console.log('Item removido do carrinho');
-    }, 300);
+    this.saveCartToStorage();
   }
 
-  // MÉTODO ADICIONADO: controle de quantidade
   updateQuantity(index: number, change: number) {
     const item = this.cartItems[index];
     if (!item.quantity) item.quantity = 1;
-    
+
     const newQuantity = item.quantity + change;
-    
+
     if (newQuantity <= 0) {
       this.removeItem(index);
     } else {
       item.quantity = newQuantity;
-      console.log(`Quantidade atualizada: ${item.name} = ${item.quantity}`);
+      this.saveCartToStorage();
     }
   }
 
-  // MÉTODO ADICIONADO: finalizar pedido
+  removeItem(index: number) {
+    this.cartItems.splice(index, 1);
+    this.saveCartToStorage();
+  }
+
+  clearCart() {
+    this.cartItems = [];
+    localStorage.removeItem('carrinho');
+  }
+
   placeOrder() {
     if (this.cartItems.length === 0) {
-      console.log('Carrinho vazio');
+      alert('Carrinho vazio!');
       return;
     }
 
@@ -90,35 +96,8 @@ export class SacolaPage {
       timestamp: new Date()
     };
 
-    console.log('Realizando pedido:', orderSummary);
-    
-    // Aqui você pode implementar a lógica de pagamento/envio
-    // Por exemplo: chamar um service, navegar para tela de pagamento, etc.
-    
+    console.log('Pedido realizado:', orderSummary);
+    this.clearCart();
     alert(`Pedido realizado! Total: R$ ${orderSummary.total.toFixed(2)}`);
-  }
-
-  // MÉTODO ADICIONADO: limpar carrinho
-  clearCart() {
-    this.cartItems = [];
-    console.log('Carrinho limpo');
-  }
-
-  // MÉTODO ADICIONADO: adicionar item (para uso futuro)
-  addItem(item: CartItem) {
-    const existingItemIndex = this.cartItems.findIndex(
-      cartItem => cartItem.name === item.name && cartItem.store === item.store
-    );
-
-    if (existingItemIndex !== -1) {
-      // Se item já existe, aumenta quantidade
-      const existingItem = this.cartItems[existingItemIndex];
-      existingItem.quantity = (existingItem.quantity || 1) + (item.quantity || 1);
-    } else {
-      // Se é novo item, adiciona ao carrinho
-      this.cartItems.push({ ...item });
-    }
-
-    console.log('Item adicionado ao carrinho:', item.name);
   }
 }

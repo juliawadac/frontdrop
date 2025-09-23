@@ -374,3 +374,25 @@
     gap: 20px;
   }
 }
+
+
+qty-btn plus{
+  --background: black;
+  --color: black;
+  width: 36px;
+  height: 36px;
+  margin: 0;
+
+  ion-icon {
+    font-size: 18px;
+  }
+}
+
+.animar-aumentar {
+  animation: pulseGreen 0.3s ease;
+}
+
+/* quando diminui */
+.animar-diminuir {
+  animation: pulseRed 0.3s ease;
+}

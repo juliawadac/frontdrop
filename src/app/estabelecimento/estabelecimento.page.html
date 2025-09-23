@@ -1,5 +1,5 @@
 <ion-content [fullscreen]="true" class="page-container">
-  
+
   <!-- Header com imagem e overlay -->
   <div class="header">
     <div class="header-overlay"></div>
@@ -36,9 +36,11 @@
       <ion-icon name="restaurant-outline" class="section-icon"></ion-icon>
       <h2>CARDÁPIO</h2>
     </div>
-    
+
     <div class="produtos-grid">
-      <ion-card *ngFor="let produto of produtos; let i = index" class="produto-card" [class.animate]="true">
+      <ion-card *ngFor="let produto of produtos; let i = index" 
+          class="produto-card" 
+          [attr.id]="'produto-' + i" [class.animate]="true">
         <ion-card-content class="produto-content">
           <div class="produto-image">
             <div class="produto-img">
@@ -46,7 +48,7 @@
             </div>
             <div class="produto-badge">Novo</div>
           </div>
-          
+
           <div class="produto-details">
             <div class="produto-info">
               <h3>{{ produto.nome }}</h3>
@@ -56,33 +58,22 @@
                 <span class="value">{{ produto.preco | number:'1.2-2' }}</span>
               </div>
             </div>
-            
+
             <div class="produto-actions">
               <div class="quantity-controls">
-                <ion-button 
-                  fill="clear" 
-                  size="small" 
-                  class="qty-btn minus"
-                  (click)="diminuirQuantidade(i)">
+                <ion-button fill="clear" size="small" class="qty-btn minus" (click)="diminuirQuantidade(i)">
                   <ion-icon name="remove-outline"></ion-icon>
                 </ion-button>
                 <span class="quantity">{{ produto.quantidade || 0 }}</span>
-                <ion-button 
-                  fill="clear" 
-                  size="small" 
-                  class="qty-btn plus"
-                  (click)="aumentarQuantidade(i)">
+                <ion-button fill="clear" size="small" class="qty-btn plus" (click)="aumentarQuantidade(i)">
                   <ion-icon name="add-outline"></ion-icon>
                 </ion-button>
               </div>
-              
-              <ion-button 
-                expand="block" 
-                fill="solid" 
-                class="add-to-cart-btn"
-                [disabled]="!produto.quantidade">
+
+              <ion-button expand="block" fill="solid" class="add-to-cart-btn" [disabled]="produto.quantidade === 0"
+                (click)="adicionarAoCarrinho(i)">
                 <ion-icon name="bag-add-outline" slot="start"></ion-icon>
-                Adicionar
+                ADICIONAR
               </ion-button>
             </div>
           </div>
@@ -94,22 +85,22 @@
   <!-- Bottom Navigation Fixo -->
   <div class="fixed-bottom-nav">
     <div class="nav-content">
-      <div class="nav-item" (click)="goToTab('home') ">
+      <div class="nav-item" (click)="goToTab('home')">
         <ion-icon name="home"></ion-icon>
         <span>Início</span>
       </div>
-      
+
       <div class="nav-item" (click)="goToTab('search')">
         <ion-icon name="search"></ion-icon>
         <span>Buscar</span>
       </div>
-      
-       <div class="nav-item" [routerLink]="['/sacola']">
+
+      <div class="nav-item" (click)="goToTab('orders')">
         <ion-icon name="bag-handle"></ion-icon>
         <span>Sacola</span>
       </div>
-      
-      <div class="nav-item" (click)="goToTab('profile')" >
+
+      <div class="nav-item" (click)="goToTab('profile')">
         <ion-icon name="person"></ion-icon>
         <span>Perfil</span>
       </div>

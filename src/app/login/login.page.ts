@@ -13,9 +13,13 @@ import { AuthService } from '../services/auth.service';
   imports: [CommonModule, FormsModule, IonicModule, RouterModule],
 })
 export class LoginPage {
+  // SUAS PROPRIEDADES ORIGINAIS - mantidas
   email = '';
   senha = '';
   isLoading = false;
+
+  // PROPRIEDADE ADICIONADA: controle de visibilidade da senha
+  showPassword = false;
 
   constructor(
     private authService: AuthService,
@@ -24,6 +28,7 @@ export class LoginPage {
     private alertController: AlertController
   ) {}
 
+  // SEU MÉTODO ORIGINAL - mantido exatamente como estava
   async login() {
     if (!this.email || !this.senha) {
       await this.showAlert('Atenção', 'Por favor, preencha email e senha');
@@ -62,11 +67,13 @@ export class LoginPage {
     }
   }
 
+  // SEU MÉTODO ORIGINAL - mantido
   private isValidEmail(email: string): boolean {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   }
 
+  // SEU MÉTODO ORIGINAL - mantido
   private async showAlert(header: string, message: string) {
     const alert = await this.alertController.create({
       header,
@@ -74,5 +81,17 @@ export class LoginPage {
       buttons: ['OK']
     });
     await alert.present();
+  }
+
+  // MÉTODO ADICIONADO: toggle para mostrar/esconder senha
+  togglePassword() {
+    this.showPassword = !this.showPassword;
+  }
+
+  // MÉTODO ADICIONADO: limpar campos (para uso futuro)
+  clearFields() {
+    this.email = '';
+    this.senha = '';
+    this.showPassword = false;
   }
 }

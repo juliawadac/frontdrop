@@ -1,27 +1,171 @@
 <ion-content class="cadastro-content">
-  <div class="logo-container">
-    <img src="../../assets/logo_mini.png" alt="Logo Drop" />
+  
+  <!-- Background decorativo -->
+  <div class="background-decoration">
+    <div class="circle circle-1"></div>
+    <div class="circle circle-2"></div>
+    <div class="circle circle-3"></div>
   </div>
 
-  <form class="cadastro-form">
-    <div class="input">
-      <ion-input label="Nome" label-placement="floating" placeholder="Digite seu nome" [(ngModel)]="nome" name="nome"></ion-input>
-
-      <ion-input label="Sobrenome" label-placement="floating" placeholder="Digite seu sobrenome" [(ngModel)]="sobrenome" name="sobrenome"></ion-input>
-
-      <ion-input type="email" label="Email" label-placement="floating" placeholder="Digite seu email" [(ngModel)]="email" name="email"></ion-input>
-
-      <ion-input type="password" label="Senha" label-placement="floating" placeholder="Digite sua senha" [(ngModel)]="senha" name="senha"></ion-input>
-
-      <ion-input label="Endereço" label-placement="floating" placeholder="Digite seu endereço" [(ngModel)]="endereco" name="endereco"></ion-input>
-
-      <ion-input label="Número do Endereço" label-placement="floating" placeholder="Digite seu número" [(ngModel)]="numero_endereco" name="numero"></ion-input>
+  <div class="cadastro-container">
+    
+    <!-- Header -->
+    <div class="header-section">
+      <div class="logo-container">
+        <div class="logo-wrapper">
+          <img src="../../assets/logo_mini.png" alt="Logo Drop" />
+        </div>
+      </div>
+      
+      <div class="welcome-text">
+        <h1>Criar Conta</h1>
+        <p>Preencha os dados para se cadastrar</p>
+      </div>
     </div>
 
-    <ion-button expand="block" class="btn-cadastrar" (click)="cadastrar()">CADASTRAR</ion-button>
+    <!-- Formulário de cadastro -->
+    <form class="cadastro-form">
+      <div class="form-section">
+        
+        <!-- Dados pessoais -->
+        <div class="form-group">
+          <h3 class="group-title">
+            <ion-icon name="person-outline"></ion-icon>
+            Dados Pessoais
+          </h3>
+          
+          <div class="input-row">
+            <div class="input-container half-width">
+              <ion-icon name="person-outline" class="input-icon"></ion-icon>
+              <ion-input 
+                label="Nome" 
+                label-placement="floating" 
+                placeholder="Digite seu nome" 
+                [(ngModel)]="nome" 
+                name="nome"
+                class="custom-input"
+                [disabled]="isLoading">
+              </ion-input>
+            </div>
 
-  <div class="links">
-      <a routerLink="/login">Ja tenho uma conta !</a>
-    </div>
-  </form>
+            <div class="input-container half-width">
+              <ion-icon name="people-outline" class="input-icon"></ion-icon>
+              <ion-input 
+                label="Sobrenome" 
+                label-placement="floating" 
+                placeholder="Digite seu sobrenome" 
+                [(ngModel)]="sobrenome" 
+                name="sobrenome"
+                class="custom-input"
+                [disabled]="isLoading">
+              </ion-input>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dados de acesso -->
+        <div class="form-group">
+          <h3 class="group-title">
+            <ion-icon name="key-outline"></ion-icon>
+            Dados de Acesso
+          </h3>
+          
+          <div class="input-container">
+            <ion-icon name="mail-outline" class="input-icon"></ion-icon>
+            <ion-input 
+              type="email" 
+              label="Email" 
+              label-placement="floating" 
+              placeholder="Digite seu email" 
+              [(ngModel)]="email" 
+              name="email"
+              class="custom-input"
+              [disabled]="isLoading">
+            </ion-input>
+          </div>
+
+          <div class="input-container">
+            <ion-icon name="lock-closed-outline" class="input-icon"></ion-icon>
+            <ion-input 
+              [type]="showPassword ? 'text' : 'password'" 
+              label="Senha" 
+              label-placement="floating" 
+              placeholder="Digite sua senha" 
+              [(ngModel)]="senha" 
+              name="senha"
+              class="custom-input"
+              [disabled]="isLoading">
+            </ion-input>
+            <ion-button 
+              fill="clear" 
+              class="password-toggle"
+              (click)="togglePassword()">
+              <ion-icon [name]="showPassword ? 'eye-off-outline' : 'eye-outline'"></ion-icon>
+            </ion-button>
+          </div>
+        </div>
+
+        <!-- Endereço -->
+        <div class="form-group">
+          <h3 class="group-title">
+            <ion-icon name="location-outline"></ion-icon>
+            Endereço
+          </h3>
+          
+          <div class="input-container">
+            <ion-icon name="home-outline" class="input-icon"></ion-icon>
+            <ion-input 
+              label="Endereço" 
+              label-placement="floating" 
+              placeholder="Digite seu endereço" 
+              [(ngModel)]="endereco" 
+              name="endereco"
+              class="custom-input"
+              [disabled]="isLoading">
+            </ion-input>
+          </div>
+
+          <div class="input-container">
+            <ion-icon name="keypad-outline" class="input-icon"></ion-icon>
+            <ion-input 
+              type="number"
+              label="Número do Endereço" 
+              label-placement="floating" 
+              placeholder="Digite o número" 
+              [(ngModel)]="numero_endereco" 
+              name="numero"
+              class="custom-input"
+              [disabled]="isLoading">
+            </ion-input>
+          </div>
+        </div>
+
+        <!-- Botão cadastrar -->
+        <ion-button 
+          expand="block" 
+          class="btn-cadastrar" 
+          (click)="cadastrar()"
+          [disabled]="isLoading">
+          <ion-spinner *ngIf="isLoading" name="crescent"></ion-spinner>
+          <span *ngIf="!isLoading">CADASTRAR</span>
+          <span *ngIf="isLoading">CADASTRANDO...</span>
+        </ion-button>
+
+        <!-- Links -->
+        <div class="links-section">
+          <div class="divider">
+            <span>ou</span>
+          </div>
+          
+          <div class="auth-links">
+            <a routerLink="/login" class="login-link">
+              <ion-icon name="log-in-outline"></ion-icon>
+              Já tenho uma conta
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </form>
+  </div>
 </ion-content>
