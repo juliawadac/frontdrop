@@ -25,6 +25,7 @@ const routes: Routes = [
     path: 'estabelecimento',
     loadComponent: () => import('./estabelecimento/estabelecimento.page').then( m => m.EstabelecimentoPage)
   },
+  
 
 
 ];
