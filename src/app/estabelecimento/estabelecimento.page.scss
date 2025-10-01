@@ -1,121 +1,398 @@
 .page-container {
-    --background: #fadcc3;
-    color: white;
+  --background: #fadcc3;
+  color: #2c1810;
+  padding-bottom: 80px; /* Espaço para navegação fixa */
+}
+
+.header {
+  position: relative;
+  height: 220px;
+  background: url('../../assets/mcdonalds-cred-Sombat-Muycheen-shutterstock_site.webp') no-repeat center/cover;
+  border-radius: 0 0 24px 24px;
+  overflow: hidden;
+
+  .header-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(0,0,0,0.3) 0%, rgba(153,82,28,0.4) 100%);
+    z-index: 1;
   }
-  
-  .header {
-    position: relative;
-    height: 180px;
-    background: url('../../assets/mcdonalds-cred-Sombat-Muycheen-shutterstock_site.webp') no-repeat center/cover;
-  
-    .logo {
-      position: absolute;
-      bottom: -30px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      padding: 5px;
-    }
+
+  .logo {
+    position: absolute;
+    bottom: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    padding: 8px;
+    background: white;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    z-index: 3;
+    border: 3px solid #ffd700;
   }
-  
-  .info {
-    display: flex;
-    flex-direction: column;
+
+  .header-info {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     text-align: center;
-    margin-top: 50px;
-    color: #442005;
-    background-color: #99521c;
-    border-radius: 16px;
-    width: 90%;
-    align-items: center;
-    margin-left: 18px;
-    height: 30%;  
-  
-    h3 {
-      margin: 5px 0;
-      font-size: 16px;
-      margin-top: 10px;
+    z-index: 2;
+    color: white;
+
+    h1 {
+      font-size: 28px;
+      font-weight: 700;
+      margin: 0;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+      letter-spacing: 1px;
     }
-  
-    h2 {
-      font-size: 20px;
-      font-weight: bold;
-      margin: 10px 0;
-    }
-  
-    .map {
-      width: 80%;
-      border-radius: 12px;
-      margin: 10px auto;
-      display: block;
+
+    .status-badge {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 12px;
+      background: rgba(255,215,0,0.9);
+      color: #2c1810;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-weight: 600;
+      font-size: 14px;
+      backdrop-filter: blur(10px);
+
+      ion-icon {
+        font-size: 16px;
+      }
     }
   }
-  
-  .produtos {
-    margin-top: 20px;
-  
-    ion-card {
-      background: #99521c;
+}
+
+.location-section {
+  margin: 60px 16px 24px;
+  background: white;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 4px 20px rgba(153,82,28,0.1);
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+
+    .section-icon {
+      font-size: 24px;
       color: white;
-      border-radius: 12px;
-      margin: 10px;
-  
-      .produto-item {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-      }
-  
-      .produto-img {
-        width: 50px;
-        height: 50px;
-        background: #ccc;
-        border-radius: 8px;
-      }
-  
-      .produto-info {
-        flex: 1;
-        h3 {
-          margin: 0;
-          font-size: 14px;
-        }
-        p {
-          font-size: 12px;
-          margin: 2px 0;
-        }
-      }
-  
-      .produto-actions {
-        text-align: right;
-  
-        .qtd {
-          display: flex;
-          align-items: center;
-          justify-content: flex-end;
-          gap: 5px;
-          ion-button{
-            color: white;
-          }
-  
-          span {
-            font-size: 14px;
-          }
-        }
-  
-        .preco {
-          margin-top: 5px;
-          font-weight: bold;
-        }
-      }
+    }
+
+    h2 {
+      font-size: 18px;
+      font-weight: 700;
+      margin: 0;
+      color: white;
+      letter-spacing: 0.5px;
     }
   }
 
-  .tabs{
-    ion-tab-bar {
-      --background: #99521c;
-      --color: white;
-      --color-selected: #ffd700;
+  .map-container {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+
+    .map {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .map-overlay {
+      position: absolute;
+      bottom: 12px;
+      right: 12px;
+
+      .directions-btn {
+        --background: rgba(255,255,255,0.95);
+        --color: #99521c;
+        --border-color: #99521c;
+        font-weight: 600;
+        backdrop-filter: blur(10px);
+      }
     }
   }
+}
+
+.produtos-section {
+  margin: 0 16px 100px;
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding: 0 4px;
+
+    .section-icon {
+      font-size: 24px;
+      color: #99521c;
+    }
+
+    h2 {
+      font-size: 18px;
+      font-weight: 700;
+      margin: 0;
+      color: #2c1810;
+      letter-spacing: 0.5px;
+    }
+  }
+
+  .produtos-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    .produto-card {
+      background: white;
+      border-radius: 20px;
+      margin: 0;
+      box-shadow: 0 4px 20px rgba(153,82,28,0.08);
+      transition: all 0.3s ease;
+      overflow: hidden;
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 30px rgba(153,82,28,0.15);
+      }
+
+      &.animate {
+        animation: slideInUp 0.6s ease forwards;
+      }
+
+      .produto-content {
+        padding: 0;
+      }
+
+      .produto-image {
+        position: relative;
+        padding: 20px 20px 0;
+
+        .produto-img {
+          width: 80px;
+          height: 80px;
+          background: linear-gradient(135deg, #99521c, #b8652a);
+          border-radius: 16px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          box-shadow: 0 4px 12px rgba(153,82,28,0.2);
+
+          ion-icon {
+            font-size: 32px;
+            color: white;
+          }
+        }
+
+        .produto-badge {
+          position: absolute;
+          top: 12px;
+          right: 12px;
+          background: linear-gradient(135deg, #ffd700, #ffed4e);
+          color: #2c1810;
+          padding: 4px 12px;
+          border-radius: 12px;
+          font-size: 12px;
+          font-weight: 700;
+          box-shadow: 0 2px 8px rgba(255,215,0,0.3);
+        }
+      }
+
+      .produto-details {
+        padding: 0 20px 20px;
+
+        .produto-info {
+          margin-bottom: 16px;
+
+          h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin: 12px 0 8px;
+            color: white;
+          }
+
+          .produto-desc {
+            font-size: 14px;
+            color: #e0e0e0;
+            margin: 0 0 12px;
+            line-height: 1.4;
+          }
+
+          .produto-price {
+            display: flex;
+            align-items: baseline;
+            gap: 4px;
+            
+            .currency {
+              font-size: 14px;
+              color: #ffd700;
+              font-weight: 600;
+            }
+
+            .value {
+              font-size: 20px;
+              font-weight: 800;
+              color: #ffd700;
+            }
+          }
+        }
+
+        .produto-actions {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 16px;
+
+          .quantity-controls {
+            display: flex;
+            align-items: center;
+            background: rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 4px;
+
+            .qty-btn {
+              --background: transparent;
+              --color: white;
+              width: 36px;
+              height: 36px;
+              margin: 0;
+
+              ion-icon {
+                font-size: 18px;
+              }
+            }
+
+            .quantity {
+              min-width: 40px;
+              text-align: center;
+              font-weight: 700;
+              color: white;
+              font-size: 16px;
+            }
+          }
+
+          .add-to-cart-btn {
+            flex: 1;
+            --background: #ffd700;
+            --color: #2c1810;
+            height: 44px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            
+            &:disabled {
+              --background: rgba(255,255,255,0.2);
+              --color: rgba(255,255,255,0.5);
+            }
+
+            ion-icon {
+              font-size: 18px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// Navegação fixa na parte inferior
+.fixed-bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #99521c;
+  z-index: 1000;
+  padding: 8px 0;
+  box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+
+  .nav-content {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0 16px;
+
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: white;
+      cursor: pointer;
+      padding: 8px 12px;
+      transition: all 0.3s ease;
+
+      &:hover {
+        color: #ffd700;
+        transform: translateY(-2px);
+      }
+
+      ion-icon {
+        font-size: 22px;
+        margin-bottom: 4px;
+      }
+
+      span {
+        font-size: 12px;
+        font-weight: 600;
+      }
+    }
+  }
+}
+
+// Animações
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Responsividade
+@media (min-width: 768px) {
+  .produtos-section .produtos-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+
+
+qty-btn plus{
+  --background: black;
+  --color: black;
+  width: 36px;
+  height: 36px;
+  margin: 0;
+
+  ion-icon {
+    font-size: 18px;
+  }
+}
+
+.animar-aumentar {
+  animation: pulseGreen 0.3s ease;
+}
+
+/* quando diminui */
+.animar-diminuir {
+  animation: pulseRed 0.3s ease;
+}

@@ -1,78 +1,338 @@
-
-
-<ion-header class="cabeca" [translucent]="true">
-  <ion-toolbar>
-    <ion-title class="Nunito">
-      Olá, Arthur Dezan
-    </ion-title>
-    <ion-avatar class="logo" slot="end">
-      <img src="../../assets/sacola branca.png" alt="logo">
-    </ion-avatar>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-
-  <!-- CATEGORIAS -->
-  <div class="categorias">
-    <ion-button class="Nunito" fill="clear" (click)="scrollTo('comida')" >Comida</ion-button>
-    <ion-button class="Nunito" fill="clear" (click)="scrollTo('mercado')" >Mercado</ion-button>
-    <ion-button class="Nunito" fill="clear" (click)="scrollTo('farmacia')">Farmácia</ion-button>
-    <ion-button class="Nunito" fill="clear"(click)="scrollTo('construcao')">Construção</ion-button>
+<ion-content [fullscreen]="true" class="home-container">
+  
+  <!-- Header com saudação e perfil -->
+  <div class="header-section">
+    <div class="user-greeting">
+      <h1>Olá, {{ nomeUsuario }}</h1>
+      <p>O que você gostaria de pedir hoje?</p>
+    </div>
+    <div class="profile-avatar" (click)="goToProfile()">
+      <ion-icon name="person"></ion-icon>
+    </div>
   </div>
 
-  <!-- SEÇÃO COMIDA -->
-<h2 id="comida" class="titulo">Comida</h2>
-<div class="lista">
-  <div class="loja-card mc"></div>
-  <div class="loja-card pizzahut"></div>
-  <div class="loja-card habibis"></div>
-</div>
+  <!-- Navegação de categorias -->
+  <div class="category-tabs">
+    <div class="tab-item" 
+         [class.active]="selectedCategory === 'comida'" 
+         (click)="selectCategory('comida')">
+      <span>COMIDA</span>
+    </div>
+    <div class="tab-item" 
+         [class.active]="selectedCategory === 'mercado'" 
+         (click)="selectCategory('mercado')">
+      <span>MERCADO</span>
+    </div>
+    <div class="tab-item" 
+         [class.active]="selectedCategory === 'farmacia'" 
+         (click)="selectCategory('farmacia')">
+      <span>FARMÁCIA</span>
+    </div>
+    <div class="tab-item" 
+         [class.active]="selectedCategory === 'construcao'" 
+         (click)="selectCategory('construcao')">
+      <span>CONSTRUÇÃO</span>
+    </div>
+  </div>
 
-<!-- SEÇÃO MERCADO -->
-<h2 id="mercado" class="titulo">Mercado</h2>
-<div class="lista">
-  <div class="loja-card confianca"></div>
-  <div class="loja-card atacadao"></div>
-  <div class="loja-card tauste"></div>
-</div>
+  <!-- Conteúdo dinâmico por categoria -->
+  <div class="content-section">
+    
+    <!-- Seção Comida -->
+    <div *ngIf="selectedCategory === 'comida'" class="category-content">
+      <div class="section-title">
+        <h2>Comida</h2>
+        <ion-icon name="restaurant"></ion-icon>
+      </div>
+      
+      <div class="establishments-grid">
+        <div class="establishment-card featured" (click)="goToEstablishment('mcdonalds')">
+          <div class="card-background mcdonalds">
+            <div class="card-content">
+              <div class="logo">
+                <img src="../../assets/mcquadrado.png" alt="McDonald's" />
+              </div>
+              <div class="info">
+                <h3>McDonald's</h3>
+                <div class="details">
+                  <div class="rating">
+                    <ion-icon name="star"></ion-icon>
+                    <span>4.5</span>
+                  </div>
+                  <div class="time">
+                    <ion-icon name="time-outline"></ion-icon>
+                    <span>25-35 min</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
-<!-- SEÇÃO FARMÁCIA -->
-<h2 id="farmacia" class="titulo">Farmácia</h2>
-<div class="lista">
-  <div class="loja-card cruzvermelha"></div>
-  <div class="loja-card drogaraia"></div>
-  <div class="loja-card drogasil"></div>
-</div>
+        <div class="establishment-card" (click)="goToEstablishment('pizzahut')">
+          <div class="card-background pizzahut">
+            <div class="card-content">
+              <div class="logo">
+                <ion-icon name="pizza-outline"></ion-icon>
+              </div>
+              <div class="info">
+                <h3>Pizza Hut</h3>
+                <div class="details">
+                  <div class="rating">
+                    <ion-icon name="star"></ion-icon>
+                    <span>4.3</span>
+                  </div>
+                  <div class="time">
+                    <ion-icon name="time-outline"></ion-icon>
+                    <span>30-40 min</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
-<!-- SEÇÃO CONSTRUÇÃO -->
-<h2 id="construcao" class="titulo">Construção</h2>
-<div class="lista">
-  <div class="loja-card casasol"></div>
-  <div class="loja-card construmais"></div>
-  <div class="loja-card lajesrodrigues"></div>
-</div>
+        <div class="establishment-card" (click)="goToEstablishment('habibs')">
+          <div class="card-background habibs">
+            <div class="card-content">
+              <div class="logo">
+                <ion-icon name="restaurant-outline"></ion-icon>
+              </div>
+              <div class="info">
+                <h3>Habib's</h3>
+                <div class="details">
+                  <div class="rating">
+                    <ion-icon name="star"></ion-icon>
+                    <span>4.1</span>
+                  </div>
+                  <div class="time">
+                    <ion-icon name="time-outline"></ion-icon>
+                    <span>20-30 min</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
+    <!-- Seção Mercado -->
+    <div *ngIf="selectedCategory === 'mercado'" class="category-content">
+      <div class="section-title">
+        <h2>Mercado</h2>
+        <ion-icon name="storefront"></ion-icon>
+      </div>
+      
+      <div class="establishments-grid">
+        <div class="establishment-card featured" (click)="goToEstablishment('confianca')">
+          <div class="card-background confianca">
+            <div class="card-content">
+              <div class="logo">
+                <ion-icon name="storefront-outline"></ion-icon>
+              </div>
+              <div class="info">
+                <h3>Confiança Alimentos</h3>
+                <div class="details">
+                  <div class="rating">
+                    <ion-icon name="star"></ion-icon>
+                    <span>4.4</span>
+                  </div>
+                  <div class="time">
+                    <ion-icon name="time-outline"></ion-icon>
+                    <span>15-25 min</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="establishment-card" (click)="goToEstablishment('atacadao')">
+          <div class="card-background atacadao">
+            <div class="card-content">
+              <div class="logo">
+                <ion-icon name="business-outline"></ion-icon>
+              </div>
+              <div class="info">
+                <h3>Atacadão</h3>
+                <div class="details">
+                  <div class="rating">
+                    <ion-icon name="star"></ion-icon>
+                    <span>4.2</span>
+                  </div>
+                  <div class="time">
+                    <ion-icon name="time-outline"></ion-icon>
+                    <span>20-30 min</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="establishment-card" (click)="goToEstablishment('extra')">
+          <div class="card-background extra">
+            <div class="card-content">
+              <div class="logo">
+                <ion-icon name="bag-outline"></ion-icon>
+              </div>
+              <div class="info">
+                <h3>Extra Hiper</h3>
+                <div class="details">
+                  <div class="rating">
+                    <ion-icon name="star"></ion-icon>
+                    <span>4.0</span>
+                  </div>
+                  <div class="time">
+                    <ion-icon name="time-outline"></ion-icon>
+                    <span>25-35 min</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Seção Farmácia -->
+    <div *ngIf="selectedCategory === 'farmacia'" class="category-content">
+      <div class="section-title">
+        <h2>Farmácia</h2>
+        <ion-icon name="medical"></ion-icon>
+      </div>
+      
+      <div class="establishments-grid">
+        <div class="establishment-card featured">
+          <div class="card-background farmacia">
+            <div class="card-content">
+              <div class="logo">
+                <ion-icon name="medical-outline"></ion-icon>
+              </div>
+              <div class="info">
+                <h3>Drogasil</h3>
+                <div class="details">
+                  <div class="rating">
+                    <ion-icon name="star"></ion-icon>
+                    <span>4.6</span>
+                  </div>
+                  <div class="time">
+                    <ion-icon name="time-outline"></ion-icon>
+                    <span>10-20 min</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="establishment-card">
+          <div class="card-background farmacia2">
+            <div class="card-content">
+              <div class="logo">
+                <ion-icon name="fitness-outline"></ion-icon>
+              </div>
+              <div class="info">
+                <h3>Drogaria São Paulo</h3>
+                <div class="details">
+                  <div class="rating">
+                    <ion-icon name="star"></ion-icon>
+                    <span>4.4</span>
+                  </div>
+                  <div class="time">
+                    <ion-icon name="time-outline"></ion-icon>
+                    <span>15-25 min</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Seção Construção -->
+    <div *ngIf="selectedCategory === 'construcao'" class="category-content">
+      <div class="section-title">
+        <h2>Construção</h2>
+        <ion-icon name="construct"></ion-icon>
+      </div>
+      
+      <div class="establishments-grid">
+        <div class="establishment-card featured">
+          <div class="card-background construcao">
+            <div class="card-content">
+              <div class="logo">
+                <ion-icon name="construct-outline"></ion-icon>
+              </div>
+              <div class="info">
+                <h3>Leroy Merlin</h3>
+                <div class="details">
+                  <div class="rating">
+                    <ion-icon name="star"></ion-icon>
+                    <span>4.3</span>
+                  </div>
+                  <div class="time">
+                    <ion-icon name="time-outline"></ion-icon>
+                    <span>40-60 min</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="establishment-card">
+          <div class="card-background construcao2">
+            <div class="card-content">
+              <div class="logo">
+                <ion-icon name="hammer-outline"></ion-icon>
+              </div>
+              <div class="info">
+                <h3>C&C Casa e Construção</h3>
+                <div class="details">
+                  <div class="rating">
+                    <ion-icon name="star"></ion-icon>
+                    <span>4.1</span>
+                  </div>
+                  <div class="time">
+                    <ion-icon name="time-outline"></ion-icon>
+                    <span>35-50 min</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Bottom Navigation -->
+  <div class="fixed-bottom-nav">
+    <div class="nav-content">
+      <div class="nav-item active" (click)="goToTab('home')">
+        <ion-icon name="home"></ion-icon>
+        <span>Início</span>
+      </div>
+      
+      <div class="nav-item" (click)="goToTab('search')">
+        <ion-icon name="search"></ion-icon>
+        <span>Buscar</span>
+      </div>
+      
+       <div class="nav-item" [routerLink]="['/sacola']">
+        <ion-icon name="bag-handle"></ion-icon>
+        <span>Sacola</span>
+      </div>
+      
+      <div class="nav-item" (click)="goToTab('profile')">
+        <ion-icon name="person"></ion-icon>
+        <span>Perfil</span>
+      </div>
+    </div>
+  </div>
 
 </ion-content>
-
-<!-- FOOTER MENU -->
-<ion-footer>
-  <ion-toolbar>
-    <div class="footer">
-      <ion-button fill="clear">
-        <ion-icon name="home-outline"></ion-icon>
-      </ion-button>
-      <ion-button fill="clear">
-        <ion-icon name="search-outline"></ion-icon>
-      </ion-button>
-      <ion-button fill="clear">
-        <ion-icon name="reader-outline"></ion-icon>
-      </ion-button>
-      <ion-button fill="clear">
-        <ion-icon name="person-outline"></ion-icon>
-      </ion-button>
-    </div>
-  </ion-toolbar>
-</ion-footer>
-

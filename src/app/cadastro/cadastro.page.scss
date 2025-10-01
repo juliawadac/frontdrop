@@ -1,70 +1,325 @@
 .cadastro-content {
-  --background: #b86b2b; // fundo marrom/laranja
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  --background: linear-gradient(135deg, #fadcc3 0%, #f5d5b7 100%);
+  position: relative;
+  overflow: hidden;
 }
 
-.logo-container {
-  margin-top: 40px;
-  margin-bottom: 20px;
-  text-align: center;
+// Background decorativo
+.background-decoration {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 0;
 
-  img {
-    width: 140px;
-    height: auto;
+  .circle {
+    position: absolute;
     border-radius: 50%;
+    opacity: 0.08;
+    
+    &.circle-1 {
+      width: 250px;
+      height: 250px;
+      background: #99521c;
+      top: -125px;
+      right: -125px;
+      animation: float 8s ease-in-out infinite;
+    }
+    
+    &.circle-2 {
+      width: 180px;
+      height: 180px;
+      background: #b8652a;
+      bottom: -90px;
+      left: -90px;
+      animation: float 10s ease-in-out infinite reverse;
+    }
+    
+    &.circle-3 {
+      width: 120px;
+      height: 120px;
+      background: #99521c;
+      top: 40%;
+      right: -60px;
+      animation: float 6s ease-in-out infinite;
+    }
   }
 }
 
-.cadastro-form {
-  width: 85%;
-  margin: auto;
-  display: flex;
-  flex-direction: column;
+// Container principal
+.cadastro-container {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  padding: 32px 20px 20px;
 }
 
-.btn-cadastrar {
-  --background: #8b4a1d; // marrom mais escuro
-  --border-radius: 16px;
-  font-weight: bold;
-  margin-top: 20px;
-  height: 45px;
-  color: white;
-}
-
-.links {
+// Header section
+.header-section {
   text-align: center;
-  margin-top: 10px;
-  font-size: 12px;
+  margin-bottom: 32px;
 
-  a {
-    color: white;
-    text-decoration: none;
+  .logo-container {
+    margin-bottom: 24px;
+
+    .logo-wrapper {
+      width: 120px;
+      /* você pode ajustar o tamanho */
+      height: 120px;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 24px rgba(153, 82, 28, 0.2);
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+      overflow: hidden;
+      /* 🔥 garante que a logo fique dentro do círculo */
+
+      &:hover {
+        transform: scale(1.05);
+        box-shadow: 0 8px 30px rgba(153, 82, 28, 0.3);
+      }
+
+    }
+
+    img {
+       width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        /* 🔥 deixa a própria imagem redonda */
+        object-fit: cover;
+        /* 🔥 preenche o círculo sem distorcer */
+    }
+  }
+
+  .welcome-text {
+    h1 {
+      font-size: 26px;
+      font-weight: 700;
+      color: #2c1810;
+      margin: 0 0 8px;
+      font-family: "Nunito", sans-serif;
+    }
+
+    p {
+      font-size: 15px;
+      color: #666;
+      margin: 0;
+      font-weight: 400;
+    }
   }
 }
 
-::ng-deep .sc-ion-input-md-h {
-  --highlight-height: 0 !important;
-  --border-width: 0 !important;
-}
+// Form section
+.form-section {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 28px;
+  padding: 28px 20px;
+  box-shadow: 0 10px 35px rgba(153, 82, 28, 0.12);
+  backdrop-filter: blur(20px);
 
+  .form-group {
+    margin-bottom: 28px;
 
-.input {
-  ion-input {
-    --background: #ffffff; // cinza claro
-    --border-radius: 16px;
-    --padding-start: 12px;
-    --color: black !important;
-    --placeholder-color: rgb(0, 0, 0);
-    --highlight-color: black !important;
-    padding-left: 15px;
-    min-height: 50px;
+    .group-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 16px;
+      font-weight: 700;
+      color: #2c1810;
+      margin: 0 0 16px;
+      font-family: "Nunito", sans-serif;
+
+      ion-icon {
+        font-size: 18px;
+        color: #99521c;
+      }
+    }
+
+    .input-row {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 16px;
+
+      .half-width {
+        flex: 1;
+      }
+    }
+
+    .input-container {
+      position: relative;
+      margin-bottom: 16px;
+      background: #f8f9fa;
+      border-radius: 14px;
+      padding: 4px 14px;
+      transition: all 0.3s ease;
+
+      &.half-width {
+        margin-bottom: 0;
+      }
+
+      &:focus-within {
+        background: white;
+        box-shadow: 0 3px 15px rgba(153, 82, 28, 0.1);
+        transform: translateY(-1px);
+      }
+
+      .input-icon {
+        position: absolute;
+        left: 14px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 18px;
+        color: #99521c;
+        z-index: 2;
+      }
+
+      .custom-input {
+        --padding-start: 44px;
+        --padding-end: 44px;
+
+        /* === INPUT TODO CINZA === */
+        --color: #666; /* Texto digitado */
+        --placeholder-color: #999; /* Placeholder */
+        --highlight-color: #bbb; /* Linha padrão */
+        --highlight-color-focused: #666; /* Linha ao focar */
+        --label-color: #666; /* Label inicial */
+        --label-color-focused: #666; /* Label ao focar */
+
+        font-size: 15px;
+        font-weight: 500;
+        font-family: "Nunito", sans-serif;
+
+        &.input-has-focus {
+          --color: #2c1810; /* opcional: texto mais escuro ao focar */
+        }
+      }
+
+      .password-toggle {
+        position: absolute;
+        right: 6px;
+        top: 50%;
+        transform: translateY(-50%);
+        --color: #99521c;
+        width: 36px;
+        height: 36px;
+        z-index: 2;
+
+        ion-icon {
+          font-size: 18px;
+        }
+      }
+    }
   }
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  gap: 17px;
+  .btn-cadastrar {
+    --background: linear-gradient(135deg, #99521c, #b8652a);
+    --color: white;
+    height: 54px;
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: 0.8px;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 18px rgba(153, 82, 28, 0.3);
+    font-family: "Nunito", sans-serif;
+    transition: all 0.3s ease;
+
+    &:not([disabled]):hover {
+      transform: translateY(-2px);
+      box-shadow: 0 7px 22px rgba(153, 82, 28, 0.4);
+    }
+
+    &[disabled] {
+      opacity: 0.7;
+    }
+
+    ion-spinner {
+      margin-right: 8px;
+    }
+  }
+
+  .links-section {
+    .divider {
+      text-align: center;
+      margin: 20px 0;
+      position: relative;
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: #e0e0e0;
+      }
+
+      span {
+        background: rgba(255, 255, 255, 0.95);
+        padding: 0 14px;
+        color: #666;
+        font-size: 13px;
+        position: relative;
+        z-index: 1;
+      }
+    }
+
+    .auth-links {
+      text-align: center;
+
+      .login-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: #99521c;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 15px;
+        padding: 10px 14px;
+        border-radius: 10px;
+        transition: all 0.3s ease;
+
+        &:hover {
+          background: rgba(153, 82, 28, 0.1);
+          transform: translateY(-1px);
+        }
+
+        ion-icon {
+          font-size: 16px;
+        }
+      }
+    }
+  }
+}
+
+// Animações
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-15px) rotate(5deg);
+  }
+}
+
+// Responsividade
+@media (min-width: 768px) {
+  .cadastro-container {
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  .form-section {
+    padding: 32px 28px;
+  }
+
+  .input-row {
+    gap: 16px;
+  }
 }

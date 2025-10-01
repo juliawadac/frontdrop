@@ -1,10 +1,9 @@
 <ion-header>
-  <ion-toolbar style="--background: #99521C;">
+  <ion-toolbar class="custom-toolbar">
     <ion-buttons slot="start">
       <ion-button
         fill="clear"
         class="back-button"
-        style="--color: white;"
         [routerLink]="['/home']">
         <ion-icon name="chevron-back-outline" slot="icon-only"></ion-icon>
       </ion-button>
@@ -13,37 +12,131 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
-  <!-- Lista de itens -->
+<ion-content class="sacola-content">
+  
+  <!-- Estado vazio melhorado -->
+  <div class="empty-cart" *ngIf="cartItems.length === 0">
+    <div class="empty-icon">
+      <ion-icon name="bag-outline"></ion-icon>
+    </div>
+    <h2>Sua sacola está vazia</h2>
+    <p>Adicione produtos deliciosos para começar seu pedido</p>
+    <ion-button 
+      class="explore-button" 
+      [routerLink]="['/home']" 
+      expand="block">
+      <ion-icon name="restaurant-outline" slot="start"></ion-icon>
+      Explorar Restaurantes
+    </ion-button>
+  </div>
+
+  <!-- Lista de itens melhorada -->
   <div class="cart-container" *ngIf="cartItems.length > 0">
-    <div class="cart-item" *ngFor="let item of cartItems; let i = index">
-      <div class="item-image">
-        <img [src]="item.image" alt="Imagem do Produto" />
-      </div>
+    <div class="cart-header">
+      <h2>Seus Itens</h2>
+      <ion-badge class="item-count">{{ cartItems.length }} {{ cartItems.length === 1 ? 'item' : 'itens' }}</ion-badge>
+    </div>
 
-      <div class="item-info">
-        <ion-label class="product-name">{{ item.name }}</ion-label>
-        <ion-label class="establishment-name">{{ item.store }}</ion-label>
-        <ion-label class="price">R$ {{ item.price | number:'1.2-2' }}</ion-label>
-      </div>
+    <div class="cart-items-list">
+      <div class="cart-item-enhanced" *ngFor="let item of cartItems; let i = index" 
+           [class.removing]="item.removing">
+        
+        <div class="item-image-container">
+          <div class="item-image">
+            <img [src]="item.image || '../../assets/placeholder-food.png'" 
+                 [alt]="item.name" 
+                 onerror="this.src='../../assets/placeholder-food.png'" />
+          </div>
+          <div class="item-badge">
+            <ion-icon name="checkmark"></ion-icon>
+          </div>
+        </div>
 
-      <ion-icon
-        name="trash-outline"
-        class="trash-icon"
-        (click)="removeItem(i)">
-      </ion-icon>
+        <div class="item-details">
+          <div class="item-main-info">
+            <h3 class="product-name">{{ item.name }}</h3>
+            <p class="establishment-name">
+              <ion-icon name="storefront-outline"></ion-icon>
+              {{ item.store }}
+            </p>
+          </div>
+          
+          <div class="item-bottom">
+            <div class="price-section">
+              <span class="currency">R$</span>
+              <span class="price-value">{{ item.price | number:'1.2-2' }}</span>
+            </div>
+            
+            <div class="quantity-controls" *ngIf="item.quantity">
+              <ion-button 
+                fill="clear" 
+                size="small" 
+                class="qty-btn minus"
+                (click)="updateQuantity(i, -1)">
+                <ion-icon name="remove-outline"></ion-icon>
+              </ion-button>
+              <span class="quantity">{{ item.quantity }}</span>
+              <ion-button 
+                fill="clear" 
+                size="small" 
+                class="qty-btn plus"
+                (click)="updateQuantity(i, 1)">
+                <ion-icon name="add-outline"></ion-icon>
+              </ion-button>
+            </div>
+          </div>
+        </div>
+
+        <div class="item-actions">
+          <ion-button 
+            fill="clear" 
+            class="remove-button"
+            (click)="removeItem(i)">
+            <ion-icon name="trash-outline"></ion-icon>
+          </ion-button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Informações adicionais -->
+    <div class="additional-info" *ngIf="cartItems.length > 0">
+      <div class="delivery-info">
+        <ion-icon name="bicycle-outline"></ion-icon>
+        <div class="delivery-text">
+          <span class="delivery-time">Entrega em 25-35 min</span>
+          <span class="delivery-fee">Taxa de entrega: R$ 4,99</span>
+        </div>
+      </div>
     </div>
   </div>
 
+  <div class="spacer" *ngIf="cartItems.length > 0"></div>
+</ion-content>
 
-
-
-<!-- Resumo do pedido fixo -->
-<div class="order-summary" *ngIf="cartItems.length > 0">
-  <ion-label class="subtotal">
-    Subtotal: R$ {{ subtotal | number:'1.2-2' }}
-  </ion-label>
-  <ion-button expand="block" class="place-order-button" style="--background: #99521C;">
-    REALIZAR PEDIDO
-  </ion-button>
+<!-- Resumo do pedido fixo melhorado -->
+<div class="order-summary-enhanced" *ngIf="cartItems.length > 0">
+  <div class="summary-content">
+    <div class="price-breakdown">
+      <div class="price-row">
+        <span class="price-label">Subtotal</span>
+        <span class="price-value">R$ {{ subtotal | number:'1.2-2' }}</span>
+      </div>
+      <div class="price-row">
+        <span class="price-label">Taxa de entrega</span>
+        <span class="price-value">R$ 4,99</span>
+      </div>
+      <div class="price-row total-row">
+        <span class="price-label">Total</span>
+        <span class="price-value">R$ {{ (subtotal + 4.99) | number:'1.2-2' }}</span>
+      </div>
+    </div>
+    
+    <ion-button 
+      expand="block" 
+      class="place-order-button" 
+      (click)="placeOrder()">
+      <ion-icon name="card-outline" slot="start"></ion-icon>
+      REALIZAR PEDIDO
+    </ion-button>
+  </div>
 </div>
