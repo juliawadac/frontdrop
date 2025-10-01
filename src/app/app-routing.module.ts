@@ -25,6 +25,11 @@ const routes: Routes = [
     path: 'estabelecimento',
     loadComponent: () => import('./estabelecimento/estabelecimento.page').then( m => m.EstabelecimentoPage)
   },
+  {
+    path: 'welcome',
+    loadChildren: () => import('./welcome/welcome.page').then(m => m.WelcomePage)
+  },
+
 
 
 ];
