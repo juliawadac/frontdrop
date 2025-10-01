@@ -22,7 +22,7 @@ const routes: Routes = [
     loadChildren: () => import('./home/home-routing.module').then(m => m.HomePageRoutingModule) 
   },
   {
-    path: 'estabelecimento',
+    path: 'estabelecimento/:id', // Adicionamos /:id para capturar o parâmetro
     loadComponent: () => import('./estabelecimento/estabelecimento.page').then( m => m.EstabelecimentoPage)
   },
   

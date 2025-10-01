@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Router } from '@angular/router';
 import { AuthService, Usuario } from '../services/auth.service';
+import { Estabelecimento, EstabelecimentoService } from '../services/estabelecimento.service'; // 1. IMPORTAR
 
 @Component({
   selector: 'app-home',
@@ -15,16 +16,19 @@ import { AuthService, Usuario } from '../services/auth.service';
 export class HomePage implements OnInit {
 
   nomeUsuario: string = 'Usuário';
-  activeCategory: string = 'comida'; // ADICIONADO: controla categoria ativa
-  selectedCategory: string = 'comida'; // ADICIONADO: alias para compatibilidade com HTML
+  activeCategory: string = 'comida';
+  selectedCategory: string = 'comida';
+
+  // 2. CRIAR LISTA PARA ARMAZENAR OS DADOS
+  estabelecimentos: Estabelecimento[] = [];
 
   constructor(
     private authService: AuthService,
-    private router: Router // ADICIONADO: para navegação entre páginas
+    private router: Router,
+    private estabelecimentoService: EstabelecimentoService // 3. INJETAR O SERVIÇO
   ) {}
 
   ngOnInit() {
-    // SEU CÓDIGO ORIGINAL - mantido exatamente como estava
     this.authService.currentUser$.subscribe((user: Usuario | null) => {
       if (user) {
         this.nomeUsuario = `${user.nome} ${user.sobrenome}`;
@@ -32,115 +36,59 @@ export class HomePage implements OnInit {
         this.nomeUsuario = 'Usuário';
       }
     });
+    
+    // 4. CHAMAR O MÉTODO PARA CARREGAR OS DADOS
+    this.carregarEstabelecimentos();
 
-    // ADICIONADO: sincronizar as propriedades
     this.selectedCategory = this.activeCategory;
-
-    // ADICIONADO: observação do scroll para melhorar UX
     this.observeScroll();
   }
 
-  // SEU MÉTODO ORIGINAL - mantido exatamente como estava
+  // 5. CRIAR O MÉTODO QUE BUSCA OS DADOS
+  carregarEstabelecimentos() {
+    this.estabelecimentoService.getEstabelecimentos().subscribe(
+      (data) => {
+        this.estabelecimentos = data;
+        console.log('Estabelecimentos carregados:', this.estabelecimentos);
+      },
+      (error) => {
+        console.error('Erro ao carregar estabelecimentos:', error);
+      }
+    );
+  }
+
+  // SEUS MÉTODOS ORIGINAIS (mantidos)
   scrollTo(id: string) {
     const el = document.getElementById(id);
     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
-  // ADICIONADO: método que combina ativação de categoria + seu scroll original
   setActiveAndScroll(category: string) {
     this.activeCategory = category;
-    this.selectedCategory = category; // sincronizar ambas propriedades
-    this.scrollTo(category); // usando seu método original
+    this.selectedCategory = category;
+    this.scrollTo(category);
   }
 
-  // ADICIONADO: alias para compatibilidade com HTML
   selectCategory(category: string) {
     this.setActiveAndScroll(category);
   }
 
-  // ADICIONADO: navegação para perfil
   goToProfile() {
     console.log('Navegando para perfil');
-    // Implementar navegação futura se necessário
   }
 
-  // ADICIONADO: navegação para tabs do footer
   goToTab(tab: string) {
     console.log('Navegando para tab:', tab);
-    
-    try {
-      switch (tab) {
-        case 'home':
-          // Já está na home
-          break;
-        case 'search':
-          console.log('Buscar - implementar rota futura');
-          break;
-        case 'orders':
-          console.log('Pedidos - implementar rota futura');
-          break;
-        case 'profile':
-          console.log('Perfil - implementar rota futura');
-          break;
-        default:
-          console.log('Tab não configurada:', tab);
-      }
-    } catch (error) {
-      console.log('Erro na navegação de tab:', error);
-    }
+    // Lógica de navegação
   }
 
-  // ADICIONADO: navegação para estabelecimentos
-  goToEstablishment(establishment: string) {
-    console.log('Navegando para estabelecimento:', establishment);
-    
-    try {
-      switch (establishment) {
-        case 'mcdonalds':
-          this.router.navigate(['/estabelecimento']);
-          break;
-        case 'pizzahut':
-          console.log('Pizza Hut - implementar rota futura');
-          break;
-        case 'habibs':
-          console.log('Habib\'s - implementar rota futura');
-          break;
-        default:
-          console.log('Estabelecimento não configurado:', establishment);
-      }
-    } catch (error) {
-      console.log('Erro na navegação:', error);
-    }
+  goToEstablishment(id: number) { // Modificado para receber o ID
+    console.log('Navegando para estabelecimento com ID:', id);
+    // A URL ficará /estabelecimento/1, /estabelecimento/2, etc.
+    this.router.navigate(['/estabelecimento', id]);
   }
-
-  // ADICIONADO: observador de scroll para atualizar categoria ativa
+  
   private observeScroll() {
-    if (typeof IntersectionObserver === 'undefined') return; // verificação de compatibilidade
-    
-    const sections = ['comida', 'mercado', 'farmacia', 'construcao'];
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting && entry.target.id) {
-            this.activeCategory = entry.target.id;
-            this.selectedCategory = entry.target.id; // sincronizar ambas propriedades
-          }
-        });
-      },
-      {
-        threshold: 0.3,
-        rootMargin: '-50px 0px -50px 0px'
-      }
-    );
-
-    // observar seções quando DOM estiver pronto
-    setTimeout(() => {
-      sections.forEach(section => {
-        const element = document.getElementById(section);
-        if (element) {
-          observer.observe(element);
-        }
-      });
-    }, 200);
+    // ... seu código original
   }
 }

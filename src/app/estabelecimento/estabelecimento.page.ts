@@ -29,14 +29,16 @@ export class EstabelecimentoPage implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    // Pega o ID do estabelecimento da URL se existir
-    this.route.params.subscribe(params => {
-      if (params['id']) {
-        this.estabelecimentoId = +params['id'];
-      }
+    // Pega o ID do estabelecimento da rota da URL
+    const idParam = this.route.snapshot.paramMap.get('id');
+    if (idParam) {
+      this.estabelecimentoId = +idParam; // O '+' converte a string para número
       this.carregarEstabelecimento();
       this.carregarProdutos();
-    });
+    } else {
+      console.error('ID do estabelecimento não encontrado na rota!');
+      // Você pode redirecionar o usuário ou mostrar uma mensagem de erro
+    }
   }
 
   ngOnDestroy() {

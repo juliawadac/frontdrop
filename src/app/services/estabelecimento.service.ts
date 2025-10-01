@@ -3,13 +3,16 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
+// ✅ INTERFACE ATUALIZADA AQUI
 export interface Estabelecimento {
   id: number;
   nome: string;
   localizacao: string;
   tempo_de_espera: number | null;
-  logo?: string;
-  banner?: string;
+  logo_url?: string;   // Adicionado
+  banner_url?: string; // Adicionado
+  logo?: string;       // Mantido para retrocompatibilidade, se necessário
+  banner?: string;     // Mantido para retrocompatibilidade, se necessário
 }
 
 export interface Produto {
@@ -19,13 +22,14 @@ export interface Produto {
   descricao: string;
   quantidade: number;
   categoria_id: number;
+  estabelecimento_id?: number; // Boa prática ter aqui também
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class EstabelecimentoService {
-  private apiUrl = 'http://localhost:3000/api'; // Altere para sua URL da API
+  private apiUrl = 'http://localhost:3000'; // URL correta do seu backend
   
   private estabelecimentosSubject = new BehaviorSubject<Estabelecimento[]>([]);
   public estabelecimentos$ = this.estabelecimentosSubject.asObservable();
