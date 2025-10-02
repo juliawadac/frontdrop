@@ -1,10 +1,9 @@
 .page-container {
-  --background: #fdf5ed; // Um fundo um pouco menos intenso que o anterior
+  --background: #fadcc3; // Cor de fundo original restaurada
   color: #2c1810;
-  padding-bottom: 80px;
+  padding-bottom: 80px; /* Espaço para navegação fixa */
 }
 
-// HEADER
 .header {
   position: relative;
   height: 220px;
@@ -16,7 +15,10 @@
 
   .header-overlay {
     position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     background: linear-gradient(135deg, rgba(0,0,0,0.3) 0%, rgba(153,82,28,0.4) 100%);
     z-index: 1;
   }
@@ -54,7 +56,7 @@
     }
 
     .status-badge {
-      display: inline-flex; // Ajustado para centralizar melhor
+      display: inline-flex;
       align-items: center;
       gap: 8px;
       margin-top: 12px;
@@ -73,7 +75,6 @@
   }
 }
 
-// SEÇÃO DE LOCALIZAÇÃO
 .location-section {
   margin: 60px 16px 24px;
   background: white;
@@ -89,14 +90,14 @@
 
     .section-icon {
       font-size: 24px;
-      color: #99521c; // ✅ CORRIGIDO
+      color: #99521c;
     }
 
     h2 {
       font-size: 18px;
       font-weight: 700;
       margin: 0;
-      color: #2c1810; // ✅ CORRIGIDO (de branco para escuro)
+      color: #2c1810;
       letter-spacing: 0.5px;
     }
   }
@@ -130,12 +131,28 @@
   }
 }
 
-// SEÇÃO DE PRODUTOS
 .produtos-section {
   margin: 0 16px 100px;
 
   .section-header {
-    // ... (sem alterações, já estava correto) ...
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding: 0 4px;
+
+    .section-icon {
+      font-size: 24px;
+      color: #99521c;
+    }
+
+    h2 {
+      font-size: 18px;
+      font-weight: 700;
+      margin: 0;
+      color: #2c1810;
+      letter-spacing: 0.5px;
+    }
   }
 
   .produtos-grid {
@@ -144,31 +161,58 @@
     gap: 16px;
 
     .produto-card {
-      background: white;
+      background: #99521c;
       border-radius: 20px;
       margin: 0;
-      box-shadow: 0 4px 20px rgba(153,82,28,0.08);
+      box-shadow: 0 4px 20px rgba(153,82,28,0.2);
       transition: all 0.3s ease;
       overflow: hidden;
 
       &:hover {
         transform: translateY(-2px);
-        box-shadow: 0 8px 30px rgba(153,82,28,0.15);
+        box-shadow: 0 8px 30px rgba(153,82,28,0.3);
       }
 
       .produto-content {
-        display: flex;
-        align-items: center;
-        padding: 16px;
-        gap: 16px;
+        padding: 0;
       }
 
       .produto-image {
-        // ... (sem grandes alterações) ...
+        position: relative;
+        padding: 20px 20px 0;
+
+        .produto-img {
+          width: 80px;
+          height: 80px;
+          background: linear-gradient(135deg, #99521c, #b8652a);
+          border-radius: 16px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          box-shadow: 0 4px 12px rgba(153,82,28,0.2);
+
+          ion-icon {
+            font-size: 32px;
+            color: white;
+          }
+        }
+
+        .produto-badge {
+          position: absolute;
+          top: 12px;
+          right: 12px;
+          background: linear-gradient(135deg, #ffd700, #ffed4e);
+          color: #2c1810;
+          padding: 4px 12px;
+          border-radius: 12px;
+          font-size: 12px;
+          font-weight: 700;
+          box-shadow: 0 2px 8px rgba(255,215,0,0.3);
+        }
       }
 
       .produto-details {
-        flex: 1;
+        padding: 0 20px 20px;
 
         .produto-info {
           margin-bottom: 16px;
@@ -176,48 +220,159 @@
           h3 {
             font-size: 18px;
             font-weight: 700;
-            margin: 0 0 8px;
-            color: #2c1810; // ✅ CORRIGIDO (de branco para escuro)
+            margin: 12px 0 8px;
+            color: white;
           }
 
           .produto-desc {
             font-size: 14px;
-            color: #666; // ✅ CORRIGIDO (de cinza claro para mais escuro)
+            color: rgba(255, 255, 255, 0.8);
             margin: 0 0 12px;
             line-height: 1.4;
           }
 
           .produto-price {
-            // ... (sem alterações, já estava correto) ...
+            display: flex;
+            align-items: baseline;
+            gap: 4px;
+            
+            .currency {
+              font-size: 14px;
+              color: #ffd700;
+              font-weight: 600;
+            }
+
+            .value {
+              font-size: 20px;
+              font-weight: 800;
+              color: #ffd700;
+            }
           }
         }
 
         .produto-actions {
           display: flex;
           align-items: center;
+          justify-content: space-between;
           gap: 16px;
 
           .quantity-controls {
             display: flex;
             align-items: center;
-            background: #f0f0f0; // Fundo mais visível
+            background: rgba(0,0,0,0.2);
             border-radius: 12px;
             padding: 4px;
 
             .qty-btn {
-              --color: #333; // ✅ CORRIGIDO (de branco para escuro)
+              --background: transparent;
+              --color: white;
+              width: 36px;
+              height: 36px;
+              margin: 0;
+
+              ion-icon {
+                font-size: 18px;
+              }
             }
 
             .quantity {
               min-width: 40px;
               text-align: center;
               font-weight: 700;
+              color: white;
               font-size: 16px;
-              color: #2c1810; // ✅ CORRIGIDO (de branco para escuro)
+            }
+          }
+
+          .add-to-cart-btn {
+            flex: 1;
+            --background: #ffd700;
+            --color: #2c1810;
+            height: 44px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            
+            &:disabled {
+              --background: rgba(255,255,255,0.2);
+              --color: rgba(255,255,255,0.5);
+            }
+
+            ion-icon {
+              font-size: 18px;
             }
           }
         }
       }
     }
   }
+}
+
+.fixed-bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #99521c;
+  z-index: 1000;
+  padding: 8px 0;
+  box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+
+  .nav-content {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0 16px;
+
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: white;
+      cursor: pointer;
+      padding: 8px 12px;
+      transition: all 0.3s ease;
+
+      &:hover {
+        color: #ffd700;
+        transform: translateY(-2px);
+      }
+
+      ion-icon {
+        font-size: 22px;
+        margin-bottom: 4px;
+      }
+
+      span {
+        font-size: 12px;
+        font-weight: 600;
+      }
+    }
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (min-width: 768px) {
+  .produtos-section .produtos-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+
+.animar-aumentar {
+  animation: pulseGreen 0.3s ease;
+}
+
+.animar-diminuir {
+  animation: pulseRed 0.3s ease;
 }
