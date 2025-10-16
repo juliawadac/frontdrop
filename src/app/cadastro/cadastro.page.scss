@@ -146,6 +146,7 @@
       display: flex;
       gap: 12px;
       margin-bottom: 16px;
+      flex-direction: column;
 
       .half-width {
         flex: 1;
