@@ -9,10 +9,8 @@ export interface Estabelecimento {
   nome: string;
   localizacao: string;
   tempo_de_espera: number | null;
-  logo_url?: string;   // Adicionado
-  banner_url?: string; // Adicionado
-  logo?: string;       // Mantido para retrocompatibilidade, se necessário
-  banner?: string;     // Mantido para retrocompatibilidade, se necessário
+  logo_url?: string;   // ✅ Adicionado
+  banner_url?: string; // ✅ Adicionado
 }
 
 export interface Produto {

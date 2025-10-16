@@ -1,10 +1,12 @@
 <ion-content [fullscreen]="true" class="page-container">
 
-  <div class="header" [ngStyle]="{'background-image': 'url(' + (estabelecimento?.banner_url || '../../assets/mcdonalds-cred-Sombat-Muycheen-shutterstock_site.webp') + ')'}">
+  <div class="header" 
+       [ngStyle]="{'background-image': 'url(' + (estabelecimento?.banner_url || 'assets/mcdonalds-cred-Sombat-Muycheen-shutterstock_site.webp') + ')'}">
+    
     <div class="header-overlay"></div>
     
-    <img [src]="estabelecimento?.logo_url || '../../assets/mcquadrado.png'" 
-         [alt]="'Logo ' + estabelecimento?.nome" 
+    <img [src]="estabelecimento?.logo_url || 'assets/mcquadrado.png'" 
+         [alt]="'Logo ' + (estabelecimento?.nome || 'Estabelecimento')" 
          class="logo" />
 
     <div class="header-info">
@@ -22,7 +24,7 @@
       <h2>LOCALIZAÇÃO</h2>
     </div>
     <div class="map-container">
-      <img src="../../assets/Captura de tela 2025-09-03 112225.png" alt="Mapa" class="map" />
+      <img src="assets/Captura de tela 2025-09-03 112225.png" alt="Mapa" class="map" />
       <div class="map-overlay">
         <ion-button fill="outline" size="small" class="directions-btn">
           <ion-icon name="navigate-outline" slot="start"></ion-icon>
@@ -89,22 +91,22 @@
         <ion-icon name="home"></ion-icon>
         <span>Início</span>
       </div>
-  
+
       <div class="nav-item" (click)="goToTab('search')">
         <ion-icon name="search"></ion-icon>
         <span>Buscar</span>
       </div>
-  
+
       <div class="nav-item" (click)="goToTab('orders')">
         <ion-icon name="bag-handle"></ion-icon>
         <span>Sacola</span>
       </div>
-  
+
       <div class="nav-item" (click)="goToTab('profile')">
         <ion-icon name="person"></ion-icon>
         <span>Perfil</span>
       </div>
     </div>
-    </div>
+  </div>
 
 </ion-content>
