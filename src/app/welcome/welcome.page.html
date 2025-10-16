@@ -1,0 +1,76 @@
+<ion-content [fullscreen]="true" class="welcome-content">
+  
+  <!-- Background decorativo -->
+  <div class="background-decoration">
+    <div class="circle circle-1"></div>
+    <div class="circle circle-2"></div>
+    <div class="circle circle-3"></div>
+  </div>
+
+  <div class="welcome-container">
+    
+    <!-- Logo e Nome do App -->
+    <div class="brand-section">
+      <div class="logo-container">
+        <div class="logo-wrapper">
+          <img src="../../assets/logo_lado.png" alt="Logo Drop" class="logo-image" />
+        </div>
+      </div>
+      
+      <div class="brand-text">
+        <h1>Bem-vindo ao Drop</h1>
+        <p>Seu App favorito para a Pronta Entrega</p>
+      </div>
+    </div>
+
+    <!-- Ilustração ou Features -->
+    <div class="features-section">
+      <div class="feature-item">
+        <div class="feature-icon">
+          <ion-icon name="restaurant-outline"></ion-icon>
+        </div>
+        <p>Restaurantes diversos</p>
+      </div>
+      
+      <div class="feature-item">
+        <div class="feature-icon">
+          <ion-icon name="bicycle-outline"></ion-icon>
+        </div>
+        <p>Entrega rápida</p>
+      </div>
+      
+      <div class="feature-item">
+        <div class="feature-icon">
+          <ion-icon name="card-outline"></ion-icon>
+        </div>
+        <p>Pagamento fácil</p>
+      </div>
+    </div>
+
+    <!-- Botões de Ação -->
+    <div class="actions-section">
+      <ion-button 
+        expand="block" 
+        class="login-btn" 
+        [routerLink]="['/login']">
+        ENTRAR
+      </ion-button>
+
+      <ion-button 
+        expand="block" 
+        fill="outline"
+        class="signup-btn" 
+        [routerLink]="['/cadastro']">
+        CRIAR CONTA
+      </ion-button>
+
+      <div class="guest-access">
+        <a [routerLink]="['/home']" class="guest-link">
+          Continuar como visitante
+          <ion-icon name="arrow-forward-outline"></ion-icon>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</ion-content>
