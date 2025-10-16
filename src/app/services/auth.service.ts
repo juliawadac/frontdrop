@@ -1,26 +1,21 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, BehaviorSubject } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { Observable, BehaviorSubject, tap } from 'rxjs';
 
 export interface Usuario {
-    nome: string;
-    sobrenome: string;
-    email: string;
-    senha: string;
-    endereco: string;
-    numero_endereco: string;  
-  }
+  id?: number;
+  nome: string;
+  sobrenome: string;
+  email: string;
+  senha?: string;
+  endereco?: string;
+  numero_endereco?: string;
+}
 
 export interface LoginResponse {
   Mensagem: string;
-  Resultado: Usuario[];
+  Resultado: Usuario;
   token: string;
-}
-
-export interface CadastroResponse {
-  Mensagem: string;
-  Resultado: any;
 }
 
 @Injectable({
@@ -32,26 +27,29 @@ export class AuthService {
   public currentUser$ = this.currentUserSubject.asObservable();
 
   constructor(private http: HttpClient) {
-    // Verifica se há token salvo ao inicializar o serviço
-    this.checkToken();
+    this.loadUsuarioFromToken();
   }
 
-  private checkToken(): void {
-    const token = localStorage.getItem('token');
-    if (token) {
-      // Aqui você poderia decodificar o JWT para obter os dados do usuário
-      // Por simplicidade, vamos apenas marcar como logado
-      this.currentUserSubject.next({ nome: '',
-        sobrenome: '',
-        email: '',
-        senha: '',
-        endereco: '',
-        numero_endereco: '' });
-    }
+  private getAuthHeaders(): HttpHeaders {
+    const token = this.getToken();
+    return new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': token ? `Bearer ${token}` : ''
+    });
   }
 
-  cadastrar(usuario: Usuario): Observable<CadastroResponse> {
-    return this.http.post<CadastroResponse>(`${this.API_URL}/cadastrar`, usuario);
+  private loadUsuarioFromToken(): void {
+    const token = this.getToken();
+    if (!token) return;
+
+    this.http.get<Usuario>(`${this.API_URL}/me`, { headers: this.getAuthHeaders() })
+      .subscribe({
+        next: (usuario) => this.currentUserSubject.next(usuario),
+        error: (err) => {
+          console.error('Erro ao carregar usuário do token:', err);
+          this.logout();
+        }
+      });
   }
 
   login(email: string, senha: string): Observable<LoginResponse> {
@@ -60,9 +58,7 @@ export class AuthService {
         tap(response => {
           if (response.token) {
             localStorage.setItem('token', response.token);
-            if (response.Resultado && response.Resultado.length > 0) {
-              this.currentUserSubject.next(response.Resultado[0]);
-            }
+            this.currentUserSubject.next(response.Resultado);
           }
         })
       );
@@ -74,25 +70,14 @@ export class AuthService {
   }
 
   isLoggedIn(): boolean {
-    return localStorage.getItem('token') !== null;
+    return !!localStorage.getItem('token');
   }
 
   getToken(): string | null {
     return localStorage.getItem('token');
   }
 
-  private getAuthHeaders(): HttpHeaders {
-    const token = this.getToken();
-    return new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': token ? `Bearer ${token}` : ''
-    });
-  }
-
-  // Método para atualizar usuário (protegido)
-  atualizarUsuario(usuario: Partial<Usuario>): Observable<any> {
-    return this.http.put(`${this.API_URL}/`, usuario, {
-      headers: this.getAuthHeaders()
-    });
+  cadastrar(usuario: Usuario): Observable<any> {
+    return this.http.post(`${this.API_URL}/cadastrar`, usuario);
   }
 }

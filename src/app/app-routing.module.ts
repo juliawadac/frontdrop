@@ -2,6 +2,15 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
+  {
+  path: '',
+  redirectTo: 'welcome',
+  pathMatch: 'full'
+  },
+  {
+  path: 'welcome',
+  loadChildren: () => import('./welcome/welcome.module').then(m => m.WelcomePageModule)
+  },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   {
     path: 'login',
@@ -19,16 +28,15 @@ const routes: Routes = [
   },
    { 
     path: 'home', 
-    loadChildren: () => import('./home/home.module').then(m => m.HomePageModule) 
+    loadChildren: () => import('./home/home-routing.module').then(m => m.HomePageRoutingModule) 
   },
   {
-    path: 'estabelecimento',
+    path: 'estabelecimento/:id', // Adicionamos /:id para capturar o parâmetro
     loadComponent: () => import('./estabelecimento/estabelecimento.page').then( m => m.EstabelecimentoPage)
   },
-  {
-    path: 'perfil',
-    loadChildren: () => import('./perfil/perfil-module').then( m => m.PerfilModule)
-}
+  
+
+
 
 ];
 
