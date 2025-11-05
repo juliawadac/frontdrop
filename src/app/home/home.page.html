@@ -13,22 +13,38 @@
   <div class="category-tabs">
     <div class="tab-item" 
          [class.active]="selectedCategory === 'comida'" 
-         (click)="selectCategory('comida')">
+         (click)="selectCategory('comida')"
+         role="button"
+         tabindex="0"
+         (keydown.enter)="selectCategory('comida')"
+         (keydown.space)="selectCategory('comida')">
       <span>COMIDA</span>
     </div>
     <div class="tab-item" 
          [class.active]="selectedCategory === 'mercado'" 
-         (click)="selectCategory('mercado')">
+         (click)="selectCategory('mercado')"
+         role="button"
+         tabindex="0"
+         (keydown.enter)="selectCategory('mercado')"
+         (keydown.space)="selectCategory('mercado')">
       <span>MERCADO</span>
     </div>
     <div class="tab-item" 
          [class.active]="selectedCategory === 'farmacia'" 
-         (click)="selectCategory('farmacia')">
+         (click)="selectCategory('farmacia')"
+         role="button"
+         tabindex="0"
+         (keydown.enter)="selectCategory('farmacia')"
+         (keydown.space)="selectCategory('farmacia')">
       <span>FARMÁCIA</span>
     </div>
     <div class="tab-item" 
          [class.active]="selectedCategory === 'construcao'" 
-         (click)="selectCategory('construcao')">
+         (click)="selectCategory('construcao')"
+         role="button"
+         tabindex="0"
+         (keydown.enter)="selectCategory('construcao')"
+         (keydown.space)="selectCategory('construcao')">
       <span>CONSTRUÇÃO</span>
     </div>
   </div>
