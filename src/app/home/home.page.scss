@@ -54,32 +54,47 @@
   }
 }
 
-.category-tabs {
-  display: flex;
-  justify-content: space-around;
-  background: white;
-  margin: 0 16px;
-  border-radius: 16px;
-  padding: 8px;
-  box-shadow: 0 4px 20px rgba(153,82,28,0.1);
-  margin-bottom: 24px;
 
-  .tab-item {
-    flex: 1;
-    text-align: center;
-    padding: 12px 8px;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    position: relative;
 
-    span {
-      font-size: 12px;
-      font-weight: 600;
-      color: #666;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
+  .category-tabs {
+    display: flex;
+    justify-content: flex-start; // Mudança de space-around para space-between
+    background: white;
+    margin: 0 16px;
+    border-radius: 16px;
+    padding: 6px; // Reduzido de 8px para 6px
+    box-shadow: 0 4px 20px rgba(153,82,28,0.1);
+    margin-bottom: 24px;
+    overflow-x: auto ; // Permite scroll horizontal em telas muito pequenas
+    scrollbar-width: none; // Firefox
+    
+    // Oculta scrollbar no webkit (Chrome, Safari)
+    &::-webkit-scrollbar {
+      display: none;
     }
+  
+    .tab-item {
+      flex: 0 0 auto;
+      min-width: 80px; // Permite que o flex item encolha abaixo do tamanho do conteúdo
+      text-align: center;
+      padding: 10px 4px; // Reduzido padding horizontal
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      white-space: nowrap; // Evita quebra de linha
+  
+      span {
+        font-size: 11px; // Reduzido de 12px para 11px
+        font-weight: 600;
+        color: #666;
+        text-transform: uppercase;
+        letter-spacing: 0.3px; // Reduzido de 0.5px
+        display: block;
+        overflow: hidden;
+        text-overflow: ellipsis; // Adiciona "..." se o texto for muito longo
+      }
+  
 
     &.active {
       background: #99521c;
