@@ -182,12 +182,12 @@
 
   <div class="fixed-bottom-nav">
     <div class="nav-content">
-      <div class="nav-item active" (click)="goToTab('home')">
+      <div class="nav-item active" [routerLink]="['/home']">
         <ion-icon name="home"></ion-icon>
         <span>Início</span>
       </div>
       
-      <div class="nav-item" (click)="goToTab('search')">
+      <div class="nav-item" [routerLink]="['/search']">
         <ion-icon name="search"></ion-icon>
         <span>Buscar</span>
       </div>

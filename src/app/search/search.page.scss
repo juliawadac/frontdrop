@@ -1,0 +1,504 @@
+.search-content {
+    --background: #fadcc3;
+    padding-bottom: 80px;
+  }
+  
+  // Header
+  .search-header {
+    background: linear-gradient(135deg, #99521c, #b8652a);
+    padding: 32px 20px 24px;
+    color: white;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  
+    h1 {
+      font-size: 28px;
+      font-weight: 800;
+      margin: 0 0 8px;
+      font-family: "Nunito", sans-serif;
+      letter-spacing: -0.5px;
+    }
+  
+    p {
+      font-size: 14px;
+      margin: 0;
+      opacity: 0.95;
+      font-weight: 500;
+    }
+  }
+  
+  // Barra de pesquisa - SEM BORDAS VERDES
+  .search-bar-container {
+    display: flex;
+    gap: 12px;
+    padding: 16px 20px;
+    background: transparent;
+  
+    .search-input-wrapper {
+      flex: 1;
+      position: relative;
+      background: white;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  
+      &:focus-within {
+        box-shadow: 0 4px 20px rgba(153, 82, 28, 0.2);
+        transform: translateY(-2px);
+      }
+  
+      .search-icon {
+        font-size: 20px;
+        color: #99521c;
+        margin-right: 12px;
+      }
+  
+      .search-input {
+        --padding-start: 0;
+        --padding-end: 0;
+        font-size: 15px;
+        font-weight: 500;
+        color: #000000;
+        
+        &::placeholder {
+          color: #999;
+        }
+      }
+  
+      .clear-btn {
+        --color: #999;
+        width: 32px;
+        height: 32px;
+        transition: all 0.2s ease;
+  
+        &:hover {
+          --color: #dc3545;
+        }
+  
+        ion-icon {
+          font-size: 20px;
+        }
+      }
+    }
+  
+    .filter-btn {
+      --background: #99521c;
+      --color: white;
+      width: 48px;
+      height: 48px;
+      --border-radius: 14px;
+      margin: 0;
+      box-shadow: 0 2px 12px rgba(153, 82, 28, 0.2);
+      transition: all 0.3s ease;
+  
+      &:hover {
+        --background: #b8652a;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 20px rgba(153, 82, 28, 0.3);
+      }
+  
+      ion-icon {
+        font-size: 22px;
+      }
+    }
+  }
+  
+  // Filtros selecionados
+  .selected-filters {
+    padding: 8px 20px 16px;
+    background: transparent;
+  
+    .filter-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+  
+      .category-chip {
+        --background: rgba(153, 82, 28, 0.15);
+        --color: #2c1810;
+        font-weight: 600;
+        height: 32px;
+        border: 1px solid rgba(153, 82, 28, 0.2);
+  
+        ion-icon {
+          color: #99521c;
+          margin-left: 4px;
+        }
+      }
+  
+      .clear-all-btn {
+        --color: #dc3545;
+        font-size: 13px;
+        font-weight: 600;
+      }
+    }
+  }
+  
+  // Buscas recentes - DESIGN MODERNO
+  .recent-searches {
+    padding: 24px 20px;
+    background: transparent;
+  
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+  
+      h3 {
+        font-size: 18px;
+        font-weight: 700;
+        color: #2c1810;
+        margin: 0;
+        font-family: "Nunito", sans-serif;
+      }
+  
+      .clear-link {
+        --color: #99521c;
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+  
+        &:hover {
+          --color: #b8652a;
+        }
+      }
+    }
+  
+    .recent-items {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+  
+      .recent-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 16px;
+        background: white;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border: 1px solid transparent;
+        color: #2c1810;
+  
+        &:hover {
+          background: linear-gradient(135deg, rgba(153, 82, 28, 0.05), rgba(184, 101, 42, 0.05));
+          transform: translateX(8px);
+          border-color: rgba(153, 82, 28, 0.1);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+  
+        ion-icon {
+          font-size: 18px;
+          color: #99521c;
+  
+          &.arrow-icon {
+            margin-left: auto;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            font-size: 16px;
+          }
+        }
+  
+        span {
+          font-size: 14px;
+          color: #2c1810;
+          font-weight: 500;
+          flex: 1;
+        }
+  
+        &:hover .arrow-icon {
+          opacity: 1;
+        }
+      }
+    }
+  }
+  
+  // Resultados
+  .search-results {
+    padding: 20px;
+  
+    .loading-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 20px;
+  
+      ion-spinner {
+        --color: #99521c;
+        margin-bottom: 16px;
+      }
+  
+      p {
+        color: #666;
+        font-size: 14px;
+      }
+    }
+  
+    .results-header {
+      margin-bottom: 20px;
+  
+      h3 {
+        font-size: 16px;
+        font-weight: 700;
+        color: #2c1810;
+        margin: 0;
+        font-family: "Nunito", sans-serif;
+      }
+    }
+  
+    // LISTA de produtos
+    .products-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+  
+      .product-card {
+        background: white;
+        border-radius: 16px;
+        padding: 16px;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s ease;
+        border: 1px solid transparent;
+  
+        &:hover {
+          box-shadow: 0 8px 24px rgba(153, 82, 28, 0.15);
+          transform: translateY(-4px);
+          border-color: rgba(153, 82, 28, 0.1);
+        }
+  
+        .product-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-start;
+          margin-bottom: 12px;
+          gap: 12px;
+  
+          h4 {
+            font-size: 16px;
+            font-weight: 700;
+            color: #2c1810;
+            margin: 0;
+            font-family: "Nunito", sans-serif;
+            flex: 1;
+          }
+  
+          .category-badge {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 215, 0, 0.1));
+            color: #2c1810;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 700;
+            white-space: nowrap;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+          }
+        }
+  
+        .product-description {
+          font-size: 13px;
+          color: #666;
+          margin: 0 0 16px;
+          line-height: 1.5;
+        }
+  
+        // SEÇÃO de lojas
+        .stores-section {
+          border-top: 1px solid #eee;
+          padding-top: 12px;
+  
+          .stores-header {
+            margin-bottom: 12px;
+  
+            .stores-count {
+              display: flex;
+              align-items: center;
+              gap: 6px;
+              font-size: 13px;
+              font-weight: 600;
+              color: #99521c;
+  
+              ion-icon {
+                font-size: 16px;
+              }
+            }
+          }
+  
+          // Item de loja
+          .store-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #f5f5f5;
+            transition: all 0.2s ease;
+  
+            &:last-child {
+              border-bottom: none;
+            }
+  
+            &:hover {
+              background: rgba(153, 82, 28, 0.02);
+              padding-left: 8px;
+              padding-right: 8px;
+              margin: 0 -8px;
+              border-radius: 8px;
+            }
+  
+            .store-info {
+              flex: 1;
+  
+              .store-name {
+                font-size: 14px;
+                font-weight: 600;
+                color: #2c1810;
+              }
+            }
+  
+            .store-action {
+              display: flex;
+              align-items: center;
+              gap: 12px;
+  
+              .price {
+                display: flex;
+                align-items: baseline;
+                gap: 2px;
+  
+                .currency {
+                  font-size: 12px;
+                  color: #99521c;
+                  font-weight: 600;
+                }
+  
+                .value {
+                  font-size: 16px;
+                  font-weight: 800;
+                  color: #99521c;
+                }
+              }
+  
+              .add-btn {
+                --background: linear-gradient(135deg, #99521c, #b8652a);
+                --color: white;
+                --border-radius: 10px;
+                width: 36px;
+                height: 36px;
+                margin: 0;
+                transition: all 0.3s ease;
+                box-shadow: 0 2px 8px rgba(153, 82, 28, 0.2);
+  
+                &:hover {
+                  --background: linear-gradient(135deg, #b8652a, #d17a33);
+                  transform: scale(1.1);
+                  box-shadow: 0 4px 16px rgba(153, 82, 28, 0.3);
+                }
+  
+                ion-icon {
+                  font-size: 18px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  
+    .no-results {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 20px;
+      text-align: center;
+  
+      .no-results-icon {
+        width: 100px;
+        height: 100px;
+        background: linear-gradient(135deg, rgba(153, 82, 28, 0.1), rgba(153, 82, 28, 0.05));
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 24px;
+  
+        ion-icon {
+          font-size: 48px;
+          color: #99521c;
+        }
+      }
+  
+      h3 {
+        font-size: 20px;
+        font-weight: 700;
+        color: #2c1810;
+        margin: 0 0 8px;
+        font-family: "Nunito", sans-serif;
+      }
+  
+      p {
+        font-size: 14px;
+        color: #666;
+        margin: 0;
+      }
+    }
+  }
+  
+  // Bottom Navigation
+  .fixed-bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #99521c;
+    z-index: 1000;
+    padding: 8px 0;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+  
+    .nav-content {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 0 16px;
+  
+      .nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        color: rgba(255, 255, 255, 0.7);
+        cursor: pointer;
+        padding: 8px 12px;
+        border-radius: 12px;
+        transition: all 0.3s ease;
+        font-family: "Nunito", sans-serif;
+  
+        &.active {
+          color: #ffd700;
+          background: rgba(255, 215, 0, 0.1);
+        }
+  
+        &:hover {
+          color: #ffd700;
+          transform: translateY(-2px);
+        }
+  
+        ion-icon {
+          font-size: 22px;
+          margin-bottom: 4px;
+        }
+  
+        span {
+          font-size: 12px;
+          font-weight: 600;
+        }
+      }
+    }
+  }
+
