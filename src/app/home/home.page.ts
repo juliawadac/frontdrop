@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Router } from '@angular/router';
 import { AuthService, Usuario } from '../services/auth.service';
-import { Estabelecimento, EstabelecimentoService } from '../services/estabelecimento.service'; // 1. IMPORTAR
+import { Estabelecimento, EstabelecimentoService } from '../services/estabelecimento.service';
 
 @Component({
   selector: 'app-home',
@@ -19,37 +19,41 @@ export class HomePage implements OnInit {
   activeCategory: string = 'comida';
   selectedCategory: string = 'comida';
 
-  // 2. CRIAR LISTA PARA ARMAZENAR OS DADOS
+  // Lista principal que recebe todos os dados
   estabelecimentos: Estabelecimento[] = [];
+
+  // ✅ Listas filtradas para cada categoria
+  estabelecimentosComida: Estabelecimento[] = [];
+  estabelecimentosMercado: Estabelecimento[] = [];
+  estabelecimentosFarmacia: Estabelecimento[] = [];
+  estabelecimentosConstrucao: Estabelecimento[] = [];
 
   constructor(
     private authService: AuthService,
     private router: Router,
-    private estabelecimentoService: EstabelecimentoService // 3. INJETAR O SERVIÇO
+    private estabelecimentoService: EstabelecimentoService
   ) {}
 
   ngOnInit() {
     this.authService.currentUser$.subscribe((user: Usuario | null) => {
       if (user) {
-        this.nomeUsuario = `${user.nome} ${user.sobrenome}`;
+        // O teu auth.service.ts não define 'sobrenome' no currentUser$, vamos usar apenas o nome
+        this.nomeUsuario = user.nome; 
       } else {
         this.nomeUsuario = 'Usuário';
       }
     });
     
-    // 4. CHAMAR O MÉTODO PARA CARREGAR OS DADOS
     this.carregarEstabelecimentos();
-
     this.selectedCategory = this.activeCategory;
-    this.observeScroll();
   }
 
-  // 5. CRIAR O MÉTODO QUE BUSCA OS DADOS
   carregarEstabelecimentos() {
     this.estabelecimentoService.getEstabelecimentos().subscribe(
       (data) => {
         this.estabelecimentos = data;
-        console.log('Estabelecimentos carregados:', this.estabelecimentos);
+        // ✅ Chama a função de filtro assim que os dados chegam
+        this.filtrarEstabelecimentos();
       },
       (error) => {
         console.error('Erro ao carregar estabelecimentos:', error);
@@ -57,7 +61,15 @@ export class HomePage implements OnInit {
     );
   }
 
-  // SEUS MÉTODOS ORIGINAIS (mantidos)
+  // ✅ NOVA FUNÇÃO PARA FILTRAR OS ESTABELECIMENTOS
+  filtrarEstabelecimentos() {
+    this.estabelecimentosComida = this.estabelecimentos.filter(e => e.categoria_id === 1);
+    this.estabelecimentosMercado = this.estabelecimentos.filter(e => e.categoria_id === 2);
+    this.estabelecimentosFarmacia = this.estabelecimentos.filter(e => e.categoria_id === 3);
+    this.estabelecimentosConstrucao = this.estabelecimentos.filter(e => e.categoria_id === 4);
+  }
+
+  // ... (resto das tuas funções: scrollTo, setActiveAndScroll, etc.)
   scrollTo(id: string) {
     const el = document.getElementById(id);
     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -65,8 +77,7 @@ export class HomePage implements OnInit {
 
   setActiveAndScroll(category: string) {
     this.activeCategory = category;
-    this.selectedCategory = category;
-    this.scrollTo(category);
+    this.selectedCategory = category; 
   }
 
   selectCategory(category: string) {
@@ -75,20 +86,29 @@ export class HomePage implements OnInit {
 
   goToProfile() {
     console.log('Navegando para perfil');
+    this.router.navigate(['/perfil']);
   }
 
   goToTab(tab: string) {
-    console.log('Navegando para tab:', tab);
-    // Lógica de navegação
+    switch (tab) {
+      case 'home':
+        this.router.navigate(['/home']);
+        break;
+      case 'search':
+        console.log('Buscar - implementar rota futura');
+        break;
+      case 'orders':
+        this.router.navigate(['/sacola']);
+        break;
+      case 'profile':
+        this.goToProfile();
+        break;
+      default:
+        console.log('Tab não configurada:', tab);
+    }
   }
 
-  goToEstablishment(id: number) { // Modificado para receber o ID
-    console.log('Navegando para estabelecimento com ID:', id);
-    // A URL ficará /estabelecimento/1, /estabelecimento/2, etc.
+  goToEstablishment(id: number) {
     this.router.navigate(['/estabelecimento', id]);
-  }
-  
-  private observeScroll() {
-    // ... seu código original
   }
 }

@@ -9,8 +9,9 @@ export interface Estabelecimento {
   nome: string;
   localizacao: string;
   tempo_de_espera: number | null;
-  logo_url?: string;   // ✅ Adicionado
-  banner_url?: string; // ✅ Adicionado
+  logo_url?: string;   
+  banner_url?: string; 
+  categoria_id?: number;
 }
 
 export interface Produto {
