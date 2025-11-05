@@ -1,0 +1,171 @@
+<ion-content [fullscreen]="true" class="search-content">
+  
+    <!-- Header -->
+    <div class="search-header">
+      <h1>Buscar Produtos</h1>
+      <p>Encontre o que você procura</p>
+    </div>
+  
+    <!-- Barra de pesquisa SEM BORDA -->
+    <div class="search-bar-container">
+      <div class="search-input-wrapper">
+        <ion-icon name="search-outline" class="search-icon"></ion-icon>
+        <ion-input
+          type="text"
+          placeholder="Buscar produtos..."
+          [(ngModel)]="searchTerm"
+          (ionInput)="onSearchChange()"
+          (ionBlur)="onSearchFinished()"
+          (keyup.enter)="onSearchFinished()"
+          class="search-input">
+        </ion-input>
+        <ion-button 
+          *ngIf="searchTerm"
+          fill="clear" 
+          class="clear-btn"
+          (click)="clearSearch()">
+          <ion-icon name="close-circle"></ion-icon>
+        </ion-button>
+      </div>
+      
+      <ion-button 
+        class="filter-btn"
+        (click)="openCategoryFilter()">
+        <ion-icon name="filter-outline"></ion-icon>
+      </ion-button>
+    </div>
+  
+    <!-- Filtros selecionados -->
+    <div class="selected-filters" *ngIf="selectedCategories.length > 0">
+      <div class="filter-chips">
+        <ion-chip 
+          *ngFor="let category of selectedCategories"
+          class="category-chip"
+          (click)="removeCategory(category)">
+          <ion-label>{{ category }}</ion-label>
+          <ion-icon name="close-circle"></ion-icon>
+        </ion-chip>
+        <ion-button 
+          fill="clear" 
+          size="small"
+          class="clear-all-btn"
+          (click)="clearAllCategories()">
+          Limpar filtros
+        </ion-button>
+      </div>
+    </div>
+  
+    <!-- Buscas recentes - DESIGN MELHORADO -->
+    <div class="recent-searches" *ngIf="!searchTerm && recentSearches.length > 0">
+      <div class="section-header">
+        <h3>Buscas Recentes</h3>
+        <ion-button fill="clear" size="small" (click)="clearRecentSearches()" class="clear-link">
+          Limpar histórico
+        </ion-button>
+      </div>
+      <div class="recent-items">
+        <div 
+          class="recent-item"
+          *ngFor="let recent of recentSearches"
+          (click)="selectRecentSearch(recent)">
+          <ion-icon name="time-outline"></ion-icon>
+          <span>{{ recent }}</span>
+          <ion-icon name="arrow-forward-outline" class="arrow-icon"></ion-icon>
+        </div>
+      </div>
+    </div>
+  
+    <!-- RESULTADOS: Produtos com lojas -->
+    <div class="search-results" *ngIf="searchTerm || selectedCategories.length > 0">
+      
+      <div class="loading-container" *ngIf="isSearching">
+        <ion-spinner name="crescent"></ion-spinner>
+        <p>Buscando produtos...</p>
+      </div>
+  
+      <div class="results-container" *ngIf="!isSearching && filteredProducts.length > 0">
+        <div class="results-header">
+          <h3>{{ filteredProducts.length }} resultado(s)</h3>
+        </div>
+        
+        <!-- Lista de PRODUTOS ÚNICOS -->
+        <div class="products-list">
+          <div 
+            class="product-card"
+            *ngFor="let product of filteredProducts">
+            
+            <div class="product-header">
+              <h4>{{ product.nome }}</h4>
+              <span class="category-badge">{{ product.categoria }}</span>
+            </div>
+            
+            <p class="product-description">{{ product.descricao }}</p>
+            
+            <!-- Lista de LOJAS que vendem este produto -->
+            <div class="stores-section">
+              <div class="stores-header">
+                <span class="stores-count">
+                  <ion-icon name="storefront-outline"></ion-icon>
+                  {{ getEstablishmentsForProduct(product.nome).length }} loja(s)
+                </span>
+              </div>
+              
+              <!-- Cada loja com preço -->
+              <div class="store-item" *ngFor="let storeProduct of getEstablishmentsForProduct(product.nome)">
+                <div class="store-info">
+                  <span class="store-name">{{ storeProduct.estabelecimento }}</span>
+                </div>
+                
+                <div class="store-action">
+                  <span class="price">
+                    <span class="currency">R$</span>
+                    <span class="value">{{ storeProduct.preco | number:'1.2-2' }}</span>
+                  </span>
+                  <ion-button 
+                    size="small" 
+                    class="add-btn"
+                    (click)="addToCartFromStore(storeProduct, $event)">
+                    <ion-icon name="add-outline"></ion-icon>
+                  </ion-button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <div class="no-results" *ngIf="!isSearching && filteredProducts.length === 0">
+        <div class="no-results-icon">
+          <ion-icon name="search-outline"></ion-icon>
+        </div>
+        <h3>Nenhum produto encontrado</h3>
+        <p>Tente buscar com outros termos ou categorias</p>
+      </div>
+    </div>
+  
+    <!-- Bottom Navigation -->
+    <div class="fixed-bottom-nav">
+      <div class="nav-content">
+        <div class="nav-item" [routerLink]="['/home']">
+          <ion-icon name="home"></ion-icon>
+          <span>Início</span>
+        </div>
+        
+        <div class="nav-item active">
+          <ion-icon name="search"></ion-icon>
+          <span>Buscar</span>
+        </div>
+        
+        <div class="nav-item" [routerLink]="['/sacola']">
+          <ion-icon name="bag-handle"></ion-icon>
+          <span>Sacola</span>
+        </div>
+        
+        <div class="nav-item">
+          <ion-icon name="person"></ion-icon>
+          <span>Perfil</span>
+        </div>
+      </div>
+    </div>
+  
+  </ion-content>

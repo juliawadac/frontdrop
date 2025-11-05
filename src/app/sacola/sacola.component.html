@@ -41,16 +41,7 @@
       <div class="cart-item-enhanced" *ngFor="let item of cartItems; let i = index" 
            [class.removing]="item.removing">
         
-        <div class="item-image-container">
-          <div class="item-image">
-            <img [src]="item.image || '../../assets/placeholder-food.png'" 
-                 [alt]="item.name" 
-                 onerror="this.src='../../assets/placeholder-food.png'" />
-          </div>
-          <div class="item-badge">
-            <ion-icon name="checkmark"></ion-icon>
-          </div>
-        </div>
+       
 
         <div class="item-details">
           <div class="item-main-info">
