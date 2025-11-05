@@ -1,10 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { IonicModule } from '@ionic/angular';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { IonicModule, ToastController } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Router } from '@angular/router';
 import { AuthService, Usuario } from '../services/auth.service';
 import { Estabelecimento, EstabelecimentoService } from '../services/estabelecimento.service';
+import { Subscription } from 'rxjs';
+
+// Interface para o 'state' que esperamos receber
+interface NavigationState {
+  showToast: boolean;
+  message: string;
+  color: 'success' | 'warning' | 'danger';
+}
 
 @Component({
   selector: 'app-home',
@@ -13,55 +21,92 @@ import { Estabelecimento, EstabelecimentoService } from '../services/estabelecim
   standalone: true,
   imports: [IonicModule, CommonModule, FormsModule, RouterModule]
 })
-export class HomePage implements OnInit {
+export class HomePage implements OnInit, OnDestroy {
 
   nomeUsuario: string = 'Usuário';
   activeCategory: string = 'comida';
   selectedCategory: string = 'comida';
 
-  // Lista principal que recebe todos os dados
+  // Listas
   estabelecimentos: Estabelecimento[] = [];
-
-  // ✅ Listas filtradas para cada categoria
   estabelecimentosComida: Estabelecimento[] = [];
   estabelecimentosMercado: Estabelecimento[] = [];
   estabelecimentosFarmacia: Estabelecimento[] = [];
   estabelecimentosConstrucao: Estabelecimento[] = [];
 
+  private estabSub: Subscription | undefined;
+  
+  // ✅ 1. Variável para guardar o state lido no construtor
+  private toastState: NavigationState | null = null;
+
   constructor(
     private authService: AuthService,
     private router: Router,
-    private estabelecimentoService: EstabelecimentoService
-  ) {}
+    private estabelecimentoService: EstabelecimentoService,
+    private toastController: ToastController
+  ) {
+    // ✅ 2. CORREÇÃO: Ler o state da navegação AQUI (no construtor)
+    const navigation = this.router.getCurrentNavigation();
+    const state = navigation?.extras.state as NavigationState;
+
+    if (state && state.showToast) {
+      this.toastState = state;
+      // Limpa o state do histórico do navegador para não aparecer de novo
+      this.router.navigate([], { replaceUrl: true, state: {} });
+    }
+  }
 
   ngOnInit() {
     this.authService.currentUser$.subscribe((user: Usuario | null) => {
-      if (user) {
-        // O teu auth.service.ts não define 'sobrenome' no currentUser$, vamos usar apenas o nome
-        this.nomeUsuario = user.nome; 
-      } else {
-        this.nomeUsuario = 'Usuário';
-      }
+      this.nomeUsuario = user?.nome || 'Usuário';
     });
     
-    this.carregarEstabelecimentos();
-    this.selectedCategory = this.activeCategory;
-  }
-
-  carregarEstabelecimentos() {
-    this.estabelecimentoService.getEstabelecimentos().subscribe(
+    // Inscreve-se no observable do serviço (como corrigimos antes)
+    this.estabSub = this.estabelecimentoService.estabelecimentos$.subscribe(
       (data) => {
         this.estabelecimentos = data;
-        // ✅ Chama a função de filtro assim que os dados chegam
         this.filtrarEstabelecimentos();
       },
       (error) => {
         console.error('Erro ao carregar estabelecimentos:', error);
       }
     );
+    
+    this.selectedCategory = this.activeCategory;
   }
 
-  // ✅ NOVA FUNÇÃO PARA FILTRAR OS ESTABELECIMENTOS
+  // ✅ 3. Mostrar o Toast no 'ionViewWillEnter'
+  ionViewWillEnter() {
+    // Se o construtor capturou um toast, mostramos agora
+    if (this.toastState) {
+      this.showToast(this.toastState.message, this.toastState.color);
+      // Reseta a variável para não mostrar de novo
+      this.toastState = null;
+    }
+  }
+
+  ngOnDestroy() {
+    if (this.estabSub) {
+      this.estabSub.unsubscribe();
+    }
+  }
+
+  // ✅ 4. REMOVEMOS a função 'checkNavigationState'
+  // (pois a lógica agora está no constructor e no ionViewWillEnter)
+
+  // Função para mostrar o Toast (notificação)
+  private async showToast(message: string, color: 'success' | 'warning' | 'danger') {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 3000,
+      color: color,
+      position: 'top',
+      icon: color === 'success' ? 'checkmark-circle-outline' : 'alert-circle-outline'
+    });
+    await toast.present(); // Garantir que o toast seja apresentado
+  }
+
+  // (O restante das suas funções permanece igual)
   filtrarEstabelecimentos() {
     this.estabelecimentosComida = this.estabelecimentos.filter(e => e.categoria_id === 1);
     this.estabelecimentosMercado = this.estabelecimentos.filter(e => e.categoria_id === 2);
@@ -69,7 +114,6 @@ export class HomePage implements OnInit {
     this.estabelecimentosConstrucao = this.estabelecimentos.filter(e => e.categoria_id === 4);
   }
 
-  // ... (resto das tuas funções: scrollTo, setActiveAndScroll, etc.)
   scrollTo(id: string) {
     const el = document.getElementById(id);
     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -95,7 +139,7 @@ export class HomePage implements OnInit {
         this.router.navigate(['/home']);
         break;
       case 'search':
-        console.log('Buscar - implementar rota futura');
+        this.router.navigate(['/search']);
         break;
       case 'orders':
         this.router.navigate(['/sacola']);
