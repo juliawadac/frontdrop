@@ -87,7 +87,7 @@
       span {
         font-size: 11px; // Reduzido de 12px para 11px
         font-weight: 600;
-        color: #666;
+        color:#99521c;
         text-transform: uppercase;
         letter-spacing: 0.3px; // Reduzido de 0.5px
         display: block;
@@ -126,7 +126,7 @@
       h2 {
         font-size: 22px;
         font-weight: 700;
-        color: #2c1810;
+        color: #99521c;
         margin: 0;
       }
 
@@ -139,144 +139,148 @@
     .establishments-grid {
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 12px;
 
       .establishment-card {
-        border-radius: 20px;
+        border-radius: 16px;
         overflow: hidden;
-        box-shadow: 0 6px 25px rgba(0,0,0,0.1);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
         transition: all 0.3s ease;
         cursor: pointer;
+        background: white;
 
         &:hover {
-          transform: translateY(-4px);
-          box-shadow: 0 12px 40px rgba(0,0,0,0.15);
-        }
-
-        &.featured {
-          box-shadow: 0 8px 30px rgba(153,82,28,0.2);
+          transform: translateY(-2px);
+          box-shadow: 0 4px 16px rgba(0,0,0,0.12);
         }
 
         .card-background {
-          height: 120px;
+          height: auto;
           position: relative;
-          background-size: cover;
-          background-position: center;
+          background: white;
           
-          &.mcdonalds {
-            background: linear-gradient(135deg, #ffcc02, #da291c);
-          }
-
-          &.pizzahut {
-            background: linear-gradient(135deg, #ee3124, #ffc72c);
-          }
-
-          &.habibs {
-            background: linear-gradient(135deg, #e31e24, #ffffff);
-          }
-
-          &.confianca {
-            background: linear-gradient(135deg, #1e88e5, #ffffff);
-          }
-
-          &.atacadao {
-            background: linear-gradient(135deg, #ff6b35, #f7931e);
-          }
-
-          &.extra {
-            background: linear-gradient(135deg, #0066cc, #ffffff);
-          }
-
-          &.farmacia {
-            background: linear-gradient(135deg, #00a651, #ffffff);
-          }
-
-          &.farmacia2 {
-            background: linear-gradient(135deg, #e31e24, #ffffff);
-          }
-
-          &.construcao {
-            background: linear-gradient(135deg, #00a651, #005c98);
-          }
-
-          &.construcao2 {
-            background: linear-gradient(135deg, #ff6b00, #0066cc);
-          }
-
           .card-content {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: rgba(0,0,0,0.7);
-            backdrop-filter: blur(10px);
-            color: white;
+            position: relative;
+            background: white;
             padding: 16px;
             display: flex;
             align-items: center;
             gap: 16px;
 
             .logo {
-              width: 50px;
-              height: 50px;
-              background: rgba(255,255,255,0.2);
+              width: 60px;
+              height: 60px;
+              background: #f8f8f8;
               border-radius: 12px;
               display: flex;
               align-items: center;
               justify-content: center;
-              border: 2px solid rgba(255,255,255,0.3);
+              flex-shrink: 0;
+              border: 1px solid #f0f0f0;
 
               img {
-                width: 35px;
-                height: 35px;
+                width: 45px;
+                height: 45px;
                 border-radius: 8px;
+                object-fit: contain;
               }
 
               ion-icon {
-                font-size: 24px;
-                color: white;
+                font-size: 28px;
+                color: #99521c;
               }
             }
 
             .info {
               flex: 1;
+              min-width: 0;
 
               h3 {
                 font-size: 16px;
-                font-weight: 700;
+                font-weight: 600;
                 margin: 0 0 8px;
-                color: white;
+                color: #99521c;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
               }
 
               .details {
                 display: flex;
                 gap: 16px;
+                align-items: center;
 
                 .rating, .time {
                   display: flex;
                   align-items: center;
                   gap: 4px;
-                  font-size: 12px;
-                  color: rgba(255,255,255,0.9);
+                  font-size: 13px;
+                  color: #666;
+                  font-weight: 500;
 
                   ion-icon {
-                    font-size: 14px;
+                    font-size: 16px;
                   }
                 }
 
-                .rating ion-icon {
-                  color: #ffd700;
+                .rating {
+                  span {
+                    color: #99521c;
+                    font-weight: 600;
+                  }
+                  
+                  ion-icon {
+                    color: #ffa726;
+                  }
                 }
 
-                .time ion-icon {
-                  color: rgba(255,255,255,0.7);
+                .time {
+                  ion-icon {
+                    color: #99521c;
+                  }
                 }
               }
             }
           }
         }
+
+        // Borda colorida sutil no topo para diferenciar categorias
+        &::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          height: 3px;
+          background: linear-gradient(90deg, #99521c, #d4956e);
+          opacity: 0;
+          transition: opacity 0.3s ease;
+        }
+
+        &:hover::before {
+          opacity: 1;
+        }
+      }
+
+      .empty-category {
+        text-align: center;
+        padding: 40px 20px;
+        color: #999;
+        font-size: 14px;
       }
     }
+  }
+}
+
+// Animação fadeInUp
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
