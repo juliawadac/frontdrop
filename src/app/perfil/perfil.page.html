@@ -1,0 +1,129 @@
+<ion-content [fullscreen]="true" class="perfil-container">
+
+  <!-- Header Premium com Background Gradient -->
+  <div class="header-premium">
+    <!-- Background decorativo -->
+    <div class="header-decoration"></div>
+    
+    <div class="header-content">
+      <!-- Avatar com efeito 3D -->
+      <div class="avatar-wrapper" (click)="editarFotoPerfil()">
+        <div class="avatar-ring"></div>
+        <div class="avatar-image">
+          <ion-icon name="person"></ion-icon>
+        </div>
+        <div class="camera-badge">
+          <ion-icon name="camera"></ion-icon>
+        </div>
+      </div>
+      
+      <!-- Info do usuário -->
+      <div class="user-details">
+        <h1 class="user-name">{{ nomeUsuario }}</h1>
+        <p class="user-email">{{ emailUsuario }}</p>
+        <div class="user-badge">
+          <ion-icon name="shield-checkmark"></ion-icon>
+          <span>Conta Verificada</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Estatísticas Cards -->
+  <div class="stats-wrapper">
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon pedidos">
+          <ion-icon name="receipt"></ion-icon>
+        </div>
+        <div class="stat-info">
+          <h3>12</h3>
+          <p>Pedidos</p>
+        </div>
+      </div>
+      
+      <div class="stat-card">
+        <div class="stat-icon favoritos">
+          <ion-icon name="heart"></ion-icon>
+        </div>
+        <div class="stat-info">
+          <h3>8</h3>
+          <p>Favoritos</p>
+        </div>
+      </div>
+      
+      <div class="stat-card">
+        <div class="stat-icon avaliacao">
+          <ion-icon name="star"></ion-icon>
+        </div>
+        <div class="stat-info">
+          <h3>4.8</h3>
+          <p>Avaliação</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Menu Principal -->
+  <div class="main-content">
+    <div class="section-header">
+      <h2>MINHA CONTA</h2>
+      <div class="section-line"></div>
+    </div>
+    
+    <div class="menu-container">
+      <div *ngFor="let opcao of opcoesPerfil" 
+           class="menu-card" 
+           (click)="navegarPara(opcao.rota)">
+        <div class="menu-icon-wrapper">
+          <div class="icon-background" [class]="opcao.classe"></div>
+          <ion-icon [name]="opcao.icone" class="menu-icon-main"></ion-icon>
+        </div>
+        <div class="menu-text">
+          <h3>{{ opcao.titulo }}</h3>
+          <p>{{ opcao.subtitulo }}</p>
+        </div>
+        <ion-icon name="chevron-forward" class="chevron"></ion-icon>
+      </div>
+    </div>
+  </div>
+
+  <!-- Botão Logout -->
+  <div class="logout-container">
+    <button class="logout-btn" (click)="sair()">
+      <ion-icon name="log-out-outline"></ion-icon>
+      <span>Sair da Conta</span>
+    </button>
+  </div>
+
+  <!-- Versão -->
+  <div class="version-info">
+    <p>Versão 1.0.0 • © 2024</p>
+  </div>
+
+  <!-- Bottom Navigation Premium -->
+  <div class="fixed-bottom-nav">
+    <div class="nav-content">
+      <div class="nav-item " [routerLink]="['/home']">
+        <ion-icon name="home"></ion-icon>
+        <span>Início</span>
+      </div>
+      
+      <div class="nav-item" [routerLink]="['/search']">
+        <ion-icon name="search"></ion-icon>
+        <span>Buscar</span>
+      </div>
+      
+       <div class="nav-item" [routerLink]="['/sacola']">
+        <ion-icon name="bag-handle"></ion-icon>
+        <span>Sacola</span>
+      </div>
+      
+      <div class="nav-item active" [routerLink]="['/perfil']">
+        <ion-icon name="person"></ion-icon>
+        <span>Perfil</span>
+      </div>
+    </div>
+  </div>
+
+</ion-content>
