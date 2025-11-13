@@ -126,7 +126,8 @@ export class EstabelecimentoPage implements OnInit, OnDestroy {
       store: nomeEstabelecimento,
       price: produto.preco,
       image: '../../assets/mcdonalds-food.png',
-      quantity: produto.quantidade
+      quantity: produto.quantidade,
+      estabelecimentoId: this.estabelecimentoId
     };
 
     const itemExistente = carrinhoExistente.findIndex(
