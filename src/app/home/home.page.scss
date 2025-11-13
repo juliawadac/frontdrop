@@ -294,12 +294,17 @@
   z-index: 1000;
   padding: 8px 0;
   box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+  
+  // ALTURA FIXA OBRIGATÓRIA
+  height: 70px;
 
   .nav-content {
     display: flex;
     justify-content: space-around;
     align-items: center;
+    height: 100%;
     padding: 0 16px;
+  
 
     .nav-item {
       display: flex;
@@ -333,7 +338,9 @@
     }
   }
 }
-
+ion-content {
+  --padding-bottom: 85px !important;
+}
 // Animações
 @keyframes fadeInUp {
   from {
