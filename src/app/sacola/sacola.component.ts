@@ -37,6 +37,11 @@ export class SacolaPage implements OnInit {
     private toastController: ToastController
   ) {}
 
+  // ✅ CHAVE DINÂMICA: Cria um nome único para a sacola de cada utilizador
+  get cartKey(): string {
+    return this.usuarioId ? `carrinho_${this.usuarioId}` : 'carrinho_visitante';
+  }
+
   ngOnInit() {
     this.authService.currentUser$.subscribe(user => {
       if (user && user.id) {
@@ -44,6 +49,8 @@ export class SacolaPage implements OnInit {
       } else {
         this.usuarioId = null;
       }
+      // ✅ Sempre que mudar de utilizador (login/logout), recarrega a sacola certa
+      this.loadCartFromStorage();
     });
   }
 
@@ -52,15 +59,19 @@ export class SacolaPage implements OnInit {
     this.checkPaymentStatus();
   }
 
+  // ✅ Usa a cartKey para puxar os dados
   private loadCartFromStorage() {
-    const savedCart = localStorage.getItem('carrinho');
+    const savedCart = localStorage.getItem(this.cartKey);
     if (savedCart) {
       this.cartItems = JSON.parse(savedCart);
+    } else {
+      this.cartItems = []; // Garante que a sacola fica limpa para novos utilizadores
     }
   }
 
+  // ✅ Usa a cartKey para guardar os dados
   private saveCartToStorage() {
-    localStorage.setItem('carrinho', JSON.stringify(this.cartItems));
+    localStorage.setItem(this.cartKey, JSON.stringify(this.cartItems));
   }
 
   get subtotal(): number {
@@ -70,26 +81,22 @@ export class SacolaPage implements OnInit {
     }, 0);
   }
 
-  // ✅ 1. FUNÇÃO 'addItem' CORRIGIDA (para ser imutável)
   addItem(item: CartItem) {
     const existingItemIndex = this.cartItems.findIndex(
       cartItem => cartItem.name === item.name && cartItem.store === item.store
     );
 
     if (existingItemIndex !== -1) {
-      // Cria um NOVO array usando .map
       this.cartItems = this.cartItems.map((cartItem, index) => {
         if (index === existingItemIndex) {
-          // Retorna um NOVO objeto para o item atualizado
           return {
             ...cartItem,
             quantity: (cartItem.quantity || 0) + (item.quantity || 1)
           };
         }
-        return cartItem; // Retorna os outros itens como estão
+        return cartItem; 
       });
     } else {
-      // Cria um NOVO array usando spread operator (...)
       this.cartItems = [
         ...this.cartItems, 
         { ...item, quantity: item.quantity || 1 }
@@ -99,21 +106,17 @@ export class SacolaPage implements OnInit {
     this.saveCartToStorage();
   }
 
-  // ✅ 2. FUNÇÃO 'updateQuantity' CORRIGIDA (para ser imutável)
   updateQuantity(index: number, change: number) {
     const item = this.cartItems[index];
-    if (!item) return; // Checagem de segurança
+    if (!item) return; 
 
     const newQuantity = (item.quantity || 0) + change;
 
     if (newQuantity <= 0) {
-      // Deixa a função removeItem (que também foi corrigida) fazer o trabalho
       this.removeItem(index);
     } else {
-      // Cria um NOVO array usando .map
       this.cartItems = this.cartItems.map((cartItem, i) => {
         if (i === index) {
-          // Retorna um NOVO objeto para o item atualizado
           return { ...cartItem, quantity: newQuantity };
         }
         return cartItem;
@@ -123,16 +126,15 @@ export class SacolaPage implements OnInit {
     }
   }
 
-  // ✅ 3. FUNÇÃO 'removeItem' CORRIGIDA (para ser imutável)
   removeItem(index: number) {
-    // Cria um NOVO array usando .filter
     this.cartItems = this.cartItems.filter((_, i) => i !== index);
     this.saveCartToStorage();
   }
 
+  // ✅ Usa a cartKey para limpar a sacola correta
   clearCart() {
     this.cartItems = [];
-    localStorage.removeItem('carrinho');
+    localStorage.removeItem(this.cartKey);
   }
 
   async placeOrder() {

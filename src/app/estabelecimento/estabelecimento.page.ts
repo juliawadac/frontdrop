@@ -6,6 +6,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { EstabelecimentoService, Estabelecimento, Produto } from '../services/estabelecimento.service';
 import { HttpClientModule } from '@angular/common/http';
+// ✅ 1. Importar o AuthService
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-estabelecimento',
@@ -19,25 +21,38 @@ export class EstabelecimentoPage implements OnInit, OnDestroy {
   produtos: Produto[] = [];
   tempoEspera = 90;
   isLoading = true;
-  estabelecimentoId: number = 1; // padrão para McDonald's
+  estabelecimentoId: number = 1; 
   private subscription: Subscription = new Subscription();
+  
+  // ✅ 2. Variável para guardar o ID do utilizador
+  private usuarioId: number | null = null; 
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private estabelecimentoService: EstabelecimentoService
+    private estabelecimentoService: EstabelecimentoService,
+    private authService: AuthService // ✅ 3. Injetar o AuthService
   ) {}
 
+  // ✅ 4. CHAVE DINÂMICA idêntica à da Sacola
+  get cartKey(): string {
+    return this.usuarioId ? `carrinho_${this.usuarioId}` : 'carrinho_visitante';
+  }
+
   ngOnInit() {
-    // Pega o ID do estabelecimento da rota da URL
+    // ✅ 5. Subscrever para saber quem está logado
+    const authSub = this.authService.currentUser$.subscribe(user => {
+      this.usuarioId = user?.id || null;
+    });
+    this.subscription.add(authSub);
+
     const idParam = this.route.snapshot.paramMap.get('id');
     if (idParam) {
-      this.estabelecimentoId = +idParam; // O '+' converte a string para número
+      this.estabelecimentoId = +idParam; 
       this.carregarEstabelecimento();
       this.carregarProdutos();
     } else {
       console.error('ID do estabelecimento não encontrado na rota!');
-      // Você pode redirecionar o usuário ou mostrar uma mensagem de erro
     }
   }
 
@@ -53,7 +68,6 @@ export class EstabelecimentoPage implements OnInit, OnDestroy {
       },
       error: (error) => {
         console.error('Erro ao carregar estabelecimento:', error);
-        // Fallback para dados estáticos se não conseguir carregar
         this.estabelecimento = {
           id: this.estabelecimentoId,
           nome: "McDonald's",
@@ -69,16 +83,14 @@ export class EstabelecimentoPage implements OnInit, OnDestroy {
   carregarProdutos() {
     const sub = this.estabelecimentoService.getProdutosPorEstabelecimento(this.estabelecimentoId).subscribe({
       next: (produtosDoBanco) => {
-        // Mapeia produtos do banco para o formato usado no componente
         this.produtos = produtosDoBanco.map(produto => ({
           ...produto,
-          quantidade: 0 // Sempre inicia com 0 no carrinho
+          quantidade: 0 
         }));
         this.isLoading = false;
       },
       error: (error) => {
         console.error('Erro ao carregar produtos:', error);
-        // Fallback para produtos estáticos se não conseguir carregar do banco
         this.produtos = [
           { id: 1, nome: 'Big Mac', descricao: 'Dois hambúrgueres...', preco: 24.90, quantidade: 0, categoria_id: 1 },
           { id: 2, nome: 'Quarter Pounder', descricao: 'Hambúrguer 100% bovino...', preco: 28.90, quantidade: 0, categoria_id: 1 },
@@ -118,7 +130,8 @@ export class EstabelecimentoPage implements OnInit, OnDestroy {
     const produto = this.produtos[index];
     if (produto.quantidade === 0) return;
 
-    const carrinhoExistente = JSON.parse(localStorage.getItem('carrinho') || '[]');
+    // ✅ 6. Usamos a this.cartKey em vez da string fixa 'carrinho'
+    const carrinhoExistente = JSON.parse(localStorage.getItem(this.cartKey) || '[]');
     const nomeEstabelecimento = this.estabelecimento?.nome || "McDonald's";
     
     const itemCarrinho = {
@@ -140,7 +153,8 @@ export class EstabelecimentoPage implements OnInit, OnDestroy {
       carrinhoExistente.push(itemCarrinho);
     }
 
-    localStorage.setItem('carrinho', JSON.stringify(carrinhoExistente));
+    // ✅ 7. Guardamos novamente com a this.cartKey correta
+    localStorage.setItem(this.cartKey, JSON.stringify(carrinhoExistente));
     this.produtos[index].quantidade = 0;
     this.mostrarToastSucesso(`${produto.nome} adicionado à sacola!`);
   }
