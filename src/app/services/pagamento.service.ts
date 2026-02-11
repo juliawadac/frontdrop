@@ -1,4 +1,3 @@
-// src/app/services/pagamento.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -21,7 +20,8 @@ export class PagamentoService {
    * Chama o backend para criar a sessão de checkout no Stripe
    */
   criarSessaoCheckout(cartItems: any[], usuarioId: number, estabelecimentoId: number): Observable<{ url: string }> {
-    return this.http.post<{ url: string }>(`${this.apiUrl}/criar-checkout`, {
+    // ⚠️ CORREÇÃO AQUI: Ajustamos o final da URL para bater exatamente com a rota do seu Node.js
+    return this.http.post<{ url: string }>(`${this.apiUrl}/create-checkout-session`, {
       cartItems,
       usuarioId,
       estabelecimentoId
