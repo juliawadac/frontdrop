@@ -169,7 +169,7 @@ export class EstabelecimentoPage implements OnInit, OnDestroy {
         this.router.navigate(['/home']);
         break;
       case 'search':
-        this.router.navigate(['/estabelecimentos']);
+        this.router.navigate(['/search']);
         break;
       case 'orders':
         this.irParaSacola();
