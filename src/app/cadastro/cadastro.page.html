@@ -1,6 +1,5 @@
 <ion-content class="cadastro-content">
   
-  <!-- Background decorativo -->
   <div class="background-decoration">
     <div class="circle circle-1"></div>
     <div class="circle circle-2"></div>
@@ -9,7 +8,6 @@
 
   <div class="cadastro-container">
     
-    <!-- Header -->
     <div class="header-section">
       <div class="logo-container">
         <div class="logo-wrapper">
@@ -18,16 +16,18 @@
       </div>
       
       <div class="welcome-text">
-        <h1>Criar Conta</h1>
-        <p>Preencha os dados para se cadastrar</p>
+        <h1 *ngIf="!etapaVerificacao">Criar Conta</h1>
+        <h1 *ngIf="etapaVerificacao">Verificar E-mail</h1>
+        
+        <p *ngIf="!etapaVerificacao">Preencha os dados para se cadastrar</p>
+        <p *ngIf="etapaVerificacao">Enviámos um código para o seu e-mail</p>
       </div>
     </div>
 
-    <!-- Formulário de cadastro -->
     <form class="cadastro-form">
-      <div class="form-section">
+      
+      <div class="form-section" *ngIf="!etapaVerificacao">
         
-        <!-- Dados pessoais -->
         <div class="form-group">
           <h3 class="group-title">
             <ion-icon name="person-outline"></ion-icon>
@@ -63,7 +63,6 @@
           </div>
         </div>
 
-        <!-- Dados de acesso -->
         <div class="form-group">
           <h3 class="group-title">
             <ion-icon name="key-outline"></ion-icon>
@@ -105,7 +104,6 @@
           </div>
         </div>
 
-        <!-- Endereço -->
         <div class="form-group">
           <h3 class="group-title">
             <ion-icon name="location-outline"></ion-icon>
@@ -140,18 +138,16 @@
           </div>
         </div>
 
-        <!-- Botão cadastrar -->
         <ion-button 
           expand="block" 
           class="btn-cadastrar" 
-          (click)="cadastrar()"
+          (click)="solicitarCodigo()"
           [disabled]="isLoading">
           <ion-spinner *ngIf="isLoading" name="crescent"></ion-spinner>
-          <span *ngIf="!isLoading">CADASTRAR</span>
-          <span *ngIf="isLoading">CADASTRANDO...</span>
+          <span *ngIf="!isLoading">RECEBER CÓDIGO</span>
+          <span *ngIf="isLoading">A ENVIAR...</span>
         </ion-button>
 
-        <!-- Links -->
         <div class="links-section">
           <div class="divider">
             <span>ou</span>
@@ -166,6 +162,57 @@
         </div>
 
       </div>
+
+
+      <div class="form-section" *ngIf="etapaVerificacao">
+        
+        <div class="form-group">
+          <div class="ion-text-center" style="margin-bottom: 24px;">
+            <ion-icon name="mail-open-outline" style="font-size: 60px; color: var(--ion-color-primary);"></ion-icon>
+            <p style="color: #666; font-size: 14px; margin-top: 10px;">
+              Insira o código de 6 dígitos enviado para:<br>
+              <strong>{{ email }}</strong>
+            </p>
+          </div>
+          
+          <div class="input-container">
+            <ion-icon name="keypad-outline" class="input-icon"></ion-icon>
+            <ion-input 
+              type="text" 
+              label="Código de Verificação" 
+              label-placement="floating" 
+              placeholder="000000" 
+              maxlength="6"
+              [(ngModel)]="codigoInserido" 
+              name="codigo"
+              class="custom-input ion-text-center"
+              style="font-size: 24px; letter-spacing: 5px; font-weight: bold;"
+              [disabled]="isLoading">
+            </ion-input>
+          </div>
+        </div>
+
+        <ion-button 
+          expand="block" 
+          class="btn-cadastrar" 
+          (click)="cadastrar()"
+          [disabled]="isLoading">
+          <ion-spinner *ngIf="isLoading" name="crescent"></ion-spinner>
+          <span *ngIf="!isLoading">CONFIRMAR CADASTRO</span>
+          <span *ngIf="isLoading">A CADASTRAR...</span>
+        </ion-button>
+
+        <div class="links-section">
+          <div class="auth-links" style="margin-top: 20px;">
+            <a (click)="etapaVerificacao = false" class="login-link" style="cursor: pointer;">
+              <ion-icon name="arrow-back-outline"></ion-icon>
+              Voltar e corrigir dados
+            </a>
+          </div>
+        </div>
+
+      </div>
+
     </form>
   </div>
 </ion-content>
