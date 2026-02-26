@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { PagamentoService } from '../services/pagamento.service';
 import { AuthService } from '../services/auth.service';
 
+
 interface CartItem {
   name: string;
   store: string;

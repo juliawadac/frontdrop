@@ -6,6 +6,7 @@ import { RouterModule, Router } from '@angular/router';
 import { AuthService, Usuario } from '../services/auth.service';
 import { Estabelecimento, EstabelecimentoService } from '../services/estabelecimento.service';
 import { Subscription } from 'rxjs';
+import { ProfileService } from '../services/profile.service';
 
 // Interface para o 'state' que esperamos receber
 interface NavigationState {
@@ -26,6 +27,7 @@ export class HomePage implements OnInit, OnDestroy {
   nomeUsuario: string = 'Usuário';
   activeCategory: string = 'comida';
   selectedCategory: string = 'comida';
+  profilePhoto: string | null = null;
 
   // Listas
   estabelecimentos: Estabelecimento[] = [];
@@ -43,7 +45,8 @@ export class HomePage implements OnInit, OnDestroy {
     private authService: AuthService,
     private router: Router,
     private estabelecimentoService: EstabelecimentoService,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private profileService: ProfileService
   ) {
     // ✅ 2. CORREÇÃO: Ler o state da navegação AQUI (no construtor)
     const navigation = this.router.getCurrentNavigation();
@@ -73,6 +76,9 @@ export class HomePage implements OnInit, OnDestroy {
     );
     
     this.selectedCategory = this.activeCategory;
+    this.profileService.photo$.subscribe(photo => {
+      this.profilePhoto = photo;
+    });
   }
 
   // ✅ 3. Mostrar o Toast no 'ionViewWillEnter'

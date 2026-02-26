@@ -31,6 +31,10 @@ const routes: Routes = [
     loadChildren: () => import('./home/home-routing.module').then(m => m.HomePageRoutingModule) 
   },
   {
+    path: 'perfil', 
+    loadChildren: () => import('./perfil/perfil-routing.module').then(m => m.PerfilPageRoutingModule) 
+  },
+  {
     path: 'search',
     loadChildren: () => import('./search/search.module').then(m => m.SearchPageModule)
   },
@@ -38,10 +42,6 @@ const routes: Routes = [
     path: 'estabelecimento/:id', // Adicionamos /:id para capturar o parâmetro
     loadComponent: () => import('./estabelecimento/estabelecimento.page').then( m => m.EstabelecimentoPage)
   },
-  
-
-
-
 ];
 
 @NgModule({

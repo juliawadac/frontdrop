@@ -1,0 +1,97 @@
+<ion-content [fullscreen]="true" class="perfil-container">
+
+  <!-- Header Premium -->
+  <div class="header-premium">
+    <div class="header-decoration"></div>
+    
+    <div class="header-content">
+      <!-- Avatar clicável -->
+      <div class="avatar-wrapper" (click)="editarFotoPerfil()">
+        <div class="avatar-ring"></div>
+        <div class="avatar-image">
+          <!-- Mostra foto se existir, senão mostra ícone padrão -->
+          <img *ngIf="profilePhoto" [src]="profilePhoto" class="avatar-photo" alt="Foto de perfil" />
+          <ion-icon *ngIf="!profilePhoto" name="person"></ion-icon>
+        </div>
+        <div class="camera-badge">
+          <ion-icon name="camera"></ion-icon>
+        </div>
+      </div>
+      
+      <div class="user-details">
+        <h1 class="user-name">{{ nomeUsuario }}</h1>
+        <p class="user-email">{{ emailUsuario }}</p>
+        <div class="user-badge">
+          <ion-icon name="shield-checkmark"></ion-icon>
+          <span>Conta Verificada</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Menu Principal -->
+  <div class="main-content">
+    <div class="section-header">
+      <h2>MINHA CONTA</h2>
+      <div class="section-line"></div>
+    </div>
+    
+    <div class="menu-container">
+      <div *ngFor="let opcao of opcoesPerfil" 
+           class="menu-card" 
+           (click)="navegarPara(opcao.rota)">
+        <div class="menu-icon-wrapper">
+          <div class="icon-background" [class]="opcao.classe"></div>
+          <ion-icon [name]="opcao.icone" class="menu-icon-main"></ion-icon>
+        </div>
+        <div class="menu-text">
+          <h3>{{ opcao.titulo }}</h3>
+          <p>{{ opcao.subtitulo }}</p>
+        </div>
+        <ion-icon name="chevron-forward" class="chevron"></ion-icon>
+      </div>
+    </div>
+  </div>
+
+  <!-- Botão Logout -->
+  <div class="logout-container">
+    <button class="logout-btn" (click)="sair()">
+      <ion-icon name="log-out-outline"></ion-icon>
+      <span>Sair da Conta</span>
+    </button>
+  </div>
+
+  <div class="version-info">
+    <p>Versão 1.0.0 • © 2024</p>
+  </div>
+
+  <!-- Bottom Navigation com foto de perfil -->
+  <div class="fixed-bottom-nav">
+    <div class="nav-content">
+      <div class="nav-item" [routerLink]="['/home']">
+        <ion-icon name="home"></ion-icon>
+        <span>Início</span>
+      </div>
+      
+      <div class="nav-item" [routerLink]="['/search']">
+        <ion-icon name="search"></ion-icon>
+        <span>Buscar</span>
+      </div>
+      
+      <div class="nav-item" [routerLink]="['/sacola']">
+        <ion-icon name="bag-handle"></ion-icon>
+        <span>Sacola</span>
+      </div>
+      
+      <!-- Tab Perfil: mostra foto ou ícone -->
+      <div class="nav-item active" [routerLink]="['/perfil']">
+        <div class="nav-profile-icon">
+          <img *ngIf="profilePhoto" [src]="profilePhoto" class="nav-profile-photo" alt="Perfil" />
+          <ion-icon *ngIf="!profilePhoto" name="person"></ion-icon>
+        </div>
+        <span>Perfil</span>
+      </div>
+    </div>
+  </div>
+
+</ion-content>

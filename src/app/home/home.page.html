@@ -5,7 +5,8 @@
       <h1>Olá, {{ nomeUsuario }}</h1>
       <p>O que você gostaria de pedir hoje?</p>
     </div>
-    <div class="profile-avatar" (click)="goToProfile()">
+    <div class="profile-avatar" class="nav-profile-home-icon" (click)="goToProfile()">
+      <img *ngIf="profilePhoto" [src]="profilePhoto" class="nav-profile-photo" alt="Perfil" />
       <ion-icon name="person"></ion-icon>
     </div>
   </div>
@@ -197,8 +198,11 @@
         <span>Sacola</span>
       </div>
       
-      <div class="nav-item" (click)="goToTab('profile')">
-        <ion-icon name="person"></ion-icon>
+      <div class="nav-item" [routerLink]="['/perfil']">
+        <div class="nav-profile-icon">
+          <img *ngIf="profilePhoto" [src]="profilePhoto" class="nav-profile-photo" alt="Perfil" />
+          <ion-icon *ngIf="!profilePhoto" name="person"></ion-icon>
+        </div>
         <span>Perfil</span>
       </div>
     </div>

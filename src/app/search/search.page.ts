@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule, ActionSheetController, ActionSheetButton } from '@ionic/angular';
 import { RouterModule, Router } from '@angular/router';
+import { ProfileService } from '../services/profile.service';
 
 interface Product {
   id: number;
@@ -27,6 +28,7 @@ export class SearchPage implements OnInit {
   selectedCategories: string[] = [];
   recentSearches: string[] = [];
   isSearching: boolean = false;
+  profilePhoto: string | null = null;
   
   categories: string[] = ['Comida', 'Mercado', 'Farmacia', 'Construção'];
   
@@ -66,11 +68,15 @@ export class SearchPage implements OnInit {
 
   constructor(
     private actionSheetController: ActionSheetController,
-    private router: Router
+    private router: Router,
+    private profileService: ProfileService
   ) {}
 
   ngOnInit() {
     this.loadRecentSearches();
+    this.profileService.photo$.subscribe(photo => {
+      this.profilePhoto = photo;
+    });
   }
 
   onSearchChange() {

@@ -144,28 +144,32 @@
     </div>
   
     <!-- Bottom Navigation -->
-    <div class="fixed-bottom-nav">
-      <div class="nav-content">
-        <div class="nav-item" [routerLink]="['/home']">
-          <ion-icon name="home"></ion-icon>
-          <span>Início</span>
+    
+  <div class="fixed-bottom-nav">
+    <div class="nav-content">
+      <div class="nav-item" [routerLink]="['/home']">
+        <ion-icon name="home"></ion-icon>
+        <span>Início</span>
+      </div>
+      
+      <div class="nav-item active" [routerLink]="['/search']">
+        <ion-icon name="search"></ion-icon>
+        <span>Buscar</span>
+      </div>
+      
+       <div class="nav-item" [routerLink]="['/sacola']">
+        <ion-icon name="bag-handle"></ion-icon>
+        <span>Sacola</span>
+      </div>
+      
+      <div class="nav-item" [routerLink]="['/perfil']">
+        <div class="nav-profile-icon">
+          <img *ngIf="profilePhoto" [src]="profilePhoto" class="nav-profile-photo" alt="Perfil" />
+          <ion-icon *ngIf="!profilePhoto" name="person"></ion-icon>
         </div>
-        
-        <div class="nav-item active">
-          <ion-icon name="search"></ion-icon>
-          <span>Buscar</span>
-        </div>
-        
-        <div class="nav-item" [routerLink]="['/sacola']">
-          <ion-icon name="bag-handle"></ion-icon>
-          <span>Sacola</span>
-        </div>
-        
-        <div class="nav-item">
-          <ion-icon name="person"></ion-icon>
-          <span>Perfil</span>
-        </div>
+        <span>Perfil</span>
       </div>
     </div>
+  </div>
   
   </ion-content>
