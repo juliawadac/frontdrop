@@ -52,6 +52,10 @@ export class AuthService {
       });
   }
 
+  enviarCodigo(email: string): Observable<any> {
+    return this.http.post(`${this.API_URL}/enviar-codigo`, { email });
+  }
+
   login(email: string, senha: string): Observable<LoginResponse> {
     return this.http.post<LoginResponse>(`${this.API_URL}/login`, { email, senha })
       .pipe(
