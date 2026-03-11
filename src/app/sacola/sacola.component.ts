@@ -50,7 +50,6 @@ export class SacolaPage implements OnInit {
       } else {
         this.usuarioId = null;
       }
-      // ✅ Sempre que mudar de utilizador (login/logout), recarrega a sacola certa
       this.loadCartFromStorage();
     });
   }
@@ -60,17 +59,15 @@ export class SacolaPage implements OnInit {
     this.checkPaymentStatus();
   }
 
-  // ✅ Usa a cartKey para puxar os dados
   private loadCartFromStorage() {
     const savedCart = localStorage.getItem(this.cartKey);
     if (savedCart) {
       this.cartItems = JSON.parse(savedCart);
     } else {
-      this.cartItems = []; // Garante que a sacola fica limpa para novos utilizadores
+      this.cartItems = [];
     }
   }
 
-  // ✅ Usa a cartKey para guardar os dados
   private saveCartToStorage() {
     localStorage.setItem(this.cartKey, JSON.stringify(this.cartItems));
   }
@@ -132,7 +129,6 @@ export class SacolaPage implements OnInit {
     this.saveCartToStorage();
   }
 
-  // ✅ Usa a cartKey para limpar a sacola correta
   clearCart() {
     this.cartItems = [];
     localStorage.removeItem(this.cartKey);
@@ -183,24 +179,55 @@ export class SacolaPage implements OnInit {
     }
   }
   
+  // ✅ ALTERADO: Agora detecta o session_id e chama o backend para salvar o pedido
   private checkPaymentStatus() {
     const params = this.route.snapshot.queryParamMap;
     const pagamentoStatus = params.get('pagamento');
+    const sessionId = params.get('session_id'); // ✅ Pega o ID da sessão Stripe
 
-    if (pagamentoStatus === 'sucesso') {
-      this.clearCart(); 
-      this.router.navigate(['/home'], { 
-        replaceUrl: true, 
-        state: { 
-          showToast: true, 
-          message: 'Pedido realizado com sucesso!', 
-          color: 'success'
-        }
-      });
+    if (pagamentoStatus === 'sucesso' && sessionId) {
+      this.confirmarESalvarPedido(sessionId);
     } else if (pagamentoStatus === 'cancelado') {
       this.showToast('O pagamento foi cancelado.', 'warning');
       this.router.navigate([], { replaceUrl: true, queryParams: {} });
     }
+  }
+
+  // ✅ NOVO: Chama o backend para verificar o pagamento e salvar no banco
+  private confirmarESalvarPedido(sessionId: string) {
+    const cartItems = [...this.cartItems]; // Copia antes de limpar
+    const usuarioId = this.usuarioId;
+    const estabelecimentoId = cartItems[0]?.estabelecimentoId;
+
+    if (!usuarioId || !estabelecimentoId) {
+      // Se perdeu os dados (ex: recarregou a página), só navega para home
+      this.clearCart();
+      this.router.navigate(['/home'], {
+        replaceUrl: true,
+        state: { showToast: true, message: 'Pedido realizado com sucesso!', color: 'success' }
+      });
+      return;
+    }
+
+    this.pagamentoService.confirmarPedido(cartItems, usuarioId, estabelecimentoId, sessionId)
+      .subscribe({
+        next: () => {
+          this.clearCart();
+          this.router.navigate(['/home'], {
+            replaceUrl: true,
+            state: { showToast: true, message: 'Pedido realizado com sucesso!', color: 'success' }
+          });
+        },
+        error: (err) => {
+          // Mesmo com erro ao salvar, limpa o carrinho pois o pagamento foi feito
+          this.clearCart();
+          this.showAlert(
+            'Atenção',
+            'Seu pagamento foi confirmado, mas houve um erro ao registrar o pedido. Entre em contato com o suporte.'
+          );
+          this.router.navigate([], { replaceUrl: true, queryParams: {} });
+        }
+      });
   }
 
   private async showToast(message: string, color: 'success' | 'warning' | 'danger') {

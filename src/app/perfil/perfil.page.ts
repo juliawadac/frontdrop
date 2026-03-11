@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonicModule, ActionSheetController } from '@ionic/angular';
+import { IonicModule, ActionSheetController, AlertController } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Router } from '@angular/router';
 import { AuthService, Usuario } from '../services/auth.service';
@@ -20,6 +20,16 @@ export class PerfilPage implements OnInit {
   emailUsuario: string = 'usuario@email.com';
   profilePhoto: string | null = null;
 
+  // ✅ Rotas que ainda estão em desenvolvimento
+  private rotasEmDesenvolvimento: string[] = [
+    '/dados',
+    '/enderecos',
+    '/pedidos',
+    '/pagamentos',
+    '/ajuda',
+    '/configuracoes',
+  ];
+
   opcoesPerfil = [
     { icone: 'person-outline',       titulo: 'Meus Dados',           subtitulo: 'Edite suas informações pessoais',      rota: '/dados',          classe: 'cor1' },
     { icone: 'location-outline',     titulo: 'Meus Endereços',       subtitulo: 'Gerencie seus endereços de entrega',   rota: '/enderecos',      classe: 'cor2' },
@@ -33,12 +43,12 @@ export class PerfilPage implements OnInit {
     private authService: AuthService,
     private router: Router,
     private profileService: ProfileService,
-    private actionSheetController: ActionSheetController
+    private actionSheetController: ActionSheetController,
+    private alertController: AlertController // ✅ Adicionado
   ) {}
 
   ngOnInit() {
     this.carregarDadosUsuario();
-    // Assina o observable para sempre ter a foto mais recente
     this.profileService.photo$.subscribe(photo => {
       this.profilePhoto = photo;
     });
@@ -106,7 +116,18 @@ export class PerfilPage implements OnInit {
     input.click();
   }
 
-  navegarPara(rota: string) {
+  // ✅ ALTERADO: Verifica se a rota está em desenvolvimento antes de navegar
+  async navegarPara(rota: string) {
+    if (this.rotasEmDesenvolvimento.includes(rota)) {
+      const alert = await this.alertController.create({
+        header: '🚧 Em Desenvolvimento',
+        message: 'Esta funcionalidade está sendo desenvolvida e estará disponível em breve!',
+        buttons: ['OK']
+      });
+      await alert.present();
+      return;
+    }
+
     this.router.navigate([rota]);
   }
 

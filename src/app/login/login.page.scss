@@ -68,7 +68,6 @@
 
     .logo-wrapper {
       width: 120px;
-      /* você pode ajustar o tamanho */
       height: 120px;
       margin: 0 auto;
       background: rgba(255, 255, 255, 0.9);
@@ -80,22 +79,18 @@
       backdrop-filter: blur(10px);
       transition: all 0.3s ease;
       overflow: hidden;
-      /* 🔥 garante que a logo fique dentro do círculo */
 
       &:hover {
         transform: scale(1.05);
         box-shadow: 0 8px 30px rgba(153, 82, 28, 0.3);
       }
-
     }
 
     .logo-image {
-       width: 100%;
-        height: 100%;
-        border-radius: 50%;
-        /* 🔥 deixa a própria imagem redonda */
-        object-fit: cover;
-        /* 🔥 preenche o círculo sem distorcer */
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
     }
   }
 }
@@ -117,7 +112,6 @@
   }
 }
 
-
 // Form section
 .form-section {
   flex: 1;
@@ -128,69 +122,62 @@
   backdrop-filter: blur(20px);
 
   .input-group {
-    margin-bottom: 32px;
+    margin-bottom: 8px;
 
     .input-container {
       position: relative;
-      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      margin-bottom: 16px;
       background: #f8f9fa;
       border-radius: 16px;
       padding: 4px 16px;
       transition: all 0.3s ease;
+      border: 1.5px solid transparent;
 
       &:focus-within {
         background: white;
+        border-color: rgba(153, 82, 28, 0.25);
         box-shadow: 0 4px 20px rgba(153, 82, 28, 0.1);
         transform: translateY(-2px);
       }
 
       .input-icon {
-        position: absolute;
-        left: 16px;
-        top: 50%;
-        transform: translateY(-50%);
         font-size: 20px;
         color: #99521c;
+        flex-shrink: 0;
+        margin-right: 4px;
         z-index: 2;
       }
 
       .custom-input {
-        --padding-start: 44px;
-        --padding-end: 44px;
+        flex: 1;
 
-        /* === INPUT TODO CINZA === */
-        --color: #666;
-        /* Texto digitado */
-        --placeholder-color: #999;
-        /* Placeholder */
-        --highlight-color: #bbb;
-        /* Linha padrão */
-        --highlight-color-focused: #666;
-        /* Linha ao focar */
-        --label-color: #666;
-        /* Label inicial */
-        --label-color-focused: #666;
-        /* Label ao focar */
+        // ✅ Remove toda cor do Ionic — deixa limpo e neutro
+        --color: #2c1810;
+        --placeholder-color: #bbb;
+        --background: transparent;
+        --highlight-color: transparent;
+        --highlight-color-focused: transparent;
+        --highlight-color-valid: transparent;
+        --highlight-color-invalid: transparent;
+        --border-color: transparent;
+        --label-color: #999;
+        --label-color-focused: #99521c;
 
         font-size: 15px;
         font-weight: 500;
         font-family: "Nunito", sans-serif;
-
-        &.input-has-focus {
-          --color: #2c1810;
-          /* opcional: texto mais escuro ao focar */
-        }
       }
 
       .password-toggle {
-        position: absolute;
-        right: 8px;
-        top: 50%;
-        transform: translateY(-50%);
         --color: #99521c;
+        --background: transparent;
+        --background-hover: transparent;
+        --background-activated: transparent;
         width: 40px;
         height: 40px;
-        z-index: 2;
+        flex-shrink: 0;
 
         ion-icon {
           font-size: 20px;
@@ -199,9 +186,31 @@
     }
   }
 
+  // ✅ NOVO: Link esqueci minha senha
+  .forgot-password {
+    text-align: right;
+    margin-bottom: 20px;
+    margin-top: -4px;
+
+    .forgot-link {
+      color: #99521c;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: underline;
+      cursor: pointer;
+      font-family: "Nunito", sans-serif;
+      transition: opacity 0.2s;
+
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+  }
+
   .login-button {
     --background: linear-gradient(135deg, #99521c, #b8652a);
     --color: white;
+    --border-radius: 16px;
     height: 56px;
     font-weight: 700;
     font-size: 16px;
@@ -281,15 +290,8 @@
 
 // Animações
 @keyframes float {
-
-  0%,
-  100% {
-    transform: translateY(0px);
-  }
-
-  50% {
-    transform: translateY(-20px);
-  }
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-20px); }
 }
 
 // Responsividade

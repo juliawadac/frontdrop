@@ -1,0 +1,201 @@
+// esqueci-senha.page.scss
+
+.esqueci-content {
+    --background: linear-gradient(135deg, #fadcc3 0%, #f5d5b7 100%);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .background-decoration {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+  
+    .circle {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.1;
+      background: #99521c;
+  
+      &.circle-1 { width: 300px; height: 300px; top: -100px; right: -80px; animation: float 6s ease-in-out infinite; }
+      &.circle-2 { width: 200px; height: 200px; bottom: 100px; left: -60px; animation: float 8s ease-in-out infinite reverse; }
+      &.circle-3 { width: 150px; height: 150px; top: 40%; right: -40px; animation: float 7s ease-in-out infinite; }
+    }
+  }
+  
+  .esqueci-container {
+    position: relative;
+    z-index: 1;
+    padding: 0 24px 40px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .back-header {
+    padding-top: 16px;
+  
+    .back-btn {
+      --color: #99521c;
+      font-size: 24px;
+    }
+  }
+  
+  .step-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding-top: 16px;
+  }
+  
+  .icon-section {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 24px;
+  
+    .icon-circle {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: rgba(153, 82, 28, 0.1);
+      border: 2px solid rgba(153, 82, 28, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+  
+      ion-icon {
+        font-size: 36px;
+        color: #99521c;
+      }
+    }
+  }
+  
+  .text-section {
+    text-align: center;
+    margin-bottom: 32px;
+  
+    h1 {
+      color: #2c1810;
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      font-family: "Nunito", sans-serif;
+    }
+  
+    p {
+      color: #666;
+      font-size: 14px;
+      line-height: 1.5;
+  
+      strong { color: #99521c; }
+    }
+  }
+  
+  .form-section {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  // ✅ Input igual ao da tela de login
+  .input-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: #f8f9fa;
+    border: 1.5px solid transparent;
+    border-radius: 16px;
+    padding: 4px 16px;
+    transition: all 0.3s ease;
+  
+    &:focus-within {
+      background: white;
+      border-color: rgba(153, 82, 28, 0.25);
+      box-shadow: 0 4px 20px rgba(153, 82, 28, 0.1);
+      transform: translateY(-2px);
+    }
+  
+    .input-icon {
+      color: #99521c;
+      font-size: 20px;
+      flex-shrink: 0;
+      margin-right: 4px;
+    }
+  
+    .custom-input {
+      flex: 1;
+  
+      --color: #2c1810;
+      --placeholder-color: #bbb;
+      --background: transparent;
+      --highlight-color: transparent;
+      --highlight-color-focused: transparent;
+      --highlight-color-valid: transparent;
+      --highlight-color-invalid: transparent;
+      --border-color: transparent;
+      --label-color: #999;
+      --label-color-focused: #99521c;
+  
+      font-size: 15px;
+      font-weight: 500;
+      font-family: "Nunito", sans-serif;
+  
+      // Input do código
+      &.codigo-input {
+        --color: #2c1810;
+        --label-color: #999;
+        --label-color-focused: #99521c;
+        font-size: 28px;
+        font-weight: 700;
+        letter-spacing: 10px;
+        text-align: center;
+      }
+    }
+  
+    .password-toggle {
+      --color: #99521c;
+      --background: transparent;
+      --background-hover: transparent;
+      --background-activated: transparent;
+      margin: 0;
+      flex-shrink: 0;
+  
+      ion-icon { font-size: 20px; }
+    }
+  }
+  
+  .action-button {
+    --background: linear-gradient(135deg, #99521c, #b8652a);
+    --background-activated: #8B5C3B;
+    --border-radius: 16px;
+    --color: #ffffff;
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: 1px;
+    height: 56px;
+    margin-top: 8px;
+    box-shadow: 0 6px 20px rgba(153, 82, 28, 0.3);
+    font-family: "Nunito", sans-serif;
+  }
+  
+  .resend-section {
+    text-align: center;
+    color: #999;
+    font-size: 13px;
+    margin-top: 8px;
+  
+    .resend-link {
+      color: #99521c;
+      font-weight: 600;
+      margin-left: 6px;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+  }
+  
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50%       { transform: translateY(-20px); }
+  }

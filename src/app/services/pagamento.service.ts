@@ -20,7 +20,6 @@ export class PagamentoService {
    * Chama o backend para criar a sessão de checkout no Stripe
    */
   criarSessaoCheckout(cartItems: any[], usuarioId: number, estabelecimentoId: number): Observable<{ url: string }> {
-    // ⚠️ CORREÇÃO AQUI: Ajustamos o final da URL para bater exatamente com a rota do seu Node.js
     return this.http.post<{ url: string }>(`${this.apiUrl}/create-checkout-session`, {
       cartItems,
       usuarioId,
@@ -33,5 +32,21 @@ export class PagamentoService {
    */
   redirecionarParaCheckout(url: string) {
     window.location.href = url;
+  }
+
+  /**
+   * ✅ NOVO: Confirma e salva o pedido no banco após retorno do Stripe
+   * Chamado quando o usuário volta com ?pagamento=sucesso&session_id=cs_xxx
+   */
+  confirmarPedido(
+    cartItems: any[],
+    usuarioId: number,
+    estabelecimentoId: number,
+    sessionId: string
+  ): Observable<{ success: boolean; message: string }> {
+    return this.http.post<{ success: boolean; message: string }>(
+      `${this.apiUrl}/confirmar-pedido`,
+      { cartItems, usuarioId, estabelecimentoId, sessionId }
+    );
   }
 }
