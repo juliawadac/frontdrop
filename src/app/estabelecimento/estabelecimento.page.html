@@ -1,14 +1,9 @@
 <ion-content [fullscreen]="true" class="page-container">
 
   <div *ngIf="estabelecimento" class="header"
-       [ngStyle]="{'background-image': 'url(' + (estabelecimento.banner_url || 'assets/mcdonalds-cred-Sombat-Muycheen-shutterstock_site.webp') + ')'}">
-
+       [ngStyle]="{'background-image': 'url(' + (estabelecimento.banner_url || 'assets/mcdonalds-banner.webp') + ')'}">
     <div class="header-overlay"></div>
-
-    <img [src]="estabelecimento.logo_url || 'assets/mcquadrado.png'"
-         [alt]="'Logo ' + estabelecimento.nome"
-         class="logo" />
-
+    <img [src]="estabelecimento.logo_url || 'assets/mcquadrado.png'" class="logo" />
     <div class="header-info">
       <h1>{{ estabelecimento.nome }}</h1>
       <div class="status-badge">
@@ -18,20 +13,18 @@
     </div>
   </div>
 
-  <div *ngIf="!estabelecimento" class="header-loading">
-    <ion-spinner name="crescent"></ion-spinner>
-    <p>A carregar detalhes...</p>
-  </div>
-
-  <div class="location-section">
+  <div class="location-section" *ngIf="estabelecimento">
     <div class="section-header">
       <ion-icon name="location-outline" class="section-icon"></ion-icon>
       <h2>LOCALIZAÇÃO</h2>
     </div>
     <div class="map-container">
-      <img src="assets/Captura de tela 2025-09-03 112225.png" alt="Mapa" class="map" />
+      <img [src]="estabelecimento.mapa_url || 'assets/mapa-placeholder.png'" 
+           [alt]="'Mapa de ' + estabelecimento.nome" 
+           class="map" />
+      
       <div class="map-overlay">
-        <ion-button fill="outline" size="small" class="directions-btn">
+        <ion-button fill="outline" size="small" class="directions-btn" (click)="abrirMapa()">
           <ion-icon name="navigate-outline" slot="start"></ion-icon>
           Como chegar
         </ion-button>
@@ -46,17 +39,11 @@
     </div>
 
     <div class="produtos-grid">
-      <ion-card *ngFor="let produto of produtos; let i = index" 
-          class="produto-card" 
-          [attr.id]="'produto-' + i" [class.animate]="true">
+      <ion-card *ngFor="let produto of produtos; let i = index" class="produto-card">
         <ion-card-content class="produto-content">
           <div class="produto-image">
-            <div class="produto-img">
-              <ion-icon name="fast-food-outline"></ion-icon>
-            </div>
-            <div class="produto-badge">Novo</div>
+            <div class="produto-img"><ion-icon name="fast-food-outline"></ion-icon></div>
           </div>
-
           <div class="produto-details">
             <div class="produto-info">
               <h3>{{ produto.nome }}</h3>
@@ -66,21 +53,13 @@
                 <span class="value">{{ produto.preco | number:'1.2-2' }}</span>
               </div>
             </div>
-
             <div class="produto-actions">
               <div class="quantity-controls">
-                <ion-button fill="clear" size="small" class="qty-btn minus" (click)="diminuirQuantidade(i)">
-                  <ion-icon name="remove-outline"></ion-icon>
-                </ion-button>
-                <span class="quantity">{{ produto.quantidade || 0 }}</span>
-                <ion-button fill="clear" size="small" class="qty-btn plus" (click)="aumentarQuantidade(i)">
-                  <ion-icon name="add-outline"></ion-icon>
-                </ion-button>
+                <ion-button fill="clear" (click)="diminuirQuantidade(i)"><ion-icon name="remove-outline"></ion-icon></ion-button>
+                <span class="quantity">{{ produto.quantidade }}</span>
+                <ion-button fill="clear" (click)="aumentarQuantidade(i)"><ion-icon name="add-outline"></ion-icon></ion-button>
               </div>
-
-              <ion-button expand="block" fill="solid" class="add-to-cart-btn" [disabled]="produto.quantidade === 0"
-                (click)="adicionarAoCarrinho(i)">
-                <ion-icon name="bag-add-outline" slot="start"></ion-icon>
+              <ion-button (click)="adicionarAoCarrinho(i)" [disabled]="produto.quantidade === 0" class="add-to-cart-btn">
                 ADICIONAR
               </ion-button>
             </div>
@@ -92,22 +71,10 @@
 
   <div class="fixed-bottom-nav">
     <div class="nav-content">
-      <div class="nav-item" (click)="goToTab('home')">
-        <ion-icon name="home"></ion-icon>
-        <span>Início</span>
-      </div>
-      <div class="nav-item" (click)="goToTab('search')">
-        <ion-icon name="search"></ion-icon>
-        <span>Buscar</span>
-      </div>
-      <div class="nav-item" (click)="goToTab('orders')">
-        <ion-icon name="bag-handle"></ion-icon>
-        <span>Sacola</span>
-      </div>
-      <div class="nav-item" (click)="goToTab('profile')">
-        <ion-icon name="person"></ion-icon>
-        <span>Perfil</span>
-      </div>
+      <div class="nav-item" (click)="goToTab('home')"><ion-icon name="home"></ion-icon><span>Início</span></div>
+      <div class="nav-item" (click)="goToTab('search')"><ion-icon name="search"></ion-icon><span>Buscar</span></div>
+      <div class="nav-item" (click)="goToTab('sacola')"><ion-icon name="bag-handle"></ion-icon><span>Sacola</span></div>
+      <div class="nav-item" (click)="goToTab('perfil')"><ion-icon name="person"></ion-icon><span>Perfil</span></div>
     </div>
   </div>
 
