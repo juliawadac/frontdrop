@@ -4,25 +4,27 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 // ✅ INTERFACE ATUALIZADA AQUI
+export interface Produto {
+  id: number;
+  nome: string;
+  descricao: string;
+  preco: number;
+  quantidade: number;
+  categoria_id: number;
+}
+
 export interface Estabelecimento {
   id: number;
   nome: string;
   localizacao: string;
-  tempo_de_espera: number | null;
-  logo_url?: string;   
-  banner_url?: string; 
+  tempo_de_espera?: number;
+  banner_url?: string;
+  logo_url?: string;
   categoria_id?: number;
-}
-
-export interface Produto {
-  id: number;
-  nome: string;
-  preco: number;
-  descricao: string;
-  quantidade: number;
-  categoria_id: number;
-  estabelecimento_id?: number; // Boa prática ter aqui também
-}
+  // NOVOS CAMPOS ABAIXO:
+  mapa_url?: string;       // Caminho da imagem em assets (ex: assets/mapas/mc.png)
+  google_maps_link?: string; // Link da rota (ex: https://goo.gl/maps/...)
+} 
 
 @Injectable({
   providedIn: 'root'
