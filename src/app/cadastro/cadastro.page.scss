@@ -1,16 +1,14 @@
+// cadastro.page.scss
+
 .cadastro-content {
   --background: linear-gradient(135deg, #fadcc3 0%, #f5d5b7 100%);
   position: relative;
   overflow: hidden;
 }
 
-// Background decorativo
 .background-decoration {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  top: 0; left: 0; right: 0; bottom: 0;
   pointer-events: none;
   z-index: 0;
 
@@ -18,37 +16,13 @@
     position: absolute;
     border-radius: 50%;
     opacity: 0.08;
-    
-    &.circle-1 {
-      width: 250px;
-      height: 250px;
-      background: #99521c;
-      top: -125px;
-      right: -125px;
-      animation: float 8s ease-in-out infinite;
-    }
-    
-    &.circle-2 {
-      width: 180px;
-      height: 180px;
-      background: #b8652a;
-      bottom: -90px;
-      left: -90px;
-      animation: float 10s ease-in-out infinite reverse;
-    }
-    
-    &.circle-3 {
-      width: 120px;
-      height: 120px;
-      background: #99521c;
-      top: 40%;
-      right: -60px;
-      animation: float 6s ease-in-out infinite;
-    }
+
+    &.circle-1 { width: 250px; height: 250px; background: #99521c; top: -125px; right: -125px; animation: float 8s ease-in-out infinite; }
+    &.circle-2 { width: 180px; height: 180px; background: #b8652a; bottom: -90px; left: -90px; animation: float 10s ease-in-out infinite reverse; }
+    &.circle-3 { width: 120px; height: 120px; background: #99521c; top: 40%; right: -60px; animation: float 6s ease-in-out infinite; }
   }
 }
 
-// Container principal
 .cadastro-container {
   position: relative;
   z-index: 1;
@@ -56,7 +30,6 @@
   padding: 32px 20px 20px;
 }
 
-// Header section
 .header-section {
   text-align: center;
   margin-bottom: 32px;
@@ -66,7 +39,6 @@
 
     .logo-wrapper {
       width: 120px;
-      /* você pode ajustar o tamanho */
       height: 120px;
       margin: 0 auto;
       background: rgba(255, 255, 255, 0.9);
@@ -78,22 +50,18 @@
       backdrop-filter: blur(10px);
       transition: all 0.3s ease;
       overflow: hidden;
-      /* 🔥 garante que a logo fique dentro do círculo */
 
       &:hover {
         transform: scale(1.05);
         box-shadow: 0 8px 30px rgba(153, 82, 28, 0.3);
       }
-
     }
 
     img {
-       width: 100%;
-        height: 100%;
-        border-radius: 50%;
-        /* 🔥 deixa a própria imagem redonda */
-        object-fit: cover;
-        /* 🔥 preenche o círculo sem distorcer */
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
     }
   }
 
@@ -115,7 +83,6 @@
   }
 }
 
-// Form section
 .form-section {
   background: rgba(255, 255, 255, 0.95);
   border-radius: 28px;
@@ -148,73 +115,66 @@
       margin-bottom: 16px;
       flex-direction: column;
 
-      .half-width {
-        flex: 1;
-      }
+      .half-width { flex: 1; }
     }
 
+    // ✅ CORRIGIDO: flexbox igual ao login, sem position absolute
     .input-container {
-      position: relative;
+      display: flex;
+      align-items: center;
       margin-bottom: 16px;
       background: #f8f9fa;
-      border-radius: 14px;
-      padding: 4px 14px;
+      border: 1.5px solid transparent;
+      border-radius: 16px;
+      padding: 4px 16px;
       transition: all 0.3s ease;
 
-      &.half-width {
-        margin-bottom: 0;
-      }
+      &.half-width { margin-bottom: 0; }
 
       &:focus-within {
         background: white;
-        box-shadow: 0 3px 15px rgba(153, 82, 28, 0.1);
-        transform: translateY(-1px);
+        border-color: rgba(153, 82, 28, 0.25);
+        box-shadow: 0 4px 20px rgba(153, 82, 28, 0.1);
+        transform: translateY(-2px);
       }
 
       .input-icon {
-        position: absolute;
-        left: 14px;
-        top: 50%;
-        transform: translateY(-50%);
-        font-size: 18px;
         color: #99521c;
-        z-index: 2;
+        font-size: 20px;
+        flex-shrink: 0;
+        margin-right: 4px;
       }
 
       .custom-input {
-        --padding-start: 44px;
-        --padding-end: 44px;
+        flex: 1;
 
-        /* === INPUT TODO CINZA === */
-        --color: #666; /* Texto digitado */
-        --placeholder-color: #999; /* Placeholder */
-        --highlight-color: #bbb; /* Linha padrão */
-        --highlight-color-focused: #666; /* Linha ao focar */
-        --label-color: #666; /* Label inicial */
-        --label-color-focused: #666; /* Label ao focar */
+        --color: #2c1810;
+        --placeholder-color: #bbb;
+        --background: transparent;
+        --highlight-color: transparent;
+        --highlight-color-focused: transparent;
+        --highlight-color-valid: transparent;
+        --highlight-color-invalid: transparent;
+        --border-color: transparent;
+        --label-color: #999;
+        --label-color-focused: #99521c;
 
         font-size: 15px;
         font-weight: 500;
         font-family: "Nunito", sans-serif;
-
-        &.input-has-focus {
-          --color: #2c1810; /* opcional: texto mais escuro ao focar */
-        }
       }
 
       .password-toggle {
-        position: absolute;
-        right: 6px;
-        top: 50%;
-        transform: translateY(-50%);
         --color: #99521c;
+        --background: transparent;
+        --background-hover: transparent;
+        --background-activated: transparent;
+        flex-shrink: 0;
+        margin: 0;
         width: 36px;
         height: 36px;
-        z-index: 2;
 
-        ion-icon {
-          font-size: 18px;
-        }
+        ion-icon { font-size: 18px; }
       }
     }
   }
@@ -222,6 +182,7 @@
   .btn-cadastrar {
     --background: linear-gradient(135deg, #99521c, #b8652a);
     --color: white;
+    --border-radius: 16px;
     height: 54px;
     font-weight: 700;
     font-size: 15px;
@@ -236,13 +197,9 @@
       box-shadow: 0 7px 22px rgba(153, 82, 28, 0.4);
     }
 
-    &[disabled] {
-      opacity: 0.7;
-    }
+    &[disabled] { opacity: 0.7; }
 
-    ion-spinner {
-      margin-right: 8px;
-    }
+    ion-spinner { margin-right: 8px; }
   }
 
   .links-section {
@@ -254,9 +211,7 @@
       &::before {
         content: '';
         position: absolute;
-        top: 50%;
-        left: 0;
-        right: 0;
+        top: 50%; left: 0; right: 0;
         height: 1px;
         background: #e0e0e0;
       }
@@ -291,36 +246,19 @@
           transform: translateY(-1px);
         }
 
-        ion-icon {
-          font-size: 16px;
-        }
+        ion-icon { font-size: 16px; }
       }
     }
   }
 }
 
-// Animações
 @keyframes float {
-  0%, 100% {
-    transform: translateY(0px) rotate(0deg);
-  }
-  50% {
-    transform: translateY(-15px) rotate(5deg);
-  }
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50%       { transform: translateY(-15px) rotate(5deg); }
 }
 
-// Responsividade
 @media (min-width: 768px) {
-  .cadastro-container {
-    max-width: 520px;
-    margin: 0 auto;
-  }
-
-  .form-section {
-    padding: 32px 28px;
-  }
-
-  .input-row {
-    gap: 16px;
-  }
+  .cadastro-container { max-width: 520px; margin: 0 auto; }
+  .form-section { padding: 32px 28px; }
+  .input-row { gap: 16px; }
 }
