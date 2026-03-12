@@ -12,37 +12,48 @@ import { RouterModule, Router } from '@angular/router';
 })
 export class WelcomePage implements OnInit {
 
+  selectedProfile: 'cliente' | 'empresa' | null = null;
+
   constructor(private router: Router) {}
 
   ngOnInit() {
-    // Verificar se o usuário já está logado
     this.checkUserSession();
   }
 
-  // Verificar se existe sessão ativa
   checkUserSession() {
     const token = localStorage.getItem('token');
     const user = localStorage.getItem('currentUser');
-    
+
     if (token && user) {
-      // Se já estiver logado, redireciona para home
       console.log('Usuário já autenticado, redirecionando...');
-      // Descomente a linha abaixo se quiser redirecionar automaticamente
       // this.router.navigate(['/home']);
     }
   }
 
-  // Navegar para login
+  selectProfile(profile: 'cliente' | 'empresa') {
+    this.selectedProfile = profile;
+  }
+
   goToLogin() {
-    this.router.navigate(['/login']);
+    if (!this.selectedProfile) return;
+
+    if (this.selectedProfile === 'empresa') {
+      this.router.navigate(['/empresa/login']);
+    } else {
+      this.router.navigate(['/login']);
+    }
   }
 
-  // Navegar para cadastro
   goToSignup() {
-    this.router.navigate(['/cadastro']);
+    if (!this.selectedProfile) return;
+
+    if (this.selectedProfile === 'empresa') {
+      this.router.navigate(['/empresa/cadastro']);
+    } else {
+      this.router.navigate(['/cadastro']);
+    }
   }
 
-  // Continuar como visitante
   continueAsGuest() {
     console.log('Continuando como visitante');
     this.router.navigate(['/home']);

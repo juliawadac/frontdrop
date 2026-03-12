@@ -1,5 +1,5 @@
 <ion-content [fullscreen]="true" class="welcome-content">
-  
+
   <!-- Background decorativo -->
   <div class="background-decoration">
     <div class="circle circle-1"></div>
@@ -8,7 +8,7 @@
   </div>
 
   <div class="welcome-container">
-    
+
     <!-- Logo e Nome do App -->
     <div class="brand-section">
       <div class="logo-container">
@@ -16,60 +16,85 @@
           <img src="../../assets/logo_lado.png" alt="Logo Drop" class="logo-image" />
         </div>
       </div>
-      
+
       <div class="brand-text">
         <h1>Bem-vindo ao Drop</h1>
         <p>Seu App favorito para a Pronta Entrega</p>
       </div>
     </div>
 
-    <!-- Ilustração ou Features -->
-    <div class="features-section">
-      <div class="feature-item">
-        <div class="feature-icon">
-          <ion-icon name="restaurant-outline"></ion-icon>
+    <!-- Seleção de perfil -->
+    <div class="profile-section">
+      <p class="profile-label">Como você quer acessar?</p>
+
+      <div class="profile-cards">
+
+        <!-- Card Cliente -->
+        <div
+          class="profile-card"
+          [class.selected]="selectedProfile === 'cliente'"
+          (click)="selectProfile('cliente')">
+          <div class="card-icon">
+            <ion-icon name="person-outline"></ion-icon>
+          </div>
+          <div class="card-content">
+            <h3>Sou Cliente</h3>
+            <p>Quero pedir e acompanhar entregas</p>
+          </div>
+          <div class="card-check">
+            <ion-icon name="checkmark-circle" *ngIf="selectedProfile === 'cliente'"></ion-icon>
+            <ion-icon name="ellipse-outline" *ngIf="selectedProfile !== 'cliente'"></ion-icon>
+          </div>
         </div>
-        <p>Restaurantes diversos</p>
-      </div>
-      
-      <div class="feature-item">
-        <div class="feature-icon">
-          <ion-icon name="bicycle-outline"></ion-icon>
+
+        <!-- Card Empresa -->
+        <div
+          class="profile-card"
+          [class.selected]="selectedProfile === 'empresa'"
+          (click)="selectProfile('empresa')">
+          <div class="card-icon empresa-icon">
+            <ion-icon name="storefront-outline"></ion-icon>
+          </div>
+          <div class="card-content">
+            <h3>Sou Empresa</h3>
+            <p>Quero cadastrar e gerenciar minha loja</p>
+          </div>
+          <div class="card-check">
+            <ion-icon name="checkmark-circle" *ngIf="selectedProfile === 'empresa'"></ion-icon>
+            <ion-icon name="ellipse-outline" *ngIf="selectedProfile !== 'empresa'"></ion-icon>
+          </div>
         </div>
-        <p>Entrega rápida</p>
-      </div>
-      
-      <div class="feature-item">
-        <div class="feature-icon">
-          <ion-icon name="card-outline"></ion-icon>
-        </div>
-        <p>Pagamento fácil</p>
+
       </div>
     </div>
 
     <!-- Botões de Ação -->
-    <div class="actions-section">
-      <ion-button 
-        expand="block" 
-        class="login-btn" 
-        [routerLink]="['/login']">
+    <div class="actions-section" [class.visible]="selectedProfile !== null">
+
+      <ion-button
+        expand="block"
+        class="login-btn"
+        (click)="goToLogin()"
+        [disabled]="!selectedProfile">
         ENTRAR
       </ion-button>
 
-      <ion-button 
-        expand="block" 
+      <ion-button
+        expand="block"
         fill="outline"
-        class="signup-btn" 
-        [routerLink]="['/cadastro']">
+        class="signup-btn"
+        (click)="goToSignup()"
+        [disabled]="!selectedProfile">
         CRIAR CONTA
       </ion-button>
 
-      <div class="guest-access">
-        <a [routerLink]="['/home']" class="guest-link">
+      <div class="guest-access" *ngIf="selectedProfile !== 'empresa'">
+        <a (click)="continueAsGuest()" class="guest-link">
           Continuar como visitante
           <ion-icon name="arrow-forward-outline"></ion-icon>
         </a>
       </div>
+
     </div>
 
   </div>
