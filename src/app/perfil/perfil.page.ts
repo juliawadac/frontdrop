@@ -20,7 +20,6 @@ export class PerfilPage implements OnInit {
   emailUsuario: string = 'usuario@email.com';
   profilePhoto: string | null = null;
 
-  // ✅ Rotas que ainda estão em desenvolvimento
   private rotasEmDesenvolvimento: string[] = [
     '/dados',
     '/enderecos',
@@ -44,11 +43,13 @@ export class PerfilPage implements OnInit {
     private router: Router,
     private profileService: ProfileService,
     private actionSheetController: ActionSheetController,
-    private alertController: AlertController // ✅ Adicionado
+    private alertController: AlertController
   ) {}
 
   ngOnInit() {
     this.carregarDadosUsuario();
+
+    // A foto já é gerenciada pelo ProfileService por usuário — só assina
     this.profileService.photo$.subscribe(photo => {
       this.profilePhoto = photo;
     });
@@ -61,13 +62,13 @@ export class PerfilPage implements OnInit {
         this.nomeUsuario = user.nome;
         this.emailUsuario = user.email;
       } else {
+        this.usuario = null;
         this.nomeUsuario = 'Usuário';
         this.emailUsuario = 'usuario@email.com';
       }
     });
   }
 
-  /** Abre o seletor de foto ao clicar no avatar */
   async editarFotoPerfil() {
     const actionSheet = await this.actionSheetController.create({
       header: 'Foto de Perfil',
@@ -96,7 +97,6 @@ export class PerfilPage implements OnInit {
     await actionSheet.present();
   }
 
-  /** Abre input file para selecionar imagem da galeria */
   private abrirGaleria() {
     const input = document.createElement('input');
     input.type = 'file';
@@ -116,7 +116,6 @@ export class PerfilPage implements OnInit {
     input.click();
   }
 
-  // ✅ ALTERADO: Verifica se a rota está em desenvolvimento antes de navegar
   async navegarPara(rota: string) {
     if (this.rotasEmDesenvolvimento.includes(rota)) {
       const alert = await this.alertController.create({
@@ -127,7 +126,6 @@ export class PerfilPage implements OnInit {
       await alert.present();
       return;
     }
-
     this.router.navigate([rota]);
   }
 

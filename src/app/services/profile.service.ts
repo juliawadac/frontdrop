@@ -1,28 +1,57 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProfileService {
-  private readonly STORAGE_KEY = 'profilePhoto';
 
-  private photoSubject = new BehaviorSubject<string | null>(
-    localStorage.getItem(this.STORAGE_KEY)
-  );
+  private photoSubject = new BehaviorSubject<string | null>(null);
 
   /** Observable que qualquer página pode assinar para receber a foto atual */
   photo$ = this.photoSubject.asObservable();
 
-  /** Salva a foto (base64) e notifica todos os subscribers */
+  constructor(private authService: AuthService) {
+    // Sempre que o usuário logado mudar, recarrega a foto correta
+    this.authService.currentUser$.subscribe(user => {
+      if (user?.id) {
+        const foto = localStorage.getItem(this.storageKey(user.id));
+        this.photoSubject.next(foto);
+      } else {
+        // Sem usuário logado → limpa a foto exibida
+        this.photoSubject.next(null);
+      }
+    });
+  }
+
+  /** Chave única por usuário: ex. "profilePhoto_42" */
+  private storageKey(userId: number): string {
+    return `profilePhoto_${userId}`;
+  }
+
+  /** ID do usuário atualmente logado */
+  private getCurrentUserId(): number | null {
+    return this.authService.currentUser$
+      ? (this.authService as any).currentUserSubject?.getValue()?.id ?? null
+      : null;
+  }
+
+  /** Salva a foto (base64) vinculada ao usuário logado e notifica subscribers */
   setPhoto(base64: string) {
-    localStorage.setItem(this.STORAGE_KEY, base64);
+    const userId = this.getCurrentUserId();
+    if (!userId) return;
+
+    localStorage.setItem(this.storageKey(userId), base64);
     this.photoSubject.next(base64);
   }
 
-  /** Remove a foto */
+  /** Remove a foto do usuário logado */
   clearPhoto() {
-    localStorage.removeItem(this.STORAGE_KEY);
+    const userId = this.getCurrentUserId();
+    if (userId) {
+      localStorage.removeItem(this.storageKey(userId));
+    }
     this.photoSubject.next(null);
   }
 

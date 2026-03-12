@@ -23,7 +23,9 @@ export interface LoginResponse {
 })
 export class AuthService {
   private readonly API_URL = 'http://localhost:3000/usuarios';
-  private currentUserSubject = new BehaviorSubject<Usuario | null>(null);
+
+  // ✅ Exposto como público para que o ProfileService possa ler o id atual
+  public currentUserSubject = new BehaviorSubject<Usuario | null>(null);
   public currentUser$ = this.currentUserSubject.asObservable();
 
   constructor(private http: HttpClient) {
