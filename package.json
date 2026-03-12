@@ -29,11 +29,11 @@
     "@ionic/angular": "^8.0.0",
     "@ionic/cli": "^7.2.1",
     "ionicons": "^7.0.0",
+    "nodemailer": "^8.0.2",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"
   },
-  
   "devDependencies": {
     "@angular-devkit/build-angular": "^20.0.0",
     "@angular-eslint/builder": "^20.0.0",

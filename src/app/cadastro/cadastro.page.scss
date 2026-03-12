@@ -47,14 +47,7 @@
       align-items: center;
       justify-content: center;
       box-shadow: 0 6px 24px rgba(153, 82, 28, 0.2);
-      backdrop-filter: blur(10px);
-      transition: all 0.3s ease;
       overflow: hidden;
-
-      &:hover {
-        transform: scale(1.05);
-        box-shadow: 0 8px 30px rgba(153, 82, 28, 0.3);
-      }
     }
 
     img {
@@ -78,7 +71,6 @@
       font-size: 15px;
       color: #666;
       margin: 0;
-      font-weight: 400;
     }
   }
 }
@@ -88,23 +80,24 @@
   border-radius: 28px;
   padding: 28px 20px;
   box-shadow: 0 10px 35px rgba(153, 82, 28, 0.12);
-  backdrop-filter: blur(20px);
 
   .form-group {
-    margin-bottom: 28px;
+    margin-bottom: 24px;
 
     .group-title {
       display: flex;
       align-items: center;
       gap: 10px;
-      font-size: 16px;
+      font-size: 13px;
       font-weight: 700;
-      color: #2c1810;
-      margin: 0 0 16px;
+      color: #99521c;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin: 0 0 14px;
       font-family: "Nunito", sans-serif;
 
       ion-icon {
-        font-size: 18px;
+        font-size: 16px;
         color: #99521c;
       }
     }
@@ -112,77 +105,75 @@
     .input-row {
       display: flex;
       gap: 12px;
-      margin-bottom: 16px;
+      margin-bottom: 0;
       flex-direction: column;
+    }
+  }
 
-      .half-width { flex: 1; }
+  // ✅ Input clean: fundo cinza claro, borda fina, sem label flutuante
+  .input-container {
+    display: flex;
+    align-items: center;
+    background: #f7f4f1;
+    border: 1.5px solid transparent;
+    border-radius: 14px;
+    padding: 6px 14px;
+    margin-bottom: 12px;
+    transition: all 0.25s ease;
+
+    &.half-width { margin-bottom: 0; }
+
+    &:focus-within {
+      background: white;
+      border-color: #99521c;
+      box-shadow: 0 4px 16px rgba(153, 82, 28, 0.12);
+      transform: translateY(-1px);
     }
 
-    // ✅ CORRIGIDO: flexbox igual ao login, sem position absolute
-    .input-container {
-      display: flex;
-      align-items: center;
-      margin-bottom: 16px;
-      background: #f8f9fa;
-      border: 1.5px solid transparent;
-      border-radius: 16px;
-      padding: 4px 16px;
-      transition: all 0.3s ease;
+    .input-icon {
+      color: #c4956a;
+      font-size: 18px;
+      flex-shrink: 0;
+      margin-right: 10px;
+    }
 
-      &.half-width { margin-bottom: 0; }
+    .custom-input {
+      flex: 1;
 
-      &:focus-within {
-        background: white;
-        border-color: rgba(153, 82, 28, 0.25);
-        box-shadow: 0 4px 20px rgba(153, 82, 28, 0.1);
-        transform: translateY(-2px);
-      }
+      --color: #2c1810;
+      --placeholder-color: #b8a090;
+      --background: transparent;
+      --highlight-color: transparent;
+      --highlight-color-focused: transparent;
+      --highlight-color-valid: transparent;
+      --highlight-color-invalid: transparent;
+      --border-color: transparent;
+      --padding-start: 0px;
+      --padding-end: 0px;
+      --padding-top: 12px;
+      --padding-bottom: 12px;
 
-      .input-icon {
-        color: #99521c;
-        font-size: 20px;
-        flex-shrink: 0;
-        margin-right: 4px;
-      }
+      font-size: 15px;
+      font-weight: 500;
+      font-family: "Nunito", sans-serif;
+    }
 
-      .custom-input {
-        flex: 1;
+    .password-toggle {
+      --color: #c4956a;
+      --background: transparent;
+      --background-hover: transparent;
+      --background-activated: transparent;
+      flex-shrink: 0;
+      margin: 0;
 
-        --color: #2c1810;
-        --placeholder-color: #bbb;
-        --background: transparent;
-        --highlight-color: transparent;
-        --highlight-color-focused: transparent;
-        --highlight-color-valid: transparent;
-        --highlight-color-invalid: transparent;
-        --border-color: transparent;
-        --label-color: #999;
-        --label-color-focused: #99521c;
-
-        font-size: 15px;
-        font-weight: 500;
-        font-family: "Nunito", sans-serif;
-      }
-
-      .password-toggle {
-        --color: #99521c;
-        --background: transparent;
-        --background-hover: transparent;
-        --background-activated: transparent;
-        flex-shrink: 0;
-        margin: 0;
-        width: 36px;
-        height: 36px;
-
-        ion-icon { font-size: 18px; }
-      }
+      ion-icon { font-size: 18px; }
     }
   }
 
   .btn-cadastrar {
     --background: linear-gradient(135deg, #99521c, #b8652a);
     --color: white;
-    --border-radius: 16px;
+    --border-radius: 14px;
     height: 54px;
     font-weight: 700;
     font-size: 15px;
@@ -190,12 +181,6 @@
     margin-bottom: 20px;
     box-shadow: 0 5px 18px rgba(153, 82, 28, 0.3);
     font-family: "Nunito", sans-serif;
-    transition: all 0.3s ease;
-
-    &:not([disabled]):hover {
-      transform: translateY(-2px);
-      box-shadow: 0 7px 22px rgba(153, 82, 28, 0.4);
-    }
 
     &[disabled] { opacity: 0.7; }
 
@@ -205,7 +190,7 @@
   .links-section {
     .divider {
       text-align: center;
-      margin: 20px 0;
+      margin: 16px 0;
       position: relative;
 
       &::before {
@@ -213,13 +198,13 @@
         position: absolute;
         top: 50%; left: 0; right: 0;
         height: 1px;
-        background: #e0e0e0;
+        background: #e8e0d8;
       }
 
       span {
         background: rgba(255, 255, 255, 0.95);
         padding: 0 14px;
-        color: #666;
+        color: #aaa;
         font-size: 13px;
         position: relative;
         z-index: 1;
@@ -239,12 +224,6 @@
         font-size: 15px;
         padding: 10px 14px;
         border-radius: 10px;
-        transition: all 0.3s ease;
-
-        &:hover {
-          background: rgba(153, 82, 28, 0.1);
-          transform: translateY(-1px);
-        }
 
         ion-icon { font-size: 16px; }
       }
@@ -260,5 +239,4 @@
 @media (min-width: 768px) {
   .cadastro-container { max-width: 520px; margin: 0 auto; }
   .form-section { padding: 32px 28px; }
-  .input-row { gap: 16px; }
 }

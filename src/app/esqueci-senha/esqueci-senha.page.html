@@ -1,6 +1,5 @@
 <ion-content [fullscreen]="true" class="esqueci-content">
 
-  <!-- Background decorativo (igual ao login) -->
   <div class="background-decoration">
     <div class="circle circle-1"></div>
     <div class="circle circle-2"></div>
@@ -9,14 +8,13 @@
 
   <div class="esqueci-container">
 
-    <!-- Botão voltar -->
     <div class="back-header">
       <ion-button fill="clear" class="back-btn" [routerLink]="['/login']">
         <ion-icon name="chevron-back-outline" slot="icon-only"></ion-icon>
       </ion-button>
     </div>
 
-    <!-- ========== ETAPA 1: DIGITAR EMAIL ========== -->
+    <!-- ========== ETAPA 1: EMAIL ========== -->
     <div *ngIf="etapa === 'email'" class="step-container">
 
       <div class="icon-section">
@@ -31,13 +29,12 @@
       </div>
 
       <div class="form-section">
+
         <div class="input-container">
           <ion-icon name="mail-outline" class="input-icon"></ion-icon>
           <ion-input
             type="email"
-            label="Email"
-            label-placement="floating"
-            placeholder="Digite seu email"
+            placeholder="Seu email"
             [(ngModel)]="email"
             class="custom-input"
             [disabled]="isLoading">
@@ -50,14 +47,11 @@
           (click)="enviarCodigo()"
           [disabled]="isLoading">
           <ion-spinner *ngIf="isLoading" name="crescent"></ion-spinner>
-          <span *ngIf="!isLoading">
-            <ion-icon name="send-outline" slot="start"></ion-icon>
-            ENVIAR CÓDIGO
-          </span>
+          <span *ngIf="!isLoading">ENVIAR CÓDIGO</span>
           <span *ngIf="isLoading">ENVIANDO...</span>
         </ion-button>
-      </div>
 
+      </div>
     </div>
 
     <!-- ========== ETAPA 2: CÓDIGO + NOVA SENHA ========== -->
@@ -71,18 +65,15 @@
 
       <div class="text-section">
         <h1>Verifique seu email</h1>
-        <p>Enviamos um código para <strong>{{ email }}</strong>. Insira o código e crie uma nova senha.</p>
+        <p>Enviamos um código para <strong>{{ email }}</strong>.<br>Insira o código e crie uma nova senha.</p>
       </div>
 
       <div class="form-section">
 
-        <!-- Código -->
         <div class="input-container">
           <ion-icon name="key-outline" class="input-icon"></ion-icon>
           <ion-input
             type="text"
-            label="Código de 6 dígitos"
-            label-placement="floating"
             placeholder="000000"
             [(ngModel)]="codigo"
             maxlength="6"
@@ -91,14 +82,11 @@
           </ion-input>
         </div>
 
-        <!-- Nova Senha -->
         <div class="input-container">
           <ion-icon name="lock-closed-outline" class="input-icon"></ion-icon>
           <ion-input
             [type]="showNovaSenha ? 'text' : 'password'"
-            label="Nova Senha"
-            label-placement="floating"
-            placeholder="Mínimo 6 caracteres"
+            placeholder="Nova senha"
             [(ngModel)]="novaSenha"
             class="custom-input"
             [disabled]="isLoading">
@@ -108,14 +96,11 @@
           </ion-button>
         </div>
 
-        <!-- Confirmar Senha -->
         <div class="input-container">
           <ion-icon name="lock-closed-outline" class="input-icon"></ion-icon>
           <ion-input
             [type]="showConfirmarSenha ? 'text' : 'password'"
-            label="Confirmar Nova Senha"
-            label-placement="floating"
-            placeholder="Repita a nova senha"
+            placeholder="Confirmar nova senha"
             [(ngModel)]="confirmarSenha"
             class="custom-input"
             [disabled]="isLoading">
@@ -135,7 +120,6 @@
           <span *ngIf="isLoading">REDEFININDO...</span>
         </ion-button>
 
-        <!-- Link para reenviar código -->
         <div class="resend-section">
           <span>Não recebeu o código?</span>
           <a (click)="voltarParaEmail()" class="resend-link">Tentar novamente</a>

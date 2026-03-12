@@ -1,5 +1,5 @@
 <ion-content [fullscreen]="true" class="login-content">
-  
+
   <!-- Background decorativo -->
   <div class="background-decoration">
     <div class="circle circle-1"></div>
@@ -8,7 +8,7 @@
   </div>
 
   <div class="login-container">
-    
+
     <!-- Header com logo -->
     <div class="header-section">
       <div class="logo-container">
@@ -16,7 +16,7 @@
           <img src="../../assets/logo_lado.png" alt="Logo Drop" class="logo-image" />
         </div>
       </div>
-      
+
       <div class="welcome-text">
         <h1>Bem-vindo de volta!</h1>
         <p>Entre na sua conta para continuar</p>
@@ -26,50 +26,48 @@
     <!-- Formulário de login -->
     <div class="form-section">
       <div class="input-group">
+
         <div class="input-container">
           <ion-icon name="mail-outline" class="input-icon"></ion-icon>
           <ion-input
             type="email"
-            label="Email"
-            label-placement="floating"
-            placeholder="Digite seu email"
+            placeholder="Seu email"
             [(ngModel)]="email"
             name="email"
             class="custom-input"
-            [disabled]="isLoading"
-          ></ion-input>
+            [disabled]="isLoading">
+          </ion-input>
         </div>
 
         <div class="input-container">
           <ion-icon name="lock-closed-outline" class="input-icon"></ion-icon>
           <ion-input
             [type]="showPassword ? 'text' : 'password'"
-            label="Senha"
-            label-placement="floating"
-            placeholder="Digite sua senha"
+            placeholder="Sua senha"
             [(ngModel)]="senha"
             name="senha"
             class="custom-input"
-            [disabled]="isLoading"
-          ></ion-input>
-          <ion-button 
-            fill="clear" 
+            [disabled]="isLoading">
+          </ion-input>
+          <ion-button
+            fill="clear"
             class="password-toggle"
             (click)="togglePassword()">
             <ion-icon [name]="showPassword ? 'eye-off-outline' : 'eye-outline'"></ion-icon>
           </ion-button>
         </div>
+
       </div>
 
-      <!-- ✅ NOVO: Link esqueci minha senha -->
+      <!-- Link esqueci minha senha -->
       <div class="forgot-password">
         <a routerLink="/esqueci-senha" class="forgot-link">Esqueci minha senha</a>
       </div>
 
       <!-- Botão de login -->
-      <ion-button 
-        expand="block" 
-        class="login-button" 
+      <ion-button
+        expand="block"
+        class="login-button"
         (click)="login()"
         [disabled]="isLoading">
         <ion-spinner *ngIf="isLoading" name="crescent"></ion-spinner>
@@ -82,7 +80,7 @@
         <div class="divider">
           <span>ou</span>
         </div>
-        
+
         <div class="auth-links">
           <a routerLink="/cadastro" class="signup-link">
             <ion-icon name="person-add-outline"></ion-icon>
@@ -91,5 +89,6 @@
         </div>
       </div>
     </div>
+
   </div>
 </ion-content>

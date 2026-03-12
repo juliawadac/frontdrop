@@ -4,13 +4,9 @@
   overflow: hidden;
 }
 
-// Background decorativo
 .background-decoration {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  top: 0; left: 0; right: 0; bottom: 0;
   pointer-events: none;
   z-index: 0;
 
@@ -19,36 +15,12 @@
     border-radius: 50%;
     opacity: 0.1;
 
-    &.circle-1 {
-      width: 200px;
-      height: 200px;
-      background: #99521c;
-      top: -100px;
-      right: -100px;
-      animation: float 6s ease-in-out infinite;
-    }
-
-    &.circle-2 {
-      width: 150px;
-      height: 150px;
-      background: #b8652a;
-      bottom: -75px;
-      left: -75px;
-      animation: float 8s ease-in-out infinite reverse;
-    }
-
-    &.circle-3 {
-      width: 100px;
-      height: 100px;
-      background: #99521c;
-      top: 50%;
-      left: -50px;
-      animation: float 7s ease-in-out infinite;
-    }
+    &.circle-1 { width: 200px; height: 200px; background: #99521c; top: -100px; right: -100px; animation: float 6s ease-in-out infinite; }
+    &.circle-2 { width: 150px; height: 150px; background: #b8652a; bottom: -75px; left: -75px; animation: float 8s ease-in-out infinite reverse; }
+    &.circle-3 { width: 100px; height: 100px; background: #99521c; top: 50%; left: -50px; animation: float 7s ease-in-out infinite; }
   }
 }
 
-// Container principal
 .login-container {
   position: relative;
   z-index: 1;
@@ -58,7 +30,6 @@
   padding: 40px 20px 20px;
 }
 
-// Header section
 .header-section {
   text-align: center;
   margin-bottom: 40px;
@@ -76,8 +47,6 @@
       align-items: center;
       justify-content: center;
       box-shadow: 0 6px 24px rgba(153, 82, 28, 0.2);
-      backdrop-filter: blur(10px);
-      transition: all 0.3s ease;
       overflow: hidden;
 
       &:hover {
@@ -108,89 +77,85 @@
     font-size: 16px;
     color: #666;
     margin: 0;
-    font-weight: 400;
   }
 }
 
-// Form section
 .form-section {
   flex: 1;
   background: rgba(255, 255, 255, 0.95);
   border-radius: 32px;
   padding: 32px 24px;
   box-shadow: 0 12px 40px rgba(153, 82, 28, 0.15);
-  backdrop-filter: blur(20px);
 
   .input-group {
-    margin-bottom: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 12px;
+  }
 
-    .input-container {
-      position: relative;
-      display: flex;
-      align-items: center;
-      margin-bottom: 16px;
-      background: #f8f9fa;
-      border-radius: 16px;
-      padding: 4px 16px;
-      transition: all 0.3s ease;
-      border: 1.5px solid transparent;
+  // ✅ Input clean: fundo neutro, borda fina, sem label flutuante
+  .input-container {
+    display: flex;
+    align-items: center;
+    background: #f7f4f1;
+    border: 1.5px solid transparent;
+    border-radius: 14px;
+    padding: 6px 14px;
+    transition: all 0.25s ease;
 
-      &:focus-within {
-        background: white;
-        border-color: rgba(153, 82, 28, 0.25);
-        box-shadow: 0 4px 20px rgba(153, 82, 28, 0.1);
-        transform: translateY(-2px);
-      }
+    &:focus-within {
+      background: white;
+      border-color: #99521c;
+      box-shadow: 0 4px 16px rgba(153, 82, 28, 0.12);
+      transform: translateY(-1px);
+    }
 
-      .input-icon {
-        font-size: 20px;
-        color: #99521c;
-        flex-shrink: 0;
-        margin-right: 4px;
-        z-index: 2;
-      }
+    .input-icon {
+      font-size: 18px;
+      color: #c4956a;
+      flex-shrink: 0;
+      margin-right: 10px;
+    }
 
-      .custom-input {
-        flex: 1;
+    .custom-input {
+      flex: 1;
 
-        // ✅ Remove toda cor do Ionic — deixa limpo e neutro
-        --color: #2c1810;
-        --placeholder-color: #bbb;
-        --background: transparent;
-        --highlight-color: transparent;
-        --highlight-color-focused: transparent;
-        --highlight-color-valid: transparent;
-        --highlight-color-invalid: transparent;
-        --border-color: transparent;
-        --label-color: #999;
-        --label-color-focused: #99521c;
+      --color: #2c1810;
+      --placeholder-color: #b8a090;
+      --background: transparent;
+      --highlight-color: transparent;
+      --highlight-color-focused: transparent;
+      --highlight-color-valid: transparent;
+      --highlight-color-invalid: transparent;
+      --border-color: transparent;
+      --padding-start: 0px;
+      --padding-end: 0px;
+      --padding-top: 12px;
+      --padding-bottom: 12px;
 
-        font-size: 15px;
-        font-weight: 500;
-        font-family: "Nunito", sans-serif;
-      }
+      font-size: 15px;
+      font-weight: 500;
+      font-family: "Nunito", sans-serif;
+    }
 
-      .password-toggle {
-        --color: #99521c;
-        --background: transparent;
-        --background-hover: transparent;
-        --background-activated: transparent;
-        width: 40px;
-        height: 40px;
-        flex-shrink: 0;
+    .password-toggle {
+      --color: #c4956a;
+      --background: transparent;
+      --background-hover: transparent;
+      --background-activated: transparent;
+      width: 40px;
+      height: 40px;
+      flex-shrink: 0;
 
-        ion-icon {
-          font-size: 20px;
-        }
-      }
+      ion-icon { font-size: 20px; }
     }
   }
 
-  // ✅ NOVO: Link esqueci minha senha
   .forgot-password {
     text-align: right;
     margin-bottom: 20px;
-    margin-top: -4px;
+    margin-top: 4px;
 
     .forgot-link {
       color: #99521c;
@@ -201,59 +166,45 @@
       font-family: "Nunito", sans-serif;
       transition: opacity 0.2s;
 
-      &:hover {
-        opacity: 0.7;
-      }
+      &:hover { opacity: 0.7; }
     }
   }
 
   .login-button {
     --background: linear-gradient(135deg, #99521c, #b8652a);
     --color: white;
-    --border-radius: 16px;
-    height: 56px;
+    --border-radius: 14px;
+    height: 54px;
     font-weight: 700;
     font-size: 16px;
     letter-spacing: 1px;
     margin-bottom: 24px;
     box-shadow: 0 6px 20px rgba(153, 82, 28, 0.3);
     font-family: "Nunito", sans-serif;
-    transition: all 0.3s ease;
 
-    &:not([disabled]):hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(153, 82, 28, 0.4);
-    }
+    &[disabled] { opacity: 0.7; }
 
-    &[disabled] {
-      opacity: 0.7;
-    }
-
-    ion-spinner {
-      margin-right: 8px;
-    }
+    ion-spinner { margin-right: 8px; }
   }
 
   .links-section {
     .divider {
       text-align: center;
-      margin: 24px 0;
+      margin: 20px 0;
       position: relative;
 
       &::before {
         content: '';
         position: absolute;
-        top: 50%;
-        left: 0;
-        right: 0;
+        top: 50%; left: 0; right: 0;
         height: 1px;
-        background: #e0e0e0;
+        background: #e8e0d8;
       }
 
       span {
         background: rgba(255, 255, 255, 0.95);
         padding: 0 16px;
-        color: #666;
+        color: #aaa;
         font-size: 14px;
         position: relative;
         z-index: 1;
@@ -275,26 +226,19 @@
         border-radius: 12px;
         transition: all 0.3s ease;
 
-        &:hover {
-          background: rgba(153, 82, 28, 0.1);
-          transform: translateY(-1px);
-        }
+        &:hover { background: rgba(153, 82, 28, 0.08); }
 
-        ion-icon {
-          font-size: 18px;
-        }
+        ion-icon { font-size: 18px; }
       }
     }
   }
 }
 
-// Animações
 @keyframes float {
   0%, 100% { transform: translateY(0px); }
   50%       { transform: translateY(-20px); }
 }
 
-// Responsividade
 @media (min-width: 768px) {
   .login-container {
     max-width: 480px;
@@ -302,13 +246,9 @@
     justify-content: center;
   }
 
-  .form-section {
-    padding: 40px 32px;
-  }
+  .form-section { padding: 40px 32px; }
 }
 
 @media (min-height: 800px) {
-  .login-container {
-    justify-content: center;
-  }
+  .login-container { justify-content: center; }
 }
