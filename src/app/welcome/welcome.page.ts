@@ -22,8 +22,7 @@ export class WelcomePage implements OnInit {
 
   checkUserSession() {
     const token = localStorage.getItem('token');
-    const user = localStorage.getItem('currentUser');
-
+    const user  = localStorage.getItem('currentUser');
     if (token && user) {
       console.log('Usuário já autenticado, redirecionando...');
       // this.router.navigate(['/home']);
@@ -36,9 +35,8 @@ export class WelcomePage implements OnInit {
 
   goToLogin() {
     if (!this.selectedProfile) return;
-
     if (this.selectedProfile === 'empresa') {
-      this.router.navigate(['/empresa/login']);
+      this.router.navigate(['/lojas/login']);
     } else {
       this.router.navigate(['/login']);
     }
@@ -46,16 +44,14 @@ export class WelcomePage implements OnInit {
 
   goToSignup() {
     if (!this.selectedProfile) return;
-
     if (this.selectedProfile === 'empresa') {
-      this.router.navigate(['/empresa/cadastro']);
+      this.router.navigate(['/lojas/cadastro']);
     } else {
       this.router.navigate(['/cadastro']);
     }
   }
 
   continueAsGuest() {
-    console.log('Continuando como visitante');
     this.router.navigate(['/home']);
   }
 }

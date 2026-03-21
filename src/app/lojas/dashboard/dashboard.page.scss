@@ -1,0 +1,27 @@
+.dash-tab-bar {
+  --background: #99521c;
+  border-top: 1px solid #f0e8e0;
+  box-shadow: 0 -4px 20px rgba(153, 82, 28, 0.08);
+  padding-bottom: env(safe-area-inset-bottom);
+  height: 64px;
+
+  .tab-btn {
+    --color: #e8d4c0;
+    --color-selected: #ffc107;
+
+    ion-label {
+      font-size: 11px;
+      font-weight: 600;
+      font-family: "Nunito", sans-serif;
+    }
+
+    ion-icon {
+      font-size: 22px;
+    }
+
+    &.tab-selected {
+      ion-icon { color: #ffc107; }
+      ion-label { color: #ffc107; }
+    }
+  }
+}

@@ -1,0 +1,292 @@
+.pedidos-content {
+  --background: #f8f3ef;
+}
+
+// Header
+.dash-header {
+  background: linear-gradient(135deg, #99521c, #b8652a);
+  padding: 52px 20px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .header-sub {
+    font-size: 12px;
+    color: rgba(255,255,255,0.7);
+    font-family: "Nunito", sans-serif;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 0 0 4px;
+  }
+
+  .header-title {
+    font-size: 22px;
+    font-weight: 800;
+    color: white;
+    font-family: "Nunito", sans-serif;
+    margin: 0;
+  }
+
+  .header-avatar {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    border: 2px solid rgba(255,255,255,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    cursor: pointer;
+
+    .avatar-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    ion-icon {
+      font-size: 22px;
+      color: white;
+    }
+  }
+}
+
+// Summary cards
+.summary-cards {
+  display: flex;
+  gap: 12px;
+  padding: 16px 20px;
+  margin-top: -1px;
+  background: linear-gradient(135deg, #99521c, #b8652a);
+
+  .summary-card {
+    flex: 1;
+    background: rgba(255,255,255,0.15);
+    border-radius: 16px;
+    padding: 12px;
+    text-align: center;
+    position: relative;
+    backdrop-filter: blur(10px);
+
+    .summary-num {
+      display: block;
+      font-size: 24px;
+      font-weight: 800;
+      color: white;
+      font-family: "Nunito", sans-serif;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .summary-label {
+      font-size: 11px;
+      color: rgba(255,255,255,0.8);
+      font-weight: 600;
+      font-family: "Nunito", sans-serif;
+    }
+
+    .summary-dot {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+
+      &.pendente    { background: #FFD700; }
+      &.preparo     { background: #FF8C00; }
+      &.entregando  { background: #00C853; }
+    }
+  }
+}
+
+// Loading / Empty
+.loading-state, .empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  gap: 12px;
+
+  ion-icon {
+    font-size: 56px;
+    color: #c4956a;
+    opacity: 0.5;
+  }
+
+  h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #2c1810;
+    font-family: "Nunito", sans-serif;
+    margin: 0;
+  }
+
+  p {
+    font-size: 14px;
+    color: #999;
+    margin: 0;
+    font-family: "Nunito", sans-serif;
+  }
+}
+
+// Lista
+.pedidos-list {
+  padding: 16px 16px 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+// Grupo por status
+.status-group {
+  .group-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+    padding: 0 4px;
+
+    .group-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+
+      &.pendente    { background: #FFD700; box-shadow: 0 0 6px rgba(255,215,0,0.6); }
+      &.preparo     { background: #FF8C00; box-shadow: 0 0 6px rgba(255,140,0,0.6); }
+      &.entregando  { background: #00C853; box-shadow: 0 0 6px rgba(0,200,83,0.6); }
+    }
+
+    span {
+      font-size: 13px;
+      font-weight: 700;
+      color: #2c1810;
+      font-family: "Nunito", sans-serif;
+      flex: 1;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .group-count {
+      flex: 0;
+      background: rgba(153, 82, 28, 0.12);
+      color: #99521c;
+      font-size: 12px;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 20px;
+    }
+  }
+}
+
+// Card do pedido
+.pedido-card {
+  background: white;
+  border-radius: 20px;
+  padding: 16px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 12px rgba(153, 82, 28, 0.08);
+  border-left: 4px solid #FFD700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  animation: slideIn 0.3s ease;
+
+  &:active { transform: scale(0.99); }
+
+  &.preparo    { border-left-color: #FF8C00; }
+  &.entregando { border-left-color: #00C853; }
+
+  .card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+
+    .pedido-num {
+      font-size: 15px;
+      font-weight: 800;
+      color: #2c1810;
+      font-family: "Nunito", sans-serif;
+    }
+
+    .pedido-hora {
+      font-size: 12px;
+      color: #999;
+      font-weight: 600;
+      font-family: "Nunito", sans-serif;
+    }
+  }
+
+  .card-cliente {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 6px;
+
+    ion-icon { font-size: 14px; color: #c4956a; }
+
+    span {
+      font-size: 13px;
+      color: #666;
+      font-family: "Nunito", sans-serif;
+      font-weight: 600;
+    }
+  }
+
+  .card-itens {
+    font-size: 12px;
+    color: #aaa;
+    font-family: "Nunito", sans-serif;
+    margin-bottom: 12px;
+    line-height: 1.4;
+    border-top: 1px solid #f5f0ec;
+    padding-top: 8px;
+  }
+
+  .card-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .pedido-valor {
+      font-size: 18px;
+      font-weight: 800;
+      color: #99521c;
+      font-family: "Nunito", sans-serif;
+    }
+
+    .status-actions {
+      display: flex;
+      gap: 6px;
+    }
+
+    .action-btn {
+      --border-radius: 10px;
+      height: 34px;
+      font-size: 12px;
+      font-weight: 700;
+      font-family: "Nunito", sans-serif;
+
+      &.aceitar  { --background: linear-gradient(135deg, #99521c, #b8652a); --color: white; }
+      &.recusar  { --border-color: #ff4444; --color: #ff4444; }
+      &.entregar { --background: linear-gradient(135deg, #FF8C00, #FFA500); --color: white; }
+      &.concluir { --background: linear-gradient(135deg, #00C853, #00E676); --color: white; }
+    }
+  }
+}
+
+// FAB refresh
+.refresh-fab {
+  --background: linear-gradient(135deg, #99521c, #b8652a);
+  --color: white;
+  --box-shadow: 0 6px 20px rgba(153, 82, 28, 0.4);
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}

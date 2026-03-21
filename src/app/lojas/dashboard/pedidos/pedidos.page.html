@@ -1,0 +1,142 @@
+<ion-content class="pedidos-content">
+
+  <!-- Header -->
+  <div class="dash-header">
+    <div class="header-info">
+      <p class="header-sub">Painel da Loja</p>
+      <h1 class="header-title">{{ nomeLoja }}</h1>
+    </div>
+    <div class="header-avatar" (click)="irPerfil()">
+      <img *ngIf="logoUrl" [src]="logoUrl" class="avatar-img" />
+      <ion-icon *ngIf="!logoUrl" name="storefront-outline"></ion-icon>
+    </div>
+  </div>
+
+  <!-- Resumo rápido -->
+  <div class="summary-cards">
+    <div class="summary-card">
+      <span class="summary-num">{{ contagemPorStatus('Pendente') }}</span>
+      <span class="summary-label">Novos</span>
+      <div class="summary-dot pendente"></div>
+    </div>
+    <div class="summary-card">
+      <span class="summary-num">{{ contagemPorStatus('Preparo') }}</span>
+      <span class="summary-label">Preparo</span>
+      <div class="summary-dot preparo"></div>
+    </div>
+    <div class="summary-card">
+      <span class="summary-num">{{ contagemPorStatus('Entregando') }}</span>
+      <span class="summary-label">Entregando</span>
+      <div class="summary-dot entregando"></div>
+    </div>
+  </div>
+
+  <!-- Loading -->
+  <div class="loading-state" *ngIf="isLoading">
+    <ion-spinner name="crescent" color="primary"></ion-spinner>
+    <p>Buscando pedidos...</p>
+  </div>
+
+  <!-- Empty state -->
+  <div class="empty-state" *ngIf="!isLoading && pedidos.length === 0">
+    <ion-icon name="receipt-outline"></ion-icon>
+    <h3>Nenhum pedido ativo</h3>
+    <p>Os novos pedidos aparecerão aqui</p>
+  </div>
+
+  <!-- Lista de pedidos agrupada por status -->
+  <div class="pedidos-list" *ngIf="!isLoading && pedidos.length > 0">
+
+    <!-- Novos -->
+    <div class="status-group" *ngIf="getPorStatus('Pendente').length > 0">
+      <div class="group-header">
+        <div class="group-dot pendente"></div>
+        <span>Novos Pedidos</span>
+        <span class="group-count">{{ getPorStatus('Pendente').length }}</span>
+      </div>
+      <div class="pedido-card" *ngFor="let p of getPorStatus('Pendente')" (click)="abrirPedido(p)">
+        <div class="card-top">
+          <span class="pedido-num">Pedido #{{ p.numero_pedido }}</span>
+          <span class="pedido-hora">{{ formatarHora(p.criado_em) }}</span>
+        </div>
+        <div class="card-cliente">
+          <ion-icon name="person-outline"></ion-icon>
+          <span>{{ p.cliente_nome }} {{ p.cliente_sobrenome }}</span>
+        </div>
+        <div class="card-itens">{{ p.itens }}</div>
+        <div class="card-bottom">
+          <span class="pedido-valor">R$ {{ p.valor_total | number:'1.2-2' }}</span>
+          <div class="status-actions">
+            <ion-button size="small" class="action-btn aceitar" (click)="mudarStatus(p, 'Preparo', $event)">
+              Aceitar
+            </ion-button>
+            <ion-button size="small" fill="outline" class="action-btn recusar" (click)="mudarStatus(p, 'Cancelado', $event)">
+              Recusar
+            </ion-button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Em Preparo -->
+    <div class="status-group" *ngIf="getPorStatus('Preparo').length > 0">
+      <div class="group-header">
+        <div class="group-dot preparo"></div>
+        <span>Em Preparo</span>
+        <span class="group-count">{{ getPorStatus('Preparo').length }}</span>
+      </div>
+      <div class="pedido-card preparo" *ngFor="let p of getPorStatus('Preparo')" (click)="abrirPedido(p)">
+        <div class="card-top">
+          <span class="pedido-num">Pedido #{{ p.numero_pedido }}</span>
+          <span class="pedido-hora">{{ formatarHora(p.criado_em) }}</span>
+        </div>
+        <div class="card-cliente">
+          <ion-icon name="person-outline"></ion-icon>
+          <span>{{ p.cliente_nome }} {{ p.cliente_sobrenome }}</span>
+        </div>
+        <div class="card-itens">{{ p.itens }}</div>
+        <div class="card-bottom">
+          <span class="pedido-valor">R$ {{ p.valor_total | number:'1.2-2' }}</span>
+          <ion-button size="small" class="action-btn entregar" (click)="mudarStatus(p, 'Entregando', $event)">
+            Saiu para entrega
+          </ion-button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Entregando -->
+    <div class="status-group" *ngIf="getPorStatus('Entregando').length > 0">
+      <div class="group-header">
+        <div class="group-dot entregando"></div>
+        <span>Entregando</span>
+        <span class="group-count">{{ getPorStatus('Entregando').length }}</span>
+      </div>
+      <div class="pedido-card entregando" *ngFor="let p of getPorStatus('Entregando')" (click)="abrirPedido(p)">
+        <div class="card-top">
+          <span class="pedido-num">Pedido #{{ p.numero_pedido }}</span>
+          <span class="pedido-hora">{{ formatarHora(p.criado_em) }}</span>
+        </div>
+        <div class="card-cliente">
+          <ion-icon name="person-outline"></ion-icon>
+          <span>{{ p.cliente_nome }} {{ p.cliente_sobrenome }}</span>
+        </div>
+        <div class="card-itens">{{ p.itens }}</div>
+        <div class="card-bottom">
+          <span class="pedido-valor">R$ {{ p.valor_total | number:'1.2-2' }}</span>
+          <ion-button size="small" class="action-btn concluir" (click)="mudarStatus(p, 'Entregue', $event)">
+            Marcar entregue
+          </ion-button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FAB refresh -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button class="refresh-fab" (click)="carregarPedidos()">
+      <ion-icon name="refresh-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+</ion-content>

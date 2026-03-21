@@ -1,0 +1,202 @@
+<ion-content [fullscreen]="true" class="cadastro-content">
+
+  <div class="background-decoration">
+    <div class="circle circle-1"></div>
+    <div class="circle circle-2"></div>
+    <div class="circle circle-3"></div>
+  </div>
+
+  <div class="cadastro-container">
+
+    <!-- Header -->
+    <div class="header-section">
+      <button class="back-btn" (click)="voltar()">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </button>
+
+      <div class="header-text">
+        <div class="badge">
+          <ion-icon name="storefront-outline"></ion-icon>
+          <span>Nova Loja</span>
+        </div>
+        <h1>Cadastre sua loja</h1>
+        <p>Preencha os dados para começar a vender</p>
+      </div>
+    </div>
+
+    <!-- Formulário -->
+    <div class="form-section">
+
+      <!-- Indicador de etapas -->
+      <div class="steps-indicator">
+        <div class="step" [class.active]="etapa >= 1" [class.done]="etapa > 1">
+          <span>1</span>
+        </div>
+        <div class="step-line" [class.done]="etapa > 1"></div>
+        <div class="step" [class.active]="etapa >= 2" [class.done]="etapa > 2">
+          <span>2</span>
+        </div>
+        <div class="step-line" [class.done]="etapa > 2"></div>
+        <div class="step" [class.active]="etapa >= 3">
+          <span>3</span>
+        </div>
+      </div>
+
+      <!-- ETAPA 1: Dados da loja -->
+      <div class="etapa-content" *ngIf="etapa === 1">
+        <p class="etapa-titulo">Dados da loja</p>
+
+        <div class="input-container">
+          <ion-icon name="storefront-outline" class="input-icon"></ion-icon>
+          <ion-input
+            type="text"
+            placeholder="Nome da loja *"
+            [(ngModel)]="form.nome"
+            class="custom-input">
+          </ion-input>
+        </div>
+
+        <div class="input-container">
+          <ion-icon name="document-text-outline" class="input-icon"></ion-icon>
+          <ion-input
+            type="text"
+            placeholder="CNPJ (XX.XXX.XXX/XXXX-XX) *"
+            [(ngModel)]="form.cnpj"
+            maxlength="18"
+            (ionInput)="mascaraCnpj($event)"
+            class="custom-input">
+          </ion-input>
+        </div>
+
+        <div class="select-container">
+          <ion-icon name="grid-outline" class="input-icon"></ion-icon>
+          <ion-select
+            placeholder="Categoria *"
+            [(ngModel)]="form.categoria_id"
+            interface="action-sheet"
+            class="custom-select">
+            <ion-select-option *ngFor="let cat of categorias" [value]="cat.id">
+              {{ cat.nome }}
+            </ion-select-option>
+          </ion-select>
+        </div>
+
+        <ion-button expand="block" class="next-btn" (click)="proximaEtapa()">
+          Próximo
+          <ion-icon name="arrow-forward-outline" slot="end"></ion-icon>
+        </ion-button>
+      </div>
+
+      <!-- ETAPA 2: Endereço -->
+      <div class="etapa-content" *ngIf="etapa === 2">
+        <p class="etapa-titulo">Endereço da loja</p>
+
+        <div class="input-container">
+          <ion-icon name="location-outline" class="input-icon"></ion-icon>
+          <ion-input
+            type="text"
+            placeholder="Rua / Avenida *"
+            [(ngModel)]="form.localizacao"
+            class="custom-input">
+          </ion-input>
+        </div>
+
+        <div class="input-row">
+          <div class="input-container small">
+            <ion-icon name="home-outline" class="input-icon"></ion-icon>
+            <ion-input
+              type="text"
+              placeholder="Número *"
+              [(ngModel)]="form.numero_endereco"
+              class="custom-input">
+            </ion-input>
+          </div>
+
+          <div class="input-container grow">
+            <ion-icon name="map-outline" class="input-icon"></ion-icon>
+            <ion-input
+              type="text"
+              placeholder="Bairro"
+              [(ngModel)]="form.bairro"
+              class="custom-input">
+            </ion-input>
+          </div>
+        </div>
+
+        <div class="input-container">
+          <ion-icon name="business-outline" class="input-icon"></ion-icon>
+          <ion-input
+            type="text"
+            placeholder="Cidade"
+            [(ngModel)]="form.cidade"
+            class="custom-input">
+          </ion-input>
+        </div>
+
+        <div class="btn-row">
+          <ion-button fill="outline" class="back-step-btn" (click)="etapaAnterior()">
+            <ion-icon name="arrow-back-outline" slot="start"></ion-icon>
+            Voltar
+          </ion-button>
+          <ion-button class="next-btn half" (click)="proximaEtapa()">
+            Próximo
+            <ion-icon name="arrow-forward-outline" slot="end"></ion-icon>
+          </ion-button>
+        </div>
+      </div>
+
+      <!-- ETAPA 3: Acesso -->
+      <div class="etapa-content" *ngIf="etapa === 3">
+        <p class="etapa-titulo">Dados de acesso</p>
+
+        <div class="input-container">
+          <ion-icon name="mail-outline" class="input-icon"></ion-icon>
+          <ion-input
+            type="email"
+            placeholder="E-mail da loja *"
+            [(ngModel)]="form.email"
+            class="custom-input">
+          </ion-input>
+        </div>
+
+        <div class="input-container">
+          <ion-icon name="lock-closed-outline" class="input-icon"></ion-icon>
+          <ion-input
+            [type]="showPassword ? 'text' : 'password'"
+            placeholder="Senha *"
+            [(ngModel)]="form.senha"
+            class="custom-input">
+          </ion-input>
+          <ion-button fill="clear" class="password-toggle" (click)="togglePassword()">
+            <ion-icon [name]="showPassword ? 'eye-off-outline' : 'eye-outline'"></ion-icon>
+          </ion-button>
+        </div>
+
+        <div class="input-container">
+          <ion-icon name="lock-closed-outline" class="input-icon"></ion-icon>
+          <ion-input
+            [type]="showConfirmPassword ? 'text' : 'password'"
+            placeholder="Confirmar senha *"
+            [(ngModel)]="form.confirmarSenha"
+            class="custom-input">
+          </ion-input>
+          <ion-button fill="clear" class="password-toggle" (click)="toggleConfirmPassword()">
+            <ion-icon [name]="showConfirmPassword ? 'eye-off-outline' : 'eye-outline'"></ion-icon>
+          </ion-button>
+        </div>
+
+        <div class="btn-row">
+          <ion-button fill="outline" class="back-step-btn" (click)="etapaAnterior()">
+            <ion-icon name="arrow-back-outline" slot="start"></ion-icon>
+            Voltar
+          </ion-button>
+          <ion-button class="next-btn half" (click)="cadastrar()" [disabled]="isLoading">
+            <ion-spinner *ngIf="isLoading" name="crescent"></ion-spinner>
+            <span *ngIf="!isLoading">Cadastrar</span>
+          </ion-button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</ion-content>

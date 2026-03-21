@@ -1,19 +1,41 @@
-// cadastro.page.scss
-
-.cadastro-content {
+.login-content {
   --background: linear-gradient(135deg, #fadcc3 0%, #f5d5b7 100%);
   position: relative;
   overflow: hidden;
 }
 
-.back-button-container {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  z-index: 10;
+.background-decoration {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none;
+  z-index: 0;
+
+  .circle {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.1;
+
+    &.circle-1 { width: 200px; height: 200px; background: #99521c; top: -100px; right: -100px; animation: float 6s ease-in-out infinite; }
+    &.circle-2 { width: 150px; height: 150px; background: #b8652a; bottom: -75px; left: -75px; animation: float 8s ease-in-out infinite reverse; }
+    &.circle-3 { width: 100px; height: 100px; background: #99521c; top: 50%; left: -50px; animation: float 7s ease-in-out infinite; }
+  }
 }
 
-.back-button {
+.login-container {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 40px 20px 20px;
+}
+
+.header-section {
+  text-align: center;
+  margin-bottom: 32px;
+  position: relative;
+
+  .back-btn {
     position: absolute;
     top: 0;
     left: 0;
@@ -36,41 +58,13 @@
       color: #99521c;
     }
   }
-  
-.background-decoration {
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  pointer-events: none;
-  z-index: 0;
-
-  .circle {
-    position: absolute;
-    border-radius: 50%;
-    opacity: 0.08;
-
-    &.circle-1 { width: 250px; height: 250px; background: #99521c; top: -125px; right: -125px; animation: float 8s ease-in-out infinite; }
-    &.circle-2 { width: 180px; height: 180px; background: #b8652a; bottom: -90px; left: -90px; animation: float 10s ease-in-out infinite reverse; }
-    &.circle-3 { width: 120px; height: 120px; background: #99521c; top: 40%; right: -60px; animation: float 6s ease-in-out infinite; }
-  }
-}
-
-.cadastro-container {
-  position: relative;
-  z-index: 1;
-  min-height: 100vh;
-  padding: 32px 20px 20px;
-}
-
-.header-section {
-  text-align: center;
-  margin-bottom: 32px;
 
   .logo-container {
-    margin-bottom: 24px;
+    margin-bottom: 20px;
 
     .logo-wrapper {
-      width: 120px;
-      height: 120px;
+      width: 100px;
+      height: 100px;
       margin: 0 auto;
       background: rgba(255, 255, 255, 0.9);
       border-radius: 50%;
@@ -81,7 +75,7 @@
       overflow: hidden;
     }
 
-    img {
+    .logo-image {
       width: 100%;
       height: 100%;
       border-radius: 50%;
@@ -89,59 +83,62 @@
     }
   }
 
-  .welcome-text {
-    h1 {
-      font-size: 26px;
-      font-weight: 700;
-      color: #2c1810;
-      margin: 0 0 8px;
-      font-family: "Nunito", sans-serif;
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(153, 82, 28, 0.12);
+    border: 1.5px solid rgba(153, 82, 28, 0.3);
+    border-radius: 20px;
+    padding: 5px 14px;
+    margin-bottom: 12px;
+
+    ion-icon {
+      font-size: 15px;
+      color: #99521c;
     }
 
-    p {
-      font-size: 15px;
-      color: #666;
-      margin: 0;
+    span {
+      font-size: 12px;
+      font-weight: 700;
+      color: #99521c;
+      font-family: "Nunito", sans-serif;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
     }
   }
 }
 
-.form-section {
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 28px;
-  padding: 28px 20px;
-  box-shadow: 0 10px 35px rgba(153, 82, 28, 0.12);
-
-  .form-group {
-    margin-bottom: 24px;
-
-    .group-title {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 13px;
-      font-weight: 700;
-      color: #99521c;
-      text-transform: uppercase;
-      letter-spacing: 0.8px;
-      margin: 0 0 14px;
-      font-family: "Nunito", sans-serif;
-
-      ion-icon {
-        font-size: 16px;
-        color: #99521c;
-      }
-    }
-
-    .input-row {
-      display: flex;
-      gap: 12px;
-      margin-bottom: 0;
-      flex-direction: column;
-    }
+.welcome-text {
+  h1 {
+    font-size: 26px;
+    font-weight: 700;
+    color: #2c1810;
+    margin: 0 0 6px;
+    font-family: "Nunito", sans-serif;
   }
 
-  // ✅ Input clean: fundo cinza claro, borda fina, sem label flutuante
+  p {
+    font-size: 15px;
+    color: #666;
+    margin: 0;
+  }
+}
+
+.form-section {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 32px;
+  padding: 32px 24px;
+  box-shadow: 0 12px 40px rgba(153, 82, 28, 0.15);
+
+  .input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 12px;
+  }
+
   .input-container {
     display: flex;
     align-items: center;
@@ -149,10 +146,7 @@
     border: 1.5px solid transparent;
     border-radius: 14px;
     padding: 6px 14px;
-    margin-bottom: 12px;
     transition: all 0.25s ease;
-
-    &.half-width { margin-bottom: 0; }
 
     &:focus-within {
       background: white;
@@ -162,28 +156,24 @@
     }
 
     .input-icon {
-      color: #c4956a;
       font-size: 18px;
+      color: #c4956a;
       flex-shrink: 0;
       margin-right: 10px;
     }
 
     .custom-input {
       flex: 1;
-
       --color: #2c1810;
       --placeholder-color: #b8a090;
       --background: transparent;
       --highlight-color: transparent;
       --highlight-color-focused: transparent;
-      --highlight-color-valid: transparent;
-      --highlight-color-invalid: transparent;
       --border-color: transparent;
       --padding-start: 0px;
       --padding-end: 0px;
       --padding-top: 12px;
       --padding-bottom: 12px;
-
       font-size: 15px;
       font-weight: 500;
       font-family: "Nunito", sans-serif;
@@ -193,28 +183,42 @@
       --color: #c4956a;
       --background: transparent;
       --background-hover: transparent;
-      --background-activated: transparent;
+      width: 40px;
+      height: 40px;
       flex-shrink: 0;
-      margin: 0;
 
-      ion-icon { font-size: 18px; }
+      ion-icon { font-size: 20px; }
     }
   }
 
-  .btn-cadastrar {
+  .forgot-password {
+    text-align: right;
+    margin-bottom: 20px;
+    margin-top: 4px;
+
+    .forgot-link {
+      color: #99521c;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: underline;
+      cursor: pointer;
+      font-family: "Nunito", sans-serif;
+    }
+  }
+
+  .login-button {
     --background: linear-gradient(135deg, #99521c, #b8652a);
     --color: white;
     --border-radius: 14px;
     height: 54px;
     font-weight: 700;
-    font-size: 15px;
-    letter-spacing: 0.8px;
-    margin-bottom: 20px;
-    box-shadow: 0 5px 18px rgba(153, 82, 28, 0.3);
+    font-size: 16px;
+    letter-spacing: 1px;
+    margin-bottom: 24px;
+    box-shadow: 0 6px 20px rgba(153, 82, 28, 0.3);
     font-family: "Nunito", sans-serif;
 
     &[disabled] { opacity: 0.7; }
-
     ion-spinner { margin-right: 8px; }
   }
 
@@ -233,10 +237,10 @@
       }
 
       span {
-        background: rgba(255, 255, 255, 0.95);
-        padding: 0 14px;
+        background: rgba(255,255,255,0.95);
+        padding: 0 16px;
         color: #aaa;
-        font-size: 13px;
+        font-size: 14px;
         position: relative;
         z-index: 1;
       }
@@ -245,29 +249,37 @@
     .auth-links {
       text-align: center;
 
-      .login-link {
+      .signup-link {
         display: inline-flex;
         align-items: center;
         gap: 8px;
         color: #99521c;
         text-decoration: none;
         font-weight: 600;
-        font-size: 15px;
-        padding: 10px 14px;
-        border-radius: 10px;
+        font-size: 16px;
+        padding: 12px 16px;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-family: "Nunito", sans-serif;
 
-        ion-icon { font-size: 16px; }
+        &:hover { background: rgba(153, 82, 28, 0.08); }
+        ion-icon { font-size: 18px; }
       }
     }
   }
 }
 
 @keyframes float {
-  0%, 100% { transform: translateY(0px) rotate(0deg); }
-  50%       { transform: translateY(-15px) rotate(5deg); }
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-20px); }
 }
 
 @media (min-width: 768px) {
-  .cadastro-container { max-width: 520px; margin: 0 auto; }
-  .form-section { padding: 32px 28px; }
+  .login-container { max-width: 480px; margin: 0 auto; justify-content: center; }
+  .form-section { padding: 40px 32px; }
+}
+
+@media (min-height: 800px) {
+  .login-container { justify-content: center; }
 }

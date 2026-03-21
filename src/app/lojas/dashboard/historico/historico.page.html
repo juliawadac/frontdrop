@@ -1,0 +1,80 @@
+<ion-content class="historico-content">
+
+  <div class="dash-header">
+    <div class="header-info">
+      <p class="header-sub">Histórico</p>
+      <h1 class="header-title">{{ nomeLoja }}</h1>
+    </div>
+    <div class="header-avatar">
+      <img *ngIf="logoUrl" [src]="logoUrl" class="avatar-img" />
+      <ion-icon *ngIf="!logoUrl" name="storefront-outline"></ion-icon>
+    </div>
+  </div>
+
+  <!-- Filtros -->
+  <div class="filtros">
+    <button
+      class="filtro-btn"
+      [class.active]="filtroAtivo === null"
+      (click)="filtrar(null)">
+      Todos
+    </button>
+    <button
+      class="filtro-btn"
+      [class.active]="filtroAtivo === 'Entregue'"
+      (click)="filtrar('Entregue')">
+      <ion-icon name="checkmark-circle-outline"></ion-icon> Entregues
+    </button>
+    <button
+      class="filtro-btn cancelado"
+      [class.active]="filtroAtivo === 'Cancelado'"
+      (click)="filtrar('Cancelado')">
+      <ion-icon name="close-circle-outline"></ion-icon> Cancelados
+    </button>
+  </div>
+
+  <!-- Loading -->
+  <div class="loading-state" *ngIf="isLoading">
+    <ion-spinner name="crescent"></ion-spinner>
+    <p>Carregando histórico...</p>
+  </div>
+
+  <!-- Empty -->
+  <div class="empty-state" *ngIf="!isLoading && pedidosFiltrados.length === 0">
+    <ion-icon name="time-outline"></ion-icon>
+    <h3>Nenhum pedido encontrado</h3>
+    <p>Tente outro filtro</p>
+  </div>
+
+  <!-- Lista -->
+  <div class="historico-list" *ngIf="!isLoading && pedidosFiltrados.length > 0">
+    <div
+      class="hist-card"
+      *ngFor="let p of pedidosFiltrados"
+      [class.entregue]="p.status === 'Entregue'"
+      [class.cancelado]="p.status === 'Cancelado'">
+
+      <div class="hist-top">
+        <span class="hist-num">Pedido #{{ p.numero_pedido }}</span>
+        <span class="hist-hora">{{ formatarData(p.criado_em) }}</span>
+      </div>
+
+      <div class="hist-cliente">
+        <ion-icon name="person-outline"></ion-icon>
+        <span>{{ p.cliente_nome }} {{ p.cliente_sobrenome }}</span>
+      </div>
+
+      <div class="hist-itens">{{ p.itens }}</div>
+
+      <div class="hist-bottom">
+        <span class="hist-valor">R$ {{ p.valor_total | number:'1.2-2' }}</span>
+        <div class="hist-status" [class]="p.status.toLowerCase()">
+          <ion-icon [name]="p.status === 'Entregue' ? 'checkmark-circle' : 'close-circle'"></ion-icon>
+          {{ p.status }}
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</ion-content>
