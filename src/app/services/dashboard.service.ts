@@ -20,7 +20,7 @@ export interface Pedido {
   valor_total: number;
   cliente_nome: string;
   cliente_sobrenome: string;
-  status: 'Pendente' | 'Preparo' | 'Entregando' | 'Entregue' | 'Cancelado';
+  status: StatusPedido; 
   criado_em: string;
   itens: string;
 }
@@ -30,6 +30,7 @@ export type StatusPedido = 'Pendente' | 'Preparo' | 'Entregando' | 'Entregue' | 
 @Injectable({ providedIn: 'root' })
 export class DashboardService {
 
+  // Se o seu backend usa "/api", mude para: 'http://localhost:3000/api'
   private readonly BASE = 'http://localhost:3000';
 
   constructor(
@@ -37,6 +38,7 @@ export class DashboardService {
     private lojaService: LojaService
   ) {}
 
+  // Injeta o token de segurança em todas as requisições
   private get headers(): HttpHeaders {
     return new HttpHeaders({
       'Content-Type': 'application/json',
@@ -44,11 +46,14 @@ export class DashboardService {
     });
   }
 
+  // Garante que o ID será um número (evitando o erro do TypeScript)
   private get lojaId(): number {
     return this.lojaService.currentLojaSubject.getValue()?.id ?? 0;
   }
 
+  // ==========================================
   // PRODUTOS
+  // ==========================================
   listarProdutos(): Observable<Produto[]> {
     return this.http.get<Produto[]>(`${this.BASE}/produtos/estabelecimento/${this.lojaId}`);
   }
@@ -65,7 +70,9 @@ export class DashboardService {
     return this.http.delete(`${this.BASE}/produtos/${id}`, { headers: this.headers });
   }
 
+  // ==========================================
   // PEDIDOS
+  // ==========================================
   listarPedidos(status?: StatusPedido): Observable<Pedido[]> {
     const params = status ? `?status=${status}` : '';
     return this.http.get<Pedido[]>(
@@ -74,6 +81,7 @@ export class DashboardService {
     );
   }
 
+  // Função que faz os botões de Aceitar/Recusar funcionarem!
   atualizarStatus(pedidoId: number, status: StatusPedido): Observable<any> {
     return this.http.patch(
       `${this.BASE}/pedidos/${pedidoId}/status`,
@@ -82,7 +90,9 @@ export class DashboardService {
     );
   }
 
+  // ==========================================
   // PERFIL
+  // ==========================================
   atualizarPerfil(dados: { nome?: string; localizacao?: string; numero_endereco?: string; bairro?: string; cidade?: string }): Observable<any> {
     return this.http.put(
       `${this.BASE}/lojas/${this.lojaId}`,

@@ -36,7 +36,7 @@ export class PedidosPage implements OnInit, OnDestroy {
 
     this.carregarPedidos();
 
-    // Auto-refresh a cada 30 segundos
+    // Auto-refresh a cada 30 segundos, caso a conexão em tempo real falhe
     this.refreshSub = interval(30000).subscribe(() => this.carregarPedidos(false));
   }
 
@@ -79,15 +79,28 @@ export class PedidosPage implements OnInit, OnDestroy {
 
     const alert = await this.alertCtrl.create({
       header: labels[novoStatus],
-      message: `Pedido #${pedido.numero_pedido} — ${pedido.cliente_nome}`,
+      message: `Pedido #${pedido.id} — ${pedido.cliente_nome}`,
       buttons: [
         { text: 'Cancelar', role: 'cancel' },
         {
           text: 'Confirmar',
           handler: () => {
+            // Tentamos atualizar o status...
             this.dashService.atualizarStatus(pedido.id, novoStatus).subscribe({
-              next: () => this.carregarPedidos(false),
-              error: () => {}
+              next: () => {
+                // Se der certo, recarrega a lista
+                this.carregarPedidos(false);
+              },
+              error: async (err) => {
+                // SE DER ERRO, VAMOS MOSTRAR NA TELA!
+                console.error(err);
+                const erroAlert = await this.alertCtrl.create({
+                  header: 'Erro na Conexão 🕵️‍♂️',
+                  message: `Código: ${err.status} \nDetalhe: ${err.message}`,
+                  buttons: ['OK']
+                });
+                await erroAlert.present();
+              }
             });
           }
         }
@@ -97,7 +110,7 @@ export class PedidosPage implements OnInit, OnDestroy {
   }
 
   abrirPedido(pedido: Pedido) {
-    // Futuramente: abrir modal com detalhes
+    // Futuramente: abrir um modal com mais detalhes do pedido
   }
 
   irPerfil() {

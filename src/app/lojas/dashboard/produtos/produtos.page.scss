@@ -1,5 +1,6 @@
 .produtos-content { --background: #f8f3ef; }
 
+// Cabeçalho Principal
 .dash-header {
   background: linear-gradient(135deg, #99521c, #b8652a);
   padding: 52px 20px 24px;
@@ -22,6 +23,7 @@
   }
 }
 
+// Estados de Carregamento e Vazio
 .loading-state, .empty-state {
   display: flex; flex-direction: column; align-items: center; justify-content: center;
   padding: 60px 20px; gap: 12px;
@@ -39,6 +41,7 @@
   }
 }
 
+// Lista de Cards
 .produtos-list { padding: 16px 16px 100px; display: flex; flex-direction: column; gap: 10px; }
 
 .produto-card {
@@ -66,7 +69,11 @@
   .prod-desc {
     font-size: 13px; color: #999; font-family: "Nunito", sans-serif;
     margin: 0 0 10px; line-height: 1.4;
-    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+    display: -webkit-box; 
+    -webkit-line-clamp: 2; 
+    line-clamp: 2; // Correção para compatibilidade
+    -webkit-box-orient: vertical; 
+    overflow: hidden;
   }
 
   .prod-footer {
@@ -86,20 +93,16 @@
   }
 }
 
-.add-fab {
-  --background: linear-gradient(135deg, #99521c, #b8652a);
-  --color: white;
-  --box-shadow: 0 6px 20px rgba(153,82,28,0.4);
-}
-
-// Modal
+// Estilo do Modal (GAVETA)
 .produto-modal {
+  --height: 85%; // Forçamos a altura para ele aparecer
   --border-radius: 32px 32px 0 0;
-  --height: auto;
-  align-items: flex-end;
+  align-items: flex-end; // Garante que ele comece por baixo
 }
 
-.modal-content { --background: white; }
+.modal-content { 
+  --background: white; 
+}
 
 .modal-header {
   display: flex; align-items: center; justify-content: space-between;
@@ -115,6 +118,7 @@
   gap: 12px;
 }
 
+// Estilos de Input dentro do Modal
 .input-container {
   display: flex; align-items: center;
   background: #f7f4f1; border: 1.5px solid transparent; border-radius: 14px; padding: 6px 14px;
@@ -137,7 +141,6 @@
 .select-container {
   display: flex; align-items: center;
   background: #f7f4f1; border: 1.5px solid transparent; border-radius: 14px; padding: 4px 14px;
-
   .input-icon { font-size: 18px; color: #c4956a; flex-shrink: 0; margin-right: 10px; }
   .custom-select { flex: 1; --color: #2c1810; --placeholder-color: #b8a090; --background: transparent; font-size: 15px; font-weight: 500; font-family: "Nunito", sans-serif; }
 }
@@ -149,6 +152,12 @@
   margin-top: 8px; box-shadow: 0 6px 20px rgba(153,82,28,0.3);
   font-family: "Nunito", sans-serif;
   ion-spinner { margin-right: 8px; }
+}
+
+.add-fab {
+  --background: linear-gradient(135deg, #99521c, #b8652a);
+  --color: white;
+  --box-shadow: 0 6px 20px rgba(153, 82, 28, 0.4);
 }
 
 @keyframes slideIn {
