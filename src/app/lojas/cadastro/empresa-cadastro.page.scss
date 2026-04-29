@@ -1,7 +1,17 @@
+// src/app/lojas/cadastro/empresa-cadastro.page.scss
+
 .cadastro-content {
   --background: linear-gradient(135deg, #fadcc3 0%, #f5d5b7 100%);
   position: relative;
   overflow: hidden;
+}
+
+// RESET IONIC HIGHLIGHTS (Isso remove o verde/azul padrão)
+ion-input, ion-select {
+  --highlight-color-focused: transparent !important;
+  --highlight-color-valid: transparent !important;
+  --highlight-color-invalid: transparent !important;
+  --show-full-highlight: false;
 }
 
 .background-decoration {
@@ -30,7 +40,6 @@
   padding: 40px 20px 32px;
 }
 
-// Header
 .header-section {
   text-align: center;
   margin-bottom: 24px;
@@ -53,7 +62,6 @@
     transition: all 0.2s ease;
 
     &:active { transform: scale(0.95); }
-
     ion-icon { font-size: 20px; color: #99521c; }
   }
 
@@ -68,7 +76,6 @@
     margin-bottom: 10px;
 
     ion-icon { font-size: 15px; color: #99521c; }
-
     span {
       font-size: 12px;
       font-weight: 700;
@@ -80,23 +87,11 @@
   }
 
   .header-text {
-    h1 {
-      font-size: 24px;
-      font-weight: 800;
-      color: #2c1810;
-      margin: 0 0 6px;
-      font-family: "Nunito", sans-serif;
-    }
-
-    p {
-      font-size: 14px;
-      color: #666;
-      margin: 0;
-    }
+    h1 { font-size: 24px; font-weight: 800; color: #2c1810; margin: 0 0 6px; font-family: "Nunito", sans-serif; }
+    p { font-size: 14px; color: #666; margin: 0; }
   }
 }
 
-// Form card
 .form-section {
   flex: 1;
   background: rgba(255, 255, 255, 0.95);
@@ -105,7 +100,6 @@
   box-shadow: 0 12px 40px rgba(153, 82, 28, 0.15);
 }
 
-// Steps indicator
 .steps-indicator {
   display: flex;
   align-items: center;
@@ -125,35 +119,20 @@
     transition: all 0.3s ease;
     flex-shrink: 0;
 
-    span {
-      font-size: 13px;
-      font-weight: 700;
-      color: #bbb;
-      font-family: "Nunito", sans-serif;
-    }
+    span { font-size: 13px; font-weight: 700; color: #bbb; font-family: "Nunito", sans-serif; }
 
     &.active {
       background: linear-gradient(135deg, #99521c, #b8652a);
       border-color: #99521c;
       box-shadow: 0 4px 12px rgba(153, 82, 28, 0.3);
-
       span { color: white; }
     }
 
     &.done {
       background: #99521c;
       border-color: #99521c;
-
-      span {
-        display: none;
-      }
-
-      &::after {
-        content: '✓';
-        font-size: 14px;
-        color: white;
-        font-weight: 700;
-      }
+      span { display: none; }
+      &::after { content: '✓'; font-size: 14px; color: white; font-weight: 700; }
     }
   }
 
@@ -163,29 +142,19 @@
     background: #e0d5cc;
     max-width: 48px;
     transition: background 0.3s ease;
-
     &.done { background: #99521c; }
   }
 }
 
-// Etapa content
 .etapa-content {
   display: flex;
   flex-direction: column;
   gap: 14px;
   animation: fadeIn 0.3s ease;
-
-  .etapa-titulo {
-    font-size: 15px;
-    font-weight: 700;
-    color: #2c1810;
-    font-family: "Nunito", sans-serif;
-    margin: 0 0 4px;
-  }
+  .etapa-titulo { font-size: 15px; font-weight: 700; color: #2c1810; font-family: "Nunito", sans-serif; margin: 0 0 4px; }
 }
 
-// Inputs
-.input-container {
+.input-container, .select-container {
   display: flex;
   align-items: center;
   background: #f7f4f1;
@@ -201,83 +170,27 @@
     transform: translateY(-1px);
   }
 
-  .input-icon {
-    font-size: 18px;
-    color: #c4956a;
-    flex-shrink: 0;
-    margin-right: 10px;
-  }
-
-  .custom-input {
-    flex: 1;
-    --color: #2c1810;
-    --placeholder-color: #b8a090;
-    --background: transparent;
-    --highlight-color: transparent;
-    --highlight-color-focused: transparent;
-    --border-color: transparent;
-    --padding-start: 0px;
-    --padding-end: 0px;
-    --padding-top: 12px;
-    --padding-bottom: 12px;
-    font-size: 15px;
-    font-weight: 500;
-    font-family: "Nunito", sans-serif;
-  }
-
-  .password-toggle {
-    --color: #c4956a;
-    --background: transparent;
-    width: 40px;
-    height: 40px;
-    flex-shrink: 0;
-
-    ion-icon { font-size: 20px; }
-  }
-
-  &.small { flex: 0 0 110px; }
-  &.grow  { flex: 1; }
+  .input-icon { font-size: 18px; color: #c4956a; flex-shrink: 0; margin-right: 10px; }
 }
 
-.select-container {
-  display: flex;
-  align-items: center;
-  background: #f7f4f1;
-  border: 1.5px solid transparent;
-  border-radius: 14px;
-  padding: 4px 14px;
-  transition: all 0.25s ease;
-
-  &:focus-within {
-    background: white;
-    border-color: #99521c;
-  }
-
-  .input-icon {
-    font-size: 18px;
-    color: #c4956a;
-    flex-shrink: 0;
-    margin-right: 10px;
-  }
-
-  .custom-select {
-    flex: 1;
-    --color: #2c1810;
-    --placeholder-color: #b8a090;
-    --background: transparent;
-    font-size: 15px;
-    font-weight: 500;
-    font-family: "Nunito", sans-serif;
-  }
+.custom-input, .custom-select {
+  flex: 1;
+  --color: #2c1810;
+  --placeholder-color: #b8a090;
+  --placeholder-opacity: 1;
+  --background: transparent;
+  --padding-start: 0px;
+  font-size: 15px;
+  font-weight: 500;
+  font-family: "Nunito", sans-serif;
 }
 
-// Input row (número + bairro lado a lado)
-.input-row {
-  display: flex;
-  gap: 10px;
+// Estilo específico para o select não ter borda interna
+.custom-select {
+  &::part(container) { border: none !important; }
 }
 
-// Botões
+.input-row { display: flex; gap: 10px; }
 .next-btn {
   --background: linear-gradient(135deg, #99521c, #b8652a);
   --color: white;
@@ -289,10 +202,8 @@
   box-shadow: 0 6px 20px rgba(153, 82, 28, 0.3);
   font-family: "Nunito", sans-serif;
   margin-top: 6px;
-
   &.half { flex: 1; margin-top: 0; }
   &[disabled] { opacity: 0.7; }
-  ion-spinner { margin-right: 8px; }
 }
 
 .back-step-btn {
@@ -306,21 +217,10 @@
   flex: 0 0 110px;
 }
 
-.btn-row {
-  display: flex;
-  gap: 10px;
-  margin-top: 6px;
-}
+.btn-row { display: flex; gap: 10px; margin-top: 6px; }
 
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50%       { transform: translateY(-20px); }
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(8px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
+@keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-20px); } }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
 @media (min-width: 768px) {
   .cadastro-container { max-width: 480px; margin: 0 auto; justify-content: center; }

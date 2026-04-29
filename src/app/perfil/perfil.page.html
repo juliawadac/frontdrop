@@ -1,15 +1,12 @@
 <ion-content [fullscreen]="true" class="perfil-container">
 
-  <!-- Header Premium -->
   <div class="header-premium">
     <div class="header-decoration"></div>
     
     <div class="header-content">
-      <!-- Avatar clicável -->
       <div class="avatar-wrapper" (click)="editarFotoPerfil()">
         <div class="avatar-ring"></div>
         <div class="avatar-image">
-          <!-- Mostra foto se existir, senão mostra ícone padrão -->
           <img *ngIf="profilePhoto" [src]="profilePhoto" class="avatar-photo" alt="Foto de perfil" />
           <ion-icon *ngIf="!profilePhoto" name="person"></ion-icon>
         </div>
@@ -29,7 +26,6 @@
     </div>
   </div>
 
-  <!-- Menu Principal -->
   <div class="main-content">
     <div class="section-header">
       <h2>MINHA CONTA</h2>
@@ -37,12 +33,9 @@
     </div>
     
     <div class="menu-container">
-      <div *ngFor="let opcao of opcoesPerfil" 
-           class="menu-card" 
-           (click)="navegarPara(opcao.rota)">
-        <div class="menu-icon-wrapper">
-          <div class="icon-background" [class]="opcao.classe"></div>
-          <ion-icon [name]="opcao.icone" class="menu-icon-main"></ion-icon>
+      <div class="menu-item" *ngFor="let opcao of opcoesPerfil" (click)="navegarPara(opcao.rota)">
+        <div class="icon-box" [ngClass]="opcao.classe">
+          <ion-icon [name]="opcao.icone"></ion-icon>
         </div>
         <div class="menu-text">
           <h3>{{ opcao.titulo }}</h3>
@@ -53,7 +46,6 @@
     </div>
   </div>
 
-  <!-- Botão Logout -->
   <div class="logout-container">
     <button class="logout-btn" (click)="sair()">
       <ion-icon name="log-out-outline"></ion-icon>
@@ -65,7 +57,6 @@
     <p>Versão 1.0.0 • © 2024</p>
   </div>
 
-  <!-- Bottom Navigation com foto de perfil -->
   <div class="fixed-bottom-nav">
     <div class="nav-content">
       <div class="nav-item" [routerLink]="['/home']">
@@ -83,15 +74,14 @@
         <span>Sacola</span>
       </div>
       
-      <!-- Tab Perfil: mostra foto ou ícone -->
       <div class="nav-item active" [routerLink]="['/perfil']">
-        <div class="nav-profile-icon">
-          <img *ngIf="profilePhoto" [src]="profilePhoto" class="nav-profile-photo" alt="Perfil" />
+        <div class="nav-profile-pic">
+          <img *ngIf="profilePhoto" [src]="profilePhoto" alt="Perfil">
           <ion-icon *ngIf="!profilePhoto" name="person"></ion-icon>
         </div>
         <span>Perfil</span>
       </div>
     </div>
   </div>
-
-</ion-content>
+  
+  </ion-content>

@@ -1,159 +1,344 @@
-.perfil-content {
-  --background: #f5ede4;
-}
-
-// ── Banner + Logo ─────────────────────────────────────
-.banner-section {
+.perfil-container {
+  --background: #FAF7F5;
   position: relative;
-  margin-bottom: 52px;
+}
 
-  .banner-wrapper {
-    height: 160px;
-    background: #2c1810;
-    position: relative;
-    overflow: hidden;
-    cursor: pointer;
-
-    .banner-img { width: 100%; height: 100%; object-fit: cover; }
-
-    .banner-placeholder {
-      width: 100%; height: 100%;
-      display: flex; flex-direction: column; align-items: center;
-      justify-content: center; gap: 6px;
-      ion-icon { font-size: 32px; color: rgba(255,255,255,0.35); }
-      span { font-size: 12px; color: rgba(255,255,255,0.35); font-family: "Nunito", sans-serif; }
-    }
-
-    .banner-overlay {
-      position: absolute; inset: 0;
-      background: rgba(0,0,0,0.2);
-      display: flex; align-items: center; justify-content: center;
-      opacity: 0; transition: opacity 0.2s;
-      ion-icon { font-size: 28px; color: white; }
-      &:hover { opacity: 1; }
-    }
-  }
-
-  .logo-wrapper {
+// ============= HEADER PREMIUM (COM BANNER) =============
+.header-premium {
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  padding: 60px 20px 50px;
+  overflow: hidden;
+  
+  .header-overlay {
     position: absolute;
-    bottom: -44px; left: 20px;
-    width: 84px; height: 84px;
-    border-radius: 18px;
-    background: white;
-    border: 3px solid white;
-    box-shadow: 0 3px 12px rgba(0,0,0,0.12);
+    inset: 0;
+    background: rgba(44, 24, 16, 0.75); // Máscara escura para ler as letras
+    z-index: 1;
+  }
+
+  .header-decoration {
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 400px;
+    height: 400px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 50%;
+    filter: blur(60px);
+    z-index: 2;
+  }
+  
+  .edit-banner-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 20px;
+    padding: 6px 12px;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: "Nunito", sans-serif;
+    font-size: 12px;
+    backdrop-filter: blur(4px);
+    
+    ion-icon { font-size: 16px; }
+  }
+
+  .header-content {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+}
+
+// ============= AVATAR 3D (LOGO DA LOJA) =============
+.avatar-wrapper {
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  
+  &:active { transform: scale(0.95); }
+  
+  .avatar-ring {
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    border: 2px dashed rgba(255, 255, 255, 0.6);
+    animation: rotateRing 20s linear infinite;
+  }
+  
+  .avatar-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: #fff;
+    padding: 4px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     overflow: hidden;
-    cursor: pointer;
-
-    .logo-img { width: 100%; height: 100%; object-fit: cover; }
-
-    .logo-placeholder {
-      width: 100%; height: 100%;
-      background: #f5ede4;
-      display: flex; align-items: center; justify-content: center;
-      ion-icon { font-size: 30px; color: #c4956a; }
+    
+    .avatar-photo {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
     }
+    
+    ion-icon {
+      font-size: 50px;
+      color: #99521c;
+    }
+  }
+  
+  .camera-badge {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 32px;
+    height: 32px;
+    background: #99521c;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid #FAF7F5;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    
+    ion-icon { color: white; font-size: 16px; }
+  }
+}
 
-    .logo-camera {
-      position: absolute; inset: 0;
-      background: rgba(0,0,0,0.25);
-      display: flex; align-items: center; justify-content: center;
-      opacity: 0; transition: opacity 0.2s;
-      ion-icon { font-size: 20px; color: white; }
-      &:hover { opacity: 1; }
+@keyframes rotateRing {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+// ============= INFOS DA LOJA =============
+.user-details {
+  text-align: center;
+  color: white;
+  
+  .user-name {
+    font-family: "Nunito", sans-serif;
+    font-size: 24px;
+    font-weight: 800;
+    margin: 0 0 4px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  }
+  
+  .user-email {
+    font-size: 14px;
+    opacity: 0.9;
+    margin: 0 0 12px;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+  }
+  
+  .user-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    
+    ion-icon { color: #ffd700; font-size: 16px; }
+  }
+}
+
+// ============= MAIN CONTENT =============
+.main-content {
+  position: relative;
+  z-index: 10;
+  background: #FAF7F5;
+  border-radius: 30px 30px 0 0;
+  margin-top: -25px;
+  padding: 30px 20px;
+  box-shadow: 0 -10px 24px rgba(0,0,0,0.05);
+  
+  .section-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 24px;
+    
+    h2 {
+      font-family: "Nunito", sans-serif;
+      font-size: 14px;
+      font-weight: 800;
+      color: #8a7360;
+      letter-spacing: 2px;
+      margin: 0 0 8px;
+    }
+    
+    .section-line {
+      width: 40px;
+      height: 3px;
+      background: #99521c;
+      border-radius: 2px;
     }
   }
 }
 
-// ── Info ──────────────────────────────────────────────
-.info-section {
-  padding: 0 20px 14px;
-
-  .loja-nome {
-    font-size: 20px; font-weight: 700; color: #2c1810;
-    font-family: "Nunito", sans-serif; margin: 0 0 6px;
-  }
-
-  .loja-categoria {
-    display: inline-flex; align-items: center; gap: 5px;
-    background: rgba(153,82,28,0.1);
-    border-radius: 20px; padding: 4px 10px;
-    ion-icon { font-size: 13px; color: #99521c; }
-    span { font-size: 12px; font-weight: 600; color: #99521c; font-family: "Nunito", sans-serif; }
-  }
-}
-
-// ── Formulário ────────────────────────────────────────
-.form-section {
-  background: #ffffff;
-  border-radius: 24px 24px 0 0;
-  padding: 24px 20px 48px;
-  box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+// ============= FORMULÁRIO PREMIUM =============
+.form-container {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  min-height: 55vh;
+  gap: 16px;
 
-  .section-title {
-    display: flex; align-items: center; gap: 7px;
-    font-size: 12px; font-weight: 700; color: #888;
+  .input-row {
+    display: flex;
+    gap: 12px;
+  }
+
+  .input-item {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    border: 1.5px solid transparent;
+    transition: all 0.3s ease;
+
+    &.grow { flex: 1; }
+    &.small { width: 110px; }
+
+    &:focus-within {
+      border-color: #99521c;
+      box-shadow: 0 4px 16px rgba(153, 82, 28, 0.1);
+      transform: translateY(-2px);
+      
+      .input-icon {
+        color: #99521c;
+        transform: scale(1.1);
+      }
+    }
+
+    .input-icon {
+      font-size: 24px;
+      color: #c4956a;
+      transition: all 0.3s ease;
+    }
+
+    .input-wrapper {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+
+      label {
+        font-size: 11px;
+        font-weight: 700;
+        color: #a08d80;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 2px;
+      }
+
+      input {
+        border: none;
+        background: transparent;
+        font-family: "Nunito", sans-serif;
+        font-size: 15px;
+        font-weight: 600;
+        color: #2c1810;
+        outline: none;
+        width: 100%;
+        padding: 0;
+        
+        &::placeholder {
+          color: #d4c5b9;
+          font-weight: 500;
+        }
+      }
+    }
+  }
+
+  .save-btn {
+    margin-top: 10px;
+    background: linear-gradient(135deg, #99521c 0%, #7a4116 100%);
+    color: white;
+    border: none;
+    border-radius: 16px;
+    height: 56px;
     font-family: "Nunito", sans-serif;
-    text-transform: uppercase; letter-spacing: 0.6px;
-    margin: 6px 0 2px;
-    ion-icon { font-size: 16px; color: #99521c; }
-    &.danger { color: #c0392b; ion-icon { color: #c0392b; } }
-  }
+    font-size: 16px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    box-shadow: 0 8px 24px rgba(153, 82, 28, 0.3);
+    transition: all 0.3s ease;
 
-  .divider { height: 1px; background: #f0e8e0; margin: 6px 0; }
-}
+    &:active {
+      transform: scale(0.96);
+      box-shadow: 0 4px 12px rgba(153, 82, 28, 0.2);
+    }
 
-.input-container {
-  display: flex; align-items: center;
-  background: #f5ede4; border: 1.5px solid transparent;
-  border-radius: 12px; padding: 4px 14px;
-  transition: border-color 0.2s;
+    &:disabled {
+      opacity: 0.7;
+      transform: none;
+    }
 
-  &:focus-within { border-color: #99521c; background: #fff; }
-
-  .input-icon { font-size: 17px; color: #c4956a; flex-shrink: 0; margin-right: 10px; }
-
-  .custom-input {
-    flex: 1;
-    --color: #2c1810; --placeholder-color: #c4a882; --background: transparent;
-    --highlight-color: transparent; --border-color: transparent;
-    --padding-start: 0; --padding-top: 11px; --padding-bottom: 11px;
-    font-size: 14px; font-weight: 500; font-family: "Nunito", sans-serif;
+    ion-icon { font-size: 22px; }
   }
 }
 
-.save-btn {
-  --background: #99521c; --color: white; --border-radius: 12px;
-  height: 50px; font-weight: 700; font-size: 15px;
-  font-family: "Nunito", sans-serif;
-  ion-spinner { margin-right: 8px; }
-}
-
-.logout-btn {
-  --border-color: #c0392b; --color: #c0392b; --border-radius: 12px;
-  height: 48px; font-weight: 600; font-size: 14px;
-  font-family: "Nunito", sans-serif;
-}
-
-// ── Input row (número + bairro lado a lado) ───────────
-.input-row {
-  display: flex;
-  gap: 8px;
-
-  .input-container {
-    &.small { flex: 0 0 100px; }
-    &.grow  { flex: 1; }
+// ============= LOGOUT E VERSÃO =============
+.logout-container {
+  padding: 0 20px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  
+  .logout-btn {
+    width: 100%;
+    background: rgba(255, 59, 48, 0.1);
+    color: #ff3b30;
+    border: 1px solid rgba(255, 59, 48, 0.2);
+    border-radius: 16px;
+    height: 56px;
+    font-family: "Nunito", sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+    
+    &:active {
+      background: rgba(255, 59, 48, 0.2);
+      transform: scale(0.98);
+    }
+    
+    ion-icon { font-size: 22px; }
   }
 }
 
-// ── Email da loja ─────────────────────────────────────
-.loja-email {
-  font-size: 13px;
-  color: #888;
-  font-family: "Nunito", sans-serif;
-  margin: 0 0 8px;
+.version-info {
+  text-align: center;
+  padding-bottom: 30px;
+  
+  p {
+    color: #b8a090;
+    font-size: 12px;
+    font-weight: 600;
+    margin: 0;
+  }
 }

@@ -462,15 +462,17 @@
   bottom: 0;
   left: 0;
   right: 0;
-  background: #99521c;
+  background: #99521c; // Marrom padrão
+  height: 70px;
+  border-radius: 20px 20px 0 0;
+  box-shadow: 0 -4px 20px rgba(153, 82, 28, 0.2);
   z-index: 1000;
-  padding: 8px 0;
-  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
 
   .nav-content {
     display: flex;
     justify-content: space-around;
     align-items: center;
+    height: 100%;
     padding: 0 16px;
 
     .nav-item {
@@ -480,10 +482,10 @@
       color: rgba(255, 255, 255, 0.7);
       cursor: pointer;
       padding: 8px 12px;
-      border-radius: 12px;
       transition: all 0.3s ease;
-      font-family: "Nunito", sans-serif;
+      border-radius: 12px;
 
+      // Cor do item quando a rota está ativa
       &.active {
         color: #ffd700;
         background: rgba(255, 215, 0, 0.1);
@@ -506,6 +508,7 @@
     }
   }
 }
+
 
 .nav-profile-icon {
   width: 26px;

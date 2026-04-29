@@ -1,3 +1,5 @@
+// src/app/lojas/dashboard/perfil/perfil.page.ts
+
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -47,7 +49,6 @@ export class PerfilLojaPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    // Sempre busca da API para garantir nome e dados atualizados
     this.lojaService.getLojaAtual().subscribe({
       next: (loja) => {
         this.lojaService.currentLojaSubject.next(loja);
@@ -55,7 +56,6 @@ export class PerfilLojaPage implements OnInit {
         this.preencherForm(loja);
       },
       error: () => {
-        // Fallback para localStorage se API falhar
         const loja = this.lojaService.currentLojaSubject.getValue();
         if (loja) this.preencherForm(loja);
       }
@@ -68,9 +68,11 @@ export class PerfilLojaPage implements OnInit {
     this.form.numero_endereco = loja.numero_endereco ?? '';
     this.form.bairro          = loja.bairro       ?? '';
     this.form.cidade          = loja.cidade       ?? '';
-    // Só exibe imagem se for uma URL válida (não nula e não vazia)
-    this.logoUrl   = (loja.logo_url   && loja.logo_url.startsWith('http'))   ? loja.logo_url   : '';
-    this.bannerUrl = (loja.banner_url && loja.banner_url.startsWith('http')) ? loja.banner_url : '';
+    
+    // Aceita URLs que comecem com http ou Base64 (data:image)
+    this.logoUrl   = (loja.logo_url && (loja.logo_url.startsWith('http') || loja.logo_url.startsWith('data:'))) ? loja.logo_url : '';
+    this.bannerUrl = (loja.banner_url && (loja.banner_url.startsWith('http') || loja.banner_url.startsWith('data:'))) ? loja.banner_url : '';
+    
     this.emailLoja            = loja.email        ?? '';
     this.categoriaNome        = this.categorias[loja.categoria_id] ?? '';
   }
@@ -104,17 +106,27 @@ export class PerfilLojaPage implements OnInit {
     }
 
     this.isSaving = true;
-    this.dashService.atualizarPerfil(this.form).subscribe({
+
+    // CORREÇÃO: Montamos o payload combinando os dados de texto com as imagens
+    const payload = {
+      ...this.form,
+      logo_url: this.logoUrl,
+      banner_url: this.bannerUrl
+    };
+
+    this.dashService.atualizarPerfil(payload).subscribe({
       next: async (response: any) => {
         this.isSaving = false;
-        // Usa o Resultado do servidor para garantir dados corretos
+        
         const lojaAtualizada = response?.Resultado ?? {
           ...this.lojaService.currentLojaSubject.getValue(),
-          ...this.form
+          ...payload
         };
+        
         this.lojaService.currentLojaSubject.next(lojaAtualizada);
         localStorage.setItem('currentLoja', JSON.stringify(lojaAtualizada));
         this.preencherForm(lojaAtualizada);
+        
         const a = await this.alertCtrl.create({
           header: '✓ Salvo', message: 'Perfil atualizado com sucesso', buttons: ['OK']
         });

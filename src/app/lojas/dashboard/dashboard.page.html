@@ -1,25 +1,30 @@
-<ion-tabs>
-  <ion-tab-bar slot="bottom" class="dash-tab-bar">
+<ion-tabs></ion-tabs>
 
-    <ion-tab-button tab="pedidos" class="tab-btn">
+<div class="fixed-bottom-nav">
+  <div class="nav-content">
+    
+    <div class="nav-item" [routerLink]="['/lojas/dashboard/pedidos']" routerLinkActive="active">
       <ion-icon name="receipt-outline"></ion-icon>
-      <ion-label>Pedidos</ion-label>
-    </ion-tab-button>
-
-    <ion-tab-button tab="historico" class="tab-btn">
+      <span>Pedidos</span>
+    </div>
+    
+    <div class="nav-item" [routerLink]="['/lojas/dashboard/historico']" routerLinkActive="active">
       <ion-icon name="time-outline"></ion-icon>
-      <ion-label>Histórico</ion-label>
-    </ion-tab-button>
-
-    <ion-tab-button tab="produtos" class="tab-btn">
+      <span>Histórico</span>
+    </div>
+    
+    <div class="nav-item" [routerLink]="['/lojas/dashboard/produtos']" routerLinkActive="active">
       <ion-icon name="bag-add-outline"></ion-icon>
-      <ion-label>Produtos</ion-label>
-    </ion-tab-button>
+      <span>Produtos</span>
+    </div>
+    
+    <div class="nav-item" [routerLink]="['/lojas/dashboard/perfil']" routerLinkActive="active">
+      <div class="nav-profile-icon">
+        <img *ngIf="logoUrl" [src]="logoUrl" class="nav-profile-photo" alt="Perfil">
+        <ion-icon *ngIf="!logoUrl" name="storefront"></ion-icon>
+      </div>
+      <span>Perfil</span>
+    </div>
 
-    <ion-tab-button tab="perfil" class="tab-btn">
-      <ion-icon name="storefront-outline"></ion-icon>
-      <ion-label>Perfil</ion-label>
-    </ion-tab-button>
-
-  </ion-tab-bar>
-</ion-tabs>
+  </div>
+</div>
