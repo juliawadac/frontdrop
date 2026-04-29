@@ -1,44 +1,45 @@
 <ion-content [fullscreen]="true" class="login-content">
 
-  <!-- Background decorativo -->
   <div class="background-decoration">
     <div class="circle circle-1"></div>
     <div class="circle circle-2"></div>
     <div class="circle circle-3"></div>
   </div>
 
-  <!-- Botão voltar -->
-  <div class="back-button-container">
-    <ion-button fill="clear" class="back-button" routerLink="/welcome">
-      <ion-icon name="arrow-back-outline"></ion-icon>
-    </ion-button>
-  </div>
-
   <div class="login-container">
 
-    <!-- Header com logo -->
+    <!-- Header -->
     <div class="header-section">
+      <button class="back-btn" (click)="voltar()">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </button>
+
       <div class="logo-container">
         <div class="logo-wrapper">
-          <img src="../../assets/logo_lado.png" alt="Logo Drop" class="logo-image" />
+          <img src="../../../assets/logo_lado.png" alt="Logo Drop" class="logo-image" />
         </div>
       </div>
 
       <div class="welcome-text">
+        <div class="badge">
+          <ion-icon name="storefront-outline"></ion-icon>
+          <span>Área da Empresa</span>
+        </div>
         <h1>Bem-vindo de volta!</h1>
-        <p>Entre na sua conta para continuar</p>
+        <p>Acesse o painel da sua loja</p>
       </div>
     </div>
 
-    <!-- Formulário de login -->
+    <!-- Formulário -->
     <div class="form-section">
+
       <div class="input-group">
 
         <div class="input-container">
           <ion-icon name="mail-outline" class="input-icon"></ion-icon>
           <ion-input
             type="email"
-            placeholder="Seu email"
+            placeholder="E-mail da loja"
             [(ngModel)]="email"
             name="email"
             class="custom-input"
@@ -50,28 +51,23 @@
           <ion-icon name="lock-closed-outline" class="input-icon"></ion-icon>
           <ion-input
             [type]="showPassword ? 'text' : 'password'"
-            placeholder="Sua senha"
+            placeholder="Senha"
             [(ngModel)]="senha"
             name="senha"
             class="custom-input"
             [disabled]="isLoading">
           </ion-input>
-          <ion-button
-            fill="clear"
-            class="password-toggle"
-            (click)="togglePassword()">
+          <ion-button fill="clear" class="password-toggle" (click)="togglePassword()">
             <ion-icon [name]="showPassword ? 'eye-off-outline' : 'eye-outline'"></ion-icon>
           </ion-button>
         </div>
 
       </div>
 
-      <!-- Link esqueci minha senha -->
       <div class="forgot-password">
-        <a routerLink="/esqueci-senha" class="forgot-link">Esqueci minha senha</a>
+        <a class="forgot-link">Esqueci minha senha</a>
       </div>
 
-      <!-- Botão de login -->
       <ion-button
         expand="block"
         class="login-button"
@@ -82,20 +78,16 @@
         <span *ngIf="isLoading">ENTRANDO...</span>
       </ion-button>
 
-      <!-- Links -->
       <div class="links-section">
-        <div class="divider">
-          <span>ou</span>
-        </div>
-
+        <div class="divider"><span>ou</span></div>
         <div class="auth-links">
-          <a routerLink="/cadastro" class="signup-link">
-            <ion-icon name="person-add-outline"></ion-icon>
-            Não tenho uma conta
+          <a (click)="irParaCadastro()" class="signup-link">
+            <ion-icon name="storefront-outline"></ion-icon>
+            Cadastrar minha loja
           </a>
         </div>
       </div>
-    </div>
 
+    </div>
   </div>
 </ion-content>

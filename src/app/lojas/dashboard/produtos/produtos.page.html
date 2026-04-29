@@ -1,0 +1,140 @@
+<ion-content class="produtos-content">
+
+  <div class="dash-header">
+    <div class="header-info">
+      <p class="header-sub">Gestão</p>
+      <h1 class="header-title">Meus Produtos</h1>
+    </div>
+    <div class="header-badge">
+      <span>{{ produtos.length }}</span>
+      <p>itens</p>
+    </div>
+  </div>
+
+  <div class="loading-state" *ngIf="isLoading">
+    <ion-spinner name="crescent" color="primary"></ion-spinner>
+    <p>Carregando produtos...</p>
+  </div>
+
+  <div class="empty-state" *ngIf="!isLoading && produtos.length === 0">
+    <ion-icon name="bag-add-outline"></ion-icon>
+    <h3>Nenhum produto ainda</h3>
+    <p>Adicione seus primeiros produtos</p>
+    <ion-button class="empty-btn" (click)="abrirModal()">
+      <ion-icon name="add-outline" slot="start"></ion-icon>
+      Adicionar produto
+    </ion-button>
+  </div>
+
+  <div class="produtos-list" *ngIf="!isLoading && produtos.length > 0">
+    <div class="produto-card" *ngFor="let p of produtos">
+      <div class="prod-info">
+        <div class="prod-categoria">{{ p.categoria_nome }}</div>
+        <h3 class="prod-nome">{{ p.nome }}</h3>
+        <p class="prod-desc" *ngIf="p.descricao">{{ p.descricao }}</p>
+        <div class="prod-footer">
+          <span class="prod-preco">R$ {{ p.preco | number:'1.2-2' }}</span>
+          <span class="prod-qtd">
+            <ion-icon name="layers-outline"></ion-icon>
+            {{ p.quantidade }} un.
+          </span>
+        </div>
+      </div>
+      <div class="prod-actions">
+        <ion-button fill="clear" class="edit-btn" (click)="editarProduto(p)">
+          <ion-icon name="create-outline"></ion-icon>
+        </ion-button>
+        <ion-button fill="clear" class="del-btn" (click)="confirmarDelete(p)">
+          <ion-icon name="trash-outline"></ion-icon>
+        </ion-button>
+      </div>
+    </div>
+  </div>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="produtos.length > 0">
+    <ion-fab-button class="add-fab" (click)="abrirModal()">
+      <ion-icon name="add-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+</ion-content> <ion-modal [isOpen]="modalAberto" (didDismiss)="fecharModal()" class="produto-modal">
+  <ng-template>
+    <ion-content class="modal-content">
+
+      <div class="modal-header">
+        <h2>{{ editando ? 'Editar Produto' : 'Novo Produto' }}</h2>
+        <ion-button fill="clear" (click)="fecharModal()">
+          <ion-icon name="close-outline"></ion-icon>
+        </ion-button>
+      </div>
+
+      <div class="modal-form">
+
+        <div class="input-container">
+          <ion-icon name="bag-outline" class="input-icon"></ion-icon>
+          <ion-input
+            type="text"
+            placeholder="Nome do produto *"
+            [(ngModel)]="form.nome"
+            class="custom-input">
+          </ion-input>
+        </div>
+
+        <div class="input-container">
+          <ion-icon name="cash-outline" class="input-icon"></ion-icon>
+          <ion-input
+            type="number"
+            placeholder="Preço (R$) *"
+            [(ngModel)]="form.preco"
+            class="custom-input">
+          </ion-input>
+        </div>
+
+        <div class="input-container textarea">
+          <ion-icon name="document-text-outline" class="input-icon" style="align-self:flex-start;margin-top:14px"></ion-icon>
+          <ion-textarea
+            placeholder="Descrição"
+            [(ngModel)]="form.descricao"
+            rows="3"
+            class="custom-input">
+          </ion-textarea>
+        </div>
+
+        <div class="input-container">
+          <ion-icon name="layers-outline" class="input-icon"></ion-icon>
+          <ion-input
+            type="number"
+            placeholder="Quantidade em estoque"
+            [(ngModel)]="form.quantidade"
+            class="custom-input">
+          </ion-input>
+        </div>
+
+        <div class="select-container">
+          <ion-icon name="grid-outline" class="input-icon"></ion-icon>
+          <ion-select
+            placeholder="Categoria *"
+            [(ngModel)]="form.categoria_id"
+            interface="action-sheet"
+            class="custom-select">
+            <ion-select-option *ngFor="let cat of categorias" [value]="cat.id">
+              {{ cat.nome }}
+            </ion-select-option>
+          </ion-select>
+        </div>
+
+        <ion-button
+          expand="block"
+          class="save-btn"
+          (click)="salvar()"
+          [disabled]="isSaving">
+          <ion-spinner *ngIf="isSaving" name="crescent"></ion-spinner>
+          <span *ngIf="!isSaving">
+            {{ editando ? 'Salvar alterações' : 'Cadastrar produto' }}
+          </span>
+        </ion-button>
+
+      </div>
+    </ion-content>
+  </ng-template>
+</ion-modal>
