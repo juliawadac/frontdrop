@@ -13,7 +13,7 @@
       <div class="avatar-wrapper" (click)="trocarLogo()">
         <div class="avatar-ring"></div>
         <div class="avatar-image">
-          <img *ngIf="logoUrl" [src]="logoUrl" class="avatar-photo" alt="Logo da loja" />
+          <div *ngIf="logoUrl" class="bg-avatar" [style.backgroundImage]="'url(' + logoUrl + ')'"></div>
           <ion-icon *ngIf="!logoUrl" name="storefront"></ion-icon>
         </div>
         <div class="camera-badge">
@@ -101,7 +101,7 @@
   </div>
 
   <div class="version-info">
-    <p>Versão 1.0.0 • © 2024</p>
+    <p>Versão 1.0.0 • © 2026</p>
   </div>
 
   <input type="file" #fileLogo accept="image/*" style="display:none;" (change)="onLogoChange($event)">

@@ -24,7 +24,6 @@ export interface LoginResponse {
 export class AuthService {
   private readonly API_URL = 'http://localhost:3000/usuarios';
 
-  // ✅ Exposto como público para que o ProfileService possa ler o id atual
   public currentUserSubject = new BehaviorSubject<Usuario | null>(null);
   public currentUser$ = this.currentUserSubject.asObservable();
 
@@ -42,11 +41,24 @@ export class AuthService {
 
   private loadUsuarioFromToken(): void {
     const token = this.getToken();
-    if (!token) return;
+    if (!token) {
+      this.currentUserSubject.next(null);
+      return;
+    }
 
+    // Carrega instantaneamente para não cair no F5
+    const usuarioSalvo = localStorage.getItem('usuarioLogado');
+    if (usuarioSalvo) {
+      this.currentUserSubject.next(JSON.parse(usuarioSalvo));
+    }
+
+    // Atualiza em segundo plano
     this.http.get<Usuario>(`${this.API_URL}/me`, { headers: this.getAuthHeaders() })
       .subscribe({
-        next: (usuario) => this.currentUserSubject.next(usuario),
+        next: (usuario) => {
+          localStorage.setItem('usuarioLogado', JSON.stringify(usuario));
+          this.currentUserSubject.next(usuario);
+        },
         error: (err) => {
           console.error('Erro ao carregar usuário do token:', err);
           this.logout();
@@ -58,12 +70,18 @@ export class AuthService {
     return this.http.post(`${this.API_URL}/enviar-codigo`, { email });
   }
 
+  // ✅ FUNÇÃO QUE TINHA SUMIDO: CADASTRAR
+  cadastrar(usuario: any): Observable<any> {
+    return this.http.post(`${this.API_URL}/cadastrar`, usuario);
+  }
+
   login(email: string, senha: string): Observable<LoginResponse> {
     return this.http.post<LoginResponse>(`${this.API_URL}/login`, { email, senha })
       .pipe(
         tap(response => {
           if (response.token) {
             localStorage.setItem('token', response.token);
+            localStorage.setItem('usuarioLogado', JSON.stringify(response.Resultado));
             this.currentUserSubject.next(response.Resultado);
           }
         })
@@ -72,18 +90,17 @@ export class AuthService {
 
   logout(): void {
     localStorage.removeItem('token');
+    localStorage.removeItem('usuarioLogado');
     this.currentUserSubject.next(null);
-  }
-
-  isLoggedIn(): boolean {
-    return !!localStorage.getItem('token');
   }
 
   getToken(): string | null {
     return localStorage.getItem('token');
   }
 
-  cadastrar(usuario: Usuario): Observable<any> {
-    return this.http.post(`${this.API_URL}/cadastrar`, usuario);
+  // ✅ FUNÇÃO QUE TINHA SUMIDO: ISLOGGEDIN (Usada pelo seu AuthGuard)
+  isLoggedIn(): boolean {
+    const token = this.getToken();
+    return token !== null && token !== '';
   }
 }

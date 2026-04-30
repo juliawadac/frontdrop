@@ -7,7 +7,7 @@
       <div class="avatar-wrapper" (click)="editarFotoPerfil()">
         <div class="avatar-ring"></div>
         <div class="avatar-image">
-          <img *ngIf="profilePhoto" [src]="profilePhoto" class="avatar-photo" alt="Foto de perfil" />
+          <div *ngIf="profilePhoto" class="bg-avatar" [style.backgroundImage]="'url(' + profilePhoto + ')'"></div>
           <ion-icon *ngIf="!profilePhoto" name="person"></ion-icon>
         </div>
         <div class="camera-badge">
@@ -54,7 +54,7 @@
   </div>
 
   <div class="version-info">
-    <p>Versão 1.0.0 • © 2024</p>
+    <p>Versão 1.0.0 • © 2026</p>
   </div>
 
   <div class="fixed-bottom-nav">
@@ -75,8 +75,8 @@
       </div>
       
       <div class="nav-item active" [routerLink]="['/perfil']">
-        <div class="nav-profile-pic">
-          <img *ngIf="profilePhoto" [src]="profilePhoto" alt="Perfil">
+        <div class="nav-profile-icon">
+          <div *ngIf="profilePhoto" class="bg-footer-avatar" [style.backgroundImage]="'url(' + profilePhoto + ')'"></div>
           <ion-icon *ngIf="!profilePhoto" name="person"></ion-icon>
         </div>
         <span>Perfil</span>
@@ -84,4 +84,4 @@
     </div>
   </div>
   
-  </ion-content>
+</ion-content>

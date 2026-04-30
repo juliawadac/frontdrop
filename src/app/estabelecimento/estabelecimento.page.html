@@ -3,6 +3,11 @@
   <div *ngIf="estabelecimento" class="header"
        [ngStyle]="{'background-image': 'url(' + (estabelecimento.banner_url || 'assets/mcdonalds-banner.webp') + ')'}">
     <div class="header-overlay"></div>
+    
+    <button class="back-btn" (click)="voltar()">
+      <ion-icon name="arrow-back-outline"></ion-icon>
+    </button>
+
     <img [src]="estabelecimento.logo_url || 'assets/mcquadrado.png'" class="logo" />
     <div class="header-info">
       <h1>{{ estabelecimento.nome }}</h1>
@@ -34,15 +39,17 @@
 
   <div class="produtos-section">
     <div class="section-header">
-      <ion-icon name="restaurant-outline" class="section-icon"></ion-icon>
-      <h2>CARDÁPIO</h2>
+      <ion-icon [name]="getSecaoProdutos().icone" class="section-icon"></ion-icon>
+      <h2>{{ getSecaoProdutos().titulo }}</h2>
     </div>
 
     <div class="produtos-grid">
       <ion-card *ngFor="let produto of produtos; let i = index" class="produto-card">
         <ion-card-content class="produto-content">
           <div class="produto-image">
-            <div class="produto-img"><ion-icon name="fast-food-outline"></ion-icon></div>
+            <div class="produto-img">
+              <ion-icon [name]="getSecaoProdutos().icone"></ion-icon>
+            </div>
           </div>
           <div class="produto-details">
             <div class="produto-info">
@@ -69,13 +76,4 @@
     </div>
   </div>
 
-  <div class="fixed-bottom-nav">
-    <div class="nav-content">
-      <div class="nav-item" (click)="goToTab('home')"><ion-icon name="home"></ion-icon><span>Início</span></div>
-      <div class="nav-item" (click)="goToTab('search')"><ion-icon name="search"></ion-icon><span>Buscar</span></div>
-      <div class="nav-item" (click)="goToTab('sacola')"><ion-icon name="bag-handle"></ion-icon><span>Sacola</span></div>
-      <div class="nav-item" (click)="goToTab('perfil')"><ion-icon name="person"></ion-icon><span>Perfil</span></div>
-    </div>
-  </div>
-
-</ion-content>
+  </ion-content>

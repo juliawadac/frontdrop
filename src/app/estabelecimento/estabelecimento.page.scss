@@ -1,7 +1,8 @@
 .page-container {
   --background: #fadcc3;
   color: #2c1810;
-  padding-bottom: 80px; /* Espaço para navegação fixa */
+  /* Espaço ajustado pois não há mais footer engolindo o conteúdo */
+  padding-bottom: 40px; 
 }
 
 .header {
@@ -12,6 +13,35 @@
   background-repeat: no-repeat;
   border-radius: 0 0 24px 24px;
   overflow: hidden;
+
+  /* BOTÃO VOLTAR */
+  .back-btn {
+    position: absolute;
+    top: max(20px, env(safe-area-inset-top)); 
+    left: 16px;
+    z-index: 10;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:active {
+      transform: scale(0.9);
+      background: rgba(0, 0, 0, 0.6);
+    }
+
+    ion-icon {
+      font-size: 24px;
+    }
+  }
 
   .header-overlay {
     position: absolute;
@@ -132,7 +162,7 @@
 }
 
 .produtos-section {
-  margin: 0 16px 100px;
+  margin: 0 16px 40px;
 
   .section-header {
     display: flex;
@@ -173,10 +203,6 @@
         box-shadow: 0 8px 30px rgba(153,82,28,0.3);
       }
 
-      &.animate {
-        animation: slideInUp 0.6s ease forwards;
-      }
-
       .produto-content {
         padding: 0;
       }
@@ -199,19 +225,6 @@
             font-size: 32px;
             color: white;
           }
-        }
-
-        .produto-badge {
-          position: absolute;
-          top: 12px;
-          right: 12px;
-          background: linear-gradient(135deg, #ffd700, #ffed4e);
-          color: #2c1810;
-          padding: 4px 12px;
-          border-radius: 12px;
-          font-size: 12px;
-          font-weight: 700;
-          box-shadow: 0 2px 8px rgba(255,215,0,0.3);
         }
       }
 
@@ -267,18 +280,6 @@
             border-radius: 12px;
             padding: 4px;
 
-            .qty-btn {
-              --background: transparent;
-              --color: white;
-              width: 36px;
-              height: 36px;
-              margin: 0;
-
-              ion-icon {
-                font-size: 18px;
-              }
-            }
-
             .quantity {
               min-width: 40px;
               text-align: center;
@@ -309,97 +310,4 @@
       }
     }
   }
-}
-
-// Navegação fixa na parte inferior
-.fixed-bottom-nav {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: #99521c;
-  z-index: 1000;
-  padding: 8px 0;
-  box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
-
-  .nav-content {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    padding: 0 16px;
-
-    .nav-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      color: white;
-      cursor: pointer;
-      padding: 8px 12px;
-      transition: all 0.3s ease;
-
-      &:hover {
-        color: #ffd700;
-        transform: translateY(-2px);
-      }
-
-      ion-icon {
-        font-size: 22px;
-        margin-bottom: 4px;
-      }
-
-      span {
-        font-size: 12px;
-        font-weight: 600;
-      }
-    }
-  }
-}
-
-// Estilo para o indicador de carregamento do header
-.header-loading {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 220px; // Mesma altura do header
-  color: #99521c;
-
-  ion-spinner {
-    width: 40px;
-    height: 40px;
-  }
-
-  p {
-    margin-top: 10px;
-    font-weight: 600;
-  }
-}
-
-// Animações
-@keyframes slideInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-// Responsividade
-@media (min-width: 768px) {
-  .produtos-section .produtos-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-  }
-}
-
-.animar-aumentar {
-  animation: pulseGreen 0.3s ease;
-}
-
-.animar-diminuir {
-  animation: pulseRed 0.3s ease;
 }
