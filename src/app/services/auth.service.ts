@@ -22,7 +22,7 @@ export interface LoginResponse {
   providedIn: 'root'
 })
 export class AuthService {
-  private readonly API_URL = 'http://localhost:3000/usuarios';
+  private readonly API_URL = 'https://dropapi-64f9.onrender.com/usuarios';
 
   public currentUserSubject = new BehaviorSubject<Usuario | null>(null);
   public currentUser$ = this.currentUserSubject.asObservable();
