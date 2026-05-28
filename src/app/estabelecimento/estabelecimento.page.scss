@@ -304,6 +304,30 @@
 
             ion-icon {
               font-size: 18px;
+              .map-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 180px;
+  background: #f5f0eb;
+  border-radius: 16px;
+  color: #99521c;
+  text-align: center;
+  padding: 20px;
+
+  ion-icon {
+    font-size: 40px;
+    opacity: 0.5;
+  }
+
+  p {
+    font-size: 13px;
+    color: #666;
+    margin: 0;
+  }
+}
             }
           }
         }
