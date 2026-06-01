@@ -34,7 +34,7 @@ export interface LojaLoginResponse {
 })
 export class LojaService {
 
-  private readonly API_URL   = 'https://dropapi-64f9.onrender.com/lojas';
+  private readonly API_URL   = 'http://localhost:3000/lojas';
   private readonly TOKEN_KEY = 'loja_token';
   private readonly LOJA_KEY  = 'currentLoja';
 

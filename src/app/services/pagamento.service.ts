@@ -9,7 +9,7 @@ declare var Stripe: any;
   providedIn: 'root'
 })
 export class PagamentoService {
-  private apiUrl = 'https://dropapi-64f9.onrender.com/pedidos'; 
+  private apiUrl = 'http://localhost:3000/pedidos'; 
   
   // Chave PUBLICÁVEL (pk_test_...) - É seguro ficar no frontend
   private stripe = Stripe('pk_test_51SQ6jhDzToMjAy9JJXle5L4xbIJftD6ZqKKCOT0FcA6cO35QWe54mbnxuzxgqnUW0znJWXFDswx14fDJmmahiekn009Tjlw4iS');

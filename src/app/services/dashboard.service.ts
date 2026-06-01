@@ -30,7 +30,7 @@ export type StatusPedido = 'Pendente' | 'Preparo' | 'Entregando' | 'Entregue' | 
 @Injectable({ providedIn: 'root' })
 export class DashboardService {
 
-  private readonly BASE = 'https://dropapi-64f9.onrender.com';
+  private readonly BASE = 'http://localhost:3000';
 
   constructor(
     private http: HttpClient,
