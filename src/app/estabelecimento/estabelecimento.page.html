@@ -57,7 +57,7 @@
               <p class="produto-desc">{{ produto.descricao }}</p>
               <div class="produto-price">
                 <span class="currency">R$</span>
-                <span class="value">{{ produto.preco | number:'1.2-2' }}</span>
+                <span class="value">{{ formatarPreco(produto.preco) }}</span>
               </div>
             </div>
             <div class="produto-actions">

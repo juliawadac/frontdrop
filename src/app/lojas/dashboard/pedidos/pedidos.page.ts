@@ -1,10 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonicModule, AlertController } from '@ionic/angular';
+import { IonicModule } from '@ionic/angular'; // <-- AlertController removido
 import { Router } from '@angular/router';
 import { DashboardService, Pedido, StatusPedido } from '../../../services/dashboard.service';
 import { LojaService } from '../../../services/loja.service';
 import { interval, Subscription } from 'rxjs';
+import { AlertService } from '../../../services/alert.service'; // <-- Seu serviço importado
+import Swal from 'sweetalert2'; // <-- SweetAlert importado para a caixa de confirmação
 
 @Component({
   selector: 'app-pedidos',
@@ -25,7 +27,7 @@ export class PedidosPage implements OnInit, OnDestroy {
   constructor(
     private dashService: DashboardService,
     private lojaService: LojaService,
-    private alertCtrl: AlertController,
+    private alertService: AlertService, // <-- Serviço injetado no lugar do antigo alertCtrl
     private router: Router
   ) {}
 
@@ -77,36 +79,40 @@ export class PedidosPage implements OnInit, OnDestroy {
       Cancelado:  'Recusar este pedido?'
     };
 
-    const alert = await this.alertCtrl.create({
-      header: labels[novoStatus],
-      message: `Pedido #${pedido.id} — ${pedido.cliente_nome}`,
-      buttons: [
-        { text: 'Cancelar', role: 'cancel' },
-        {
-          text: 'Confirmar',
-          handler: () => {
-            // Tentamos atualizar o status...
-            this.dashService.atualizarStatus(pedido.id, novoStatus).subscribe({
-              next: () => {
-                // Se der certo, recarrega a lista
-                this.carregarPedidos(false);
-              },
-              error: async (err) => {
-                // SE DER ERRO, VAMOS MOSTRAR NA TELA!
-                console.error(err);
-                const erroAlert = await this.alertCtrl.create({
-                  header: 'Erro na Conexão 🕵️‍♂️',
-                  message: `Código: ${err.status} \nDetalhe: ${err.message}`,
-                  buttons: ['OK']
-                });
-                await erroAlert.present();
-              }
-            });
-          }
-        }
-      ]
+    // Modal de Confirmação usando o SweetAlert2 lindão
+    const confirmacao = await Swal.fire({
+      title: labels[novoStatus],
+      text: `Pedido #${pedido.id} — ${pedido.cliente_nome}`,
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#99521c', // Cor padrão do seu app
+      cancelButtonColor: '#e74c3c',  // Vermelho para cancelar
+      confirmButtonText: 'Confirmar',
+      cancelButtonText: 'Cancelar',
+      reverseButtons: true, // Coloca o botão de confirmar na direita
+      background: '#ffffff',
+      color: '#2c1810',
+      heightAuto: false,
+      customClass: {
+        popup: 'swal-border-radius' // Aplica as bordas arredondadas modernas
+      }
     });
-    await alert.present();
+
+    // Se o usuário clicar em "Confirmar"
+    if (confirmacao.isConfirmed) {
+      this.dashService.atualizarStatus(pedido.id, novoStatus).subscribe({
+        next: () => {
+          // Se der certo, recarrega a lista e solta o Toast de sucesso
+          this.carregarPedidos(false);
+          this.alertService.mostrarToastSucesso('Status atualizado com sucesso!');
+        },
+        error: (err) => {
+          // SE DER ERRO, usa o AlertService para exibir o erro chique
+          console.error(err);
+          this.alertService.mostrarErro(`Falha na Conexão: ${err.message}`);
+        }
+      });
+    }
   }
 
   abrirPedido(pedido: Pedido) {

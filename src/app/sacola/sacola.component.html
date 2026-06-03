@@ -14,7 +14,6 @@
 
 <ion-content class="sacola-content">
   
-  <!-- Estado vazio melhorado -->
   <div class="empty-cart" *ngIf="cartItems.length === 0">
     <div class="empty-icon">
       <ion-icon name="bag-outline"></ion-icon>
@@ -30,7 +29,6 @@
     </ion-button>
   </div>
 
-  <!-- Lista de itens melhorada -->
   <div class="cart-container" *ngIf="cartItems.length > 0">
     <div class="cart-header">
       <h2>Seus Itens</h2>
@@ -41,8 +39,6 @@
       <div class="cart-item-enhanced" *ngFor="let item of cartItems; let i = index" 
            [class.removing]="item.removing">
         
-       
-
         <div class="item-details">
           <div class="item-main-info">
             <h3 class="product-name">{{ item.name }}</h3>
@@ -55,7 +51,7 @@
           <div class="item-bottom">
             <div class="price-section">
               <span class="currency">R$</span>
-              <span class="price-value">{{ item.price | number:'1.2-2' }}</span>
+              <span class="price-value">{{ formatarPreco(item.price) }}</span>
             </div>
             
             <div class="quantity-controls" *ngIf="item.quantity">
@@ -89,7 +85,6 @@
       </div>
     </div>
     
-    <!-- Informações adicionais -->
     <div class="additional-info" *ngIf="cartItems.length > 0">
       <div class="delivery-info">
         <ion-icon name="bicycle-outline"></ion-icon>
@@ -104,13 +99,12 @@
   <div class="spacer" *ngIf="cartItems.length > 0"></div>
 </ion-content>
 
-<!-- Resumo do pedido fixo melhorado -->
 <div class="order-summary-enhanced" *ngIf="cartItems.length > 0">
   <div class="summary-content">
     <div class="price-breakdown">
       <div class="price-row">
         <span class="price-label">Subtotal</span>
-        <span class="price-value">R$ {{ subtotal | number:'1.2-2' }}</span>
+        <span class="price-value">R$ {{ formatarPreco(subtotal) }}</span>
       </div>
       <div class="price-row">
         <span class="price-label">Taxa de entrega</span>
@@ -118,7 +112,7 @@
       </div>
       <div class="price-row total-row">
         <span class="price-label">Total</span>
-        <span class="price-value">R$ {{ (subtotal + 4.99) | number:'1.2-2' }}</span>
+        <span class="price-value">R$ {{ formatarPreco(subtotal + 4.99) }}</span>
       </div>
     </div>
     
