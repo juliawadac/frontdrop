@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonicModule, LoadingController, AlertController } from '@ionic/angular';
+import { IonicModule } from '@ionic/angular'; // Removido o LoadingController daqui
 import { RouterModule, Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { AlertService } from '../services/alert.service';
+import Swal from 'sweetalert2'; // <-- Importado o SweetAlert2
 
 @Component({
   selector: 'app-login',
@@ -13,82 +15,78 @@ import { AuthService } from '../services/auth.service';
   imports: [CommonModule, FormsModule, IonicModule, RouterModule],
 })
 export class LoginPage {
-  // SUAS PROPRIEDADES ORIGINAIS - mantidas
   email = '';
   senha = '';
   isLoading = false;
-
-  // PROPRIEDADE ADICIONADA: controle de visibilidade da senha
   showPassword = false;
 
   constructor(
     private authService: AuthService,
     private router: Router,
-    private loadingController: LoadingController,
-    private alertController: AlertController
+    private alertService: AlertService // Nosso serviço global de alertas
   ) {}
 
-  // SEU MÉTODO ORIGINAL - mantido exatamente como estava
   async login() {
     if (!this.email || !this.senha) {
-      await this.showAlert('Atenção', 'Por favor, preencha email e senha');
+      this.alertService.mostrarErro('Por favor, preencha email e senha');
       return;
     }
 
     if (!this.isValidEmail(this.email)) {
-      await this.showAlert('Atenção', 'Por favor, digite um email válido');
+      this.alertService.mostrarErro('Por favor, digite um email válido');
       return;
     }
 
-    const loading = await this.loadingController.create({
-      message: 'Fazendo login...',
-      duration: 10000 // timeout de 10 segundos
+    // Carregamento MINIMALISTA com SweetAlert2
+    Swal.fire({
+      title: 'A entrar...',
+      width: '250px', // Deixa a caixinha bem menor e elegante
+      padding: '24px',
+      allowOutsideClick: false,
+      showConfirmButton: false,
+      heightAuto: false, // O nosso salva-vidas contra a tela preta!
+      didOpen: () => {
+        Swal.showLoading();
+      }
     });
-    await loading.present();
 
     this.isLoading = true;
 
     try {
       const response = await this.authService.login(this.email, this.senha).toPromise();
       
-      if (response?.token) {
-        await loading.dismiss();
-        await this.showAlert('Sucesso', 'Login realizado com sucesso!');
-        this.router.navigateByUrl('/home');
-      } else {
-        await loading.dismiss();
-        await this.showAlert('Erro', 'Resposta inválida do servidor');
-      }
+      Swal.close(); // Fecha o carregamento
+
+      // O pequeno atraso para o Ionic limpar o backdrop sem travar a tela
+      setTimeout(() => {
+        if (response?.token) {
+          this.alertService.mostrarToastSucesso('Login realizado com sucesso!');
+          this.router.navigateByUrl('/home');
+        } else {
+          this.alertService.mostrarErro('Resposta inválida do servidor');
+        }
+      }, 150);
+
     } catch (error: any) {
-      await loading.dismiss();
-      await this.showAlert('Erro', error.message || 'Erro ao fazer login. Tente novamente.');
+      Swal.close(); // Fecha o carregamento em caso de erro
+      
+      setTimeout(() => {
+        this.alertService.mostrarErro(error.message || 'Erro ao fazer login. Tente novamente.');
+      }, 150);
     } finally {
       this.isLoading = false;
     }
   }
 
-  // SEU MÉTODO ORIGINAL - mantido
   private isValidEmail(email: string): boolean {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   }
 
-  // SEU MÉTODO ORIGINAL - mantido
-  private async showAlert(header: string, message: string) {
-    const alert = await this.alertController.create({
-      header,
-      message,
-      buttons: ['OK']
-    });
-    await alert.present();
-  }
-
-  // MÉTODO ADICIONADO: toggle para mostrar/esconder senha
   togglePassword() {
     this.showPassword = !this.showPassword;
   }
 
-  // MÉTODO ADICIONADO: limpar campos (para uso futuro)
   clearFields() {
     this.email = '';
     this.senha = '';
