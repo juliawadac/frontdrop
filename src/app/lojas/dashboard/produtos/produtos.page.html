@@ -46,6 +46,11 @@
         </ion-button>
       </div>
     </div>
+
+    <ion-button expand="block" class="add-inline-btn" (click)="abrirModal()">
+      <ion-icon name="add-circle-outline" slot="start"></ion-icon>
+      Adicionar Novo Produto
+    </ion-button>
   </div>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="!isLoading && produtos.length > 0">
@@ -101,7 +106,7 @@
             <ion-input
               type="number"
               placeholder="Quantidade em estoque"
-              [(ngModel)]="form.quantidade"
+              
               class="custom-input">
             </ion-input>
           </div>
