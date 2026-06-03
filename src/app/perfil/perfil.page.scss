@@ -1,11 +1,18 @@
 .perfil-container {
   --background: #FAF7F5;
   position: relative;
-  /* Espaço para o botão de sair não sumir */
   padding-bottom: 130px; 
 }
 
-// ============= HEADER PREMIUM =============
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade {
+  animation: fadeIn 0.35s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
 .header-premium {
   position: relative;
   background: linear-gradient(135deg, #99521c 0%, #7a4116 100%);
@@ -13,329 +20,266 @@
   overflow: hidden;
   
   .header-decoration {
-    position: absolute;
-    top: -50%;
-    right: -20%;
-    width: 400px;
-    height: 400px;
-    background: rgba(255, 255, 255, 0.08);
-    border-radius: 50%;
-    filter: blur(60px);
-    z-index: 2;
+    position: absolute; top: -50%; right: -20%; width: 400px; height: 400px;
+    background: rgba(255, 255, 255, 0.08); border-radius: 50%; filter: blur(60px); z-index: 2;
   }
   
-  .header-content {
-    position: relative;
-    z-index: 3;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
-  }
+  .header-content { position: relative; z-index: 3; display: flex; flex-direction: column; align-items: center; gap: 16px; }
 }
 
-// ============= AVATAR 3D GRANDE =============
 .avatar-wrapper {
-  position: relative;
-  cursor: pointer;
-  transition: transform 0.3s ease;
-  
+  position: relative; cursor: pointer; transition: transform 0.3s ease;
   &:active { transform: scale(0.95); }
-  
+
   .avatar-ring {
-    position: absolute;
-    inset: -8px;
-    border: 2px solid rgba(255, 215, 0, 0.3);
-    border-radius: 50%;
-    animation: rotate 10s linear infinite;
+    position: absolute; top: -6px; left: -6px; right: -6px; bottom: -6px;
+    border: 3px dashed rgba(255, 255, 255, 0.4); border-radius: 50%; animation: rotateRing 20s linear infinite;
   }
-  
+
   .avatar-image {
-    width: 110px;
-    height: 110px;
-    border-radius: 50%;
-    background: #fff;
-    padding: 4px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    
-    /* Regra blindada da div com Background Image */
-    .bg-avatar {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-    }
-    
-    ion-icon {
-      font-size: 50px;
-      color: #d2b48c;
-    }
+    width: 100px; height: 100px; border-radius: 50%; background: #ffffff;
+    border: 4px solid #ffffff; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    display: flex; align-items: center; justify-content: center; overflow: hidden;
+    ion-icon { font-size: 50px; color: #dcbca3; }
+    .bg-avatar { width: 100%; height: 100%; background-size: cover; background-position: center; }
   }
-  
+
   .camera-badge {
-    position: absolute;
-    bottom: 5px;
-    right: 5px;
-    background: #ffd700;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 3px solid #99521c;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    
-    ion-icon {
-      font-size: 16px;
-      color: #99521c;
-    }
+    position: absolute; bottom: 0; right: 0; background: #99521c;
+    width: 32px; height: 32px; border-radius: 50%; border: 3px solid #ffffff;
+    display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    ion-icon { color: white; font-size: 14px; }
   }
 }
 
-// ============= INFOS DO USUÁRIO =============
+@keyframes rotateRing {
+  from { transform: rotate(0deg); } to { transform: rotate(360deg); }
+}
+
 .user-details {
-  text-align: center;
-  color: #fff;
-  
-  .user-name {
-    font-family: 'Nunito', sans-serif;
-    font-size: 24px;
-    font-weight: 800;
-    margin: 0 0 4px;
-    letter-spacing: -0.5px;
-  }
-  
-  .user-email {
-    font-size: 14px;
-    color: rgba(255,255,255,0.8);
-    margin: 0 0 12px;
-  }
-  
+  text-align: center; color: white;
+  .user-name { font-family: "Nunito", sans-serif; font-size: 22px; font-weight: 800; margin: 0 0 4px; }
+  .user-email { font-family: "Nunito", sans-serif; font-size: 14px; color: rgba(255, 255, 255, 0.75); margin: 0 0 12px; }
   .user-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    background: rgba(255,255,255,0.15);
-    padding: 6px 14px;
-    border-radius: 20px;
-    backdrop-filter: blur(10px);
-    
-    ion-icon { color: #ffd700; font-size: 14px; }
-    span { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+    display: inline-flex; align-items: center; gap: 6px; background: rgba(255, 255, 255, 0.15);
+    padding: 6px 14px; border-radius: 20px; backdrop-filter: blur(10px);
+    ion-icon { color: #52fa7c; font-size: 14px; }
+    span { font-family: "Nunito", sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
   }
 }
 
-// ============= MENU PRINCIPAL =============
 .main-content {
-  padding: 30px 20px;
-  
+  padding: 24px 20px;
   .section-header {
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    
-    h2 {
-      font-size: 13px;
-      font-weight: 800;
-      color: #99521c;
-      letter-spacing: 1.5px;
-      margin: 0;
-    }
-    
-    .section-line {
-      flex: 1;
-      height: 1px;
-      background: linear-gradient(to right, rgba(153, 82, 28, 0.2), transparent);
-    }
+    display: flex; align-items: center; gap: 12px; margin-bottom: 20px;
+    h2 { font-family: "Nunito", sans-serif; font-size: 12px; font-weight: 800; color: #a18e83; letter-spacing: 1px; margin: 0; }
+    .section-line { flex: 1; height: 1px; background: #e0d7d0; }
   }
 }
 
-.menu-container {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
+.menu-container { display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px; }
 
 .menu-item {
-  display: flex;
-  align-items: center;
-  background: #fff;
-  padding: 16px;
-  border-radius: 20px;
-  gap: 16px;
-  box-shadow: 0 4px 15px rgba(153, 82, 28, 0.05);
-  transition: all 0.3s ease;
-  
-  &:active {
-    transform: scale(0.98);
-    background: #fdfaf8;
+  background: #ffffff; border-radius: 20px; padding: 14px; display: flex; align-items: center; gap: 16px;
+  box-shadow: 0 4px 15px rgba(153, 82, 28, 0.03); cursor: pointer; transition: all 0.2s ease;
+  &:active { transform: scale(0.98); background: #faf7f5; }
+
+  .menu-icon {
+    width: 44px; height: 44px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 22px;
+    &.cor1 { background: #fff0f0; color: #ff5252; } &.cor2 { background: #e8f5e9; color: #4caf50; }
+    &.cor3 { background: #e3f2fd; color: #2196f3; } &.cor4 { background: #fff3e0; color: #ff9800; }
+    &.cor5 { background: #f3e5f5; color: #9c27b0; } &.cor6 { background: #eceff1; color: #607d8b; }
   }
-  
-  .icon-box {
-    width: 48px;
-    height: 48px;
-    border-radius: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    
-    ion-icon { font-size: 22px; }
-    
-    &.cor1 { background: #fff5eb; color: #ff9800; }
-    &.cor2 { background: #ebf5ff; color: #2196f3; }
-    &.cor3 { background: #f0fdf4; color: #4caf50; }
-    &.cor4 { background: #fff1f2; color: #e91e63; }
-    &.cor5 { background: #f5f3ff; color: #7c3aed; }
-    &.cor6 { background: #f8fafc; color: #64748b; }
-  }
-  
+
   .menu-text {
     flex: 1;
-    h3 { font-size: 16px; font-weight: 700; color: #2d1606; margin: 0 0 2px; }
-    p { font-size: 12px; color: #8e7e71; margin: 0; }
+    h3 { font-family: "Nunito", sans-serif; font-size: 15px; font-weight: 800; color: #2c1810; margin: 0 0 3px; }
+    p { font-family: "Nunito", sans-serif; font-size: 12px; color: #8c7a70; margin: 0; }
   }
-  
-  .chevron { color: #d2b48c; font-size: 18px; }
+  .chevron { color: #c2b4ab; font-size: 18px; }
 }
 
-// ============= LOGOUT E VERSÃO =============
 .logout-container {
-  padding: 0 20px;
-  margin-top: 30px;
-  margin-bottom: 20px;
-
+  padding: 0 4px;
   .logout-btn {
-    width: 100%;
-    height: 54px;
-    background: #fff1f0; 
-    border: 1.5px solid #ff4d4f; 
-    color: #ff4d4f; 
-    border-radius: 16px;
-    font-family: "Nunito", sans-serif;
-    font-size: 16px;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    transition: all 0.3s ease;
-    cursor: pointer;
-
-    &:active {
-      background: #ffccc7;
-      transform: scale(0.98);
-    }
-
-    ion-icon {
-      font-size: 22px;
-    }
+    width: 100%; height: 54px; border-radius: 18px; background: #ffffff; border: 2px solid #f0e6df;
+    display: flex; align-items: center; justify-content: center; gap: 10px; color: #ff5252;
+    font-family: "Nunito", sans-serif; font-size: 15px; font-weight: 800; cursor: pointer; transition: all 0.2s ease;
+    &:active { background: #ffffff; transform: scale(0.98); }
+    ion-icon { font-size: 20px; }
   }
 }
 
-.version-info {
-  text-align: center;
-  padding-bottom: 120px; /* Garante que o menu inferior não esconda nada */
+.version-info { text-align: center; margin-top: 24px; p { font-family: "Nunito", sans-serif; font-size: 12px; color: #b5a69e; margin: 0; } }
+
+// ============= SUB-SEÇÕES =============
+.sub-secao { background: #ffffff; border-radius: 24px; padding: 20px; box-shadow: 0 8px 24px rgba(153, 82, 28, 0.04); }
+
+.sub-header {
+  display: flex; align-items: center; gap: 12px; margin-bottom: 24px; border-bottom: 1px solid #f2ede9; padding-bottom: 12px;
+  .btn-voltar { --color: #99521c; margin: 0; font-family: "Nunito", sans-serif; font-weight: 800; font-size: 14px; }
+  h2 { font-family: "Nunito", sans-serif; font-size: 18px; font-weight: 800; color: #2c1810; margin: 0; }
+}
+
+// ESTADO VAZIO PARA ABAS (Pedidos, Endereços, Cartões sem dados)
+.empty-tab-state {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 30px 10px;
+  ion-icon { font-size: 64px; color: #e4cdbc; margin-bottom: 16px; }
+  h3 { font-size: 18px; font-weight: 800; color: #2c1810; margin: 0 0 8px; font-family: "Nunito", sans-serif; }
+  p { font-size: 14px; color: #8c7a70; font-family: "Nunito", sans-serif; margin: 0 0 24px; line-height: 1.4; }
   
-  p {
-    color: #b8a090;
-    font-size: 12px;
-    font-weight: 600;
-    margin: 0;
+  .action-btn { --background: #99521c; --color: #ffffff; --border-radius: 14px; font-family: "Nunito", sans-serif; font-weight: 800; height: 48px; }
+}
+
+// ESTILOS DE LISTAS E CARDS (Endereços, Cartões)
+.form-container { display: flex; flex-direction: column; gap: 16px; }
+.input-group {
+  display: flex; flex-direction: column; gap: 6px;
+  label { font-family: "Nunito", sans-serif; font-size: 13px; font-weight: 700; color: #7a6b61; }
+  .sub-input {
+    border: 1px solid #dcbca3; border-radius: 12px; --padding-start: 14px; --padding-end: 14px;
+    --background: #faf7f5; --color: #2c1810; font-family: "Nunito", sans-serif; font-weight: 600;
   }
 }
 
-// ============= BOTTOM NAVIGATION (MARROM) =============
+.sub-btn-salvar {
+  --background: #99521c; --color: #ffffff; --border-radius: 14px;
+  font-family: "Nunito", sans-serif; font-weight: 800; height: 50px; margin-top: 12px;
+}
+
+.list-container { display: flex; flex-direction: column; gap: 12px; }
+
+.card-item {
+  display: flex; align-items: center; gap: 14px; background: #faf7f5; border: 1px solid #f2ede9; border-radius: 16px; padding: 14px;
+  cursor: pointer; transition: all 0.2s ease;
+  &:active { transform: scale(0.98); }
+  &.item-padrao { border-color: #99521c; background: #fffaf7; }
+
+  .card-icon {
+    font-size: 22px; color: #99521c; background: #ffffff; width: 42px; height: 42px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+  }
+
+  .card-details {
+    flex: 1;
+    h3 { font-size: 14px; font-weight: 800; color: #2c1810; margin: 0 0 4px; font-family: "Nunito", sans-serif; display: flex; align-items: center; gap: 8px; }
+    p { font-size: 12px; color: #7a6b61; margin: 0; font-family: "Nunito", sans-serif; line-height: 1.3; }
+  }
+
+  .card-actions {
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+    .check-icon { color: #99521c; font-size: 22px; }
+    .delete-icon { color: #ff5252; font-size: 20px; opacity: 0.6; transition: 0.2s; &:active { opacity: 1; transform: scale(1.1); } }
+  }
+}
+
+.badge-padrao { font-size: 9px; background: #99521c; color: #fff; padding: 2px 6px; border-radius: 6px; font-weight: 800; text-transform: uppercase; }
+
+// BOTÃO ADICIONAR NOVO
+.btn-add-novo {
+  --color: #99521c; margin-top: 16px; font-family: "Nunito", sans-serif; font-weight: 800;
+  width: 100%; border: 2px dashed #dcbca3; border-radius: 16px; height: 50px; text-transform: none; font-size: 14px;
+}
+
+.pedido-item {
+  cursor: default; &:active { transform: none; }
+  .pedido-top { display: flex; justify-content: space-between; align-items: center; width: 100%; margin-bottom: 4px; }
+  .pedido-meta { font-size: 12px!important; color: #a6958a!important; margin-bottom: 6px!important; }
+  .pedido-total { font-size: 16px; font-weight: 800; color: #99521c; margin: 0; }
+}
+
+.status-badge { font-size: 11px; padding: 4px 8px; border-radius: 8px; font-weight: 800; &.warning { background: #ffeec9; color: #b25e00; } &.success { background: #e0fbf1; color: #00875a; } }
+
+.ajuda-container {
+  display: flex; flex-direction: column; gap: 16px;
+  .faq-item {
+    background: #faf7f5; padding: 14px; border-radius: 14px;
+    h4 { font-size: 14px; font-weight: 800; color: #2c1810; margin: 0 0 6px; font-family: "Nunito", sans-serif; }
+    p { font-size: 13px; color: #666; margin: 0; line-height: 1.4; font-family: "Nunito", sans-serif; }
+  }
+}
+
+.config-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 16px; }
+.config-item {
+  display: flex; justify-content: space-between; align-items: center; background: #faf7f5; padding: 14px; border-radius: 14px;
+  h3 { font-size: 14px; font-weight: 800; color: #2c1810; margin: 0 0 2px; font-family: "Nunito", sans-serif; }
+  p { font-size: 12px; color: #7a6b61; margin: 0; font-family: "Nunito", sans-serif; }
+}
+
+// ============= FOOTER E BOTTOM NAVIGATION =============
 .fixed-bottom-nav {
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-  background: #915223;
-  height: 75px; 
+  background: #99521c; // Marrom padrão
+  height: 70px;
   border-radius: 20px 20px 0 0;
-  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 -4px 20px rgba(153, 82, 28, 0.2);
   z-index: 1000;
-  padding-bottom: env(safe-area-inset-bottom); 
 
   .nav-content {
     display: flex;
     justify-content: space-around;
     align-items: center;
     height: 100%;
-    padding: 0 10px;
+    padding: 0 16px;
 
     .nav-item {
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      color: rgba(255, 255, 255, 0.5);
+      color: rgba(255, 255, 255, 0.7);
       cursor: pointer;
-      padding: 8px 16px;
-      transition: all 0.2s ease;
-      border-radius: 16px;
-      height: 60px;
-      text-decoration: none;
+      padding: 8px 12px;
+      transition: all 0.3s ease;
+      border-radius: 12px;
 
+      // Cor do item quando a rota está ativa
       &.active {
-        color: #ffffff;
-        background: rgba(255, 255, 255, 0.12);
-        
-        span { font-weight: 800; }
-        .nav-profile-icon { border-color: #ffffff; }
+        color: #ffd700;
+        background: rgba(255, 215, 0, 0.1);
       }
 
-      &:active { transform: scale(0.92); }
+      &:hover {
+        color: #ffd700;
+        transform: translateY(-2px);
+      }
 
-      ion-icon { font-size: 24px; margin-bottom: 4px; }
-      span { font-family: "Nunito", sans-serif; font-size: 11px; font-weight: 700; }
+      ion-icon {
+        font-size: 22px;
+        margin-bottom: 4px;
+      }
+
+      span {
+        font-size: 12px;
+        font-weight: 600;
+      }
     }
   }
 }
 
-// ============= FOTO DO PERFIL NO FOOTER PEQUENA =============
+
 .nav-profile-icon {
-  width: 28px;
-  height: 28px;
-  flex-shrink: 0; 
+  width: 26px;
+  height: 26px;
   border-radius: 50%;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 4px;
-  border: 2px solid rgba(255, 255, 255, 0.4);
-  background-color: rgba(255,255,255,0.1);
+  border: 2px solid rgba(255, 255, 255, 0.7);
 
-  /* Regra blindada da div com Background Image */
-  .bg-footer-avatar {
+  .nav-profile-photo {
     width: 100%;
     height: 100%;
+    object-fit: cover;
     border-radius: 50%;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
   }
 
   ion-icon {
-    font-size: 16px;
+    font-size: 22px;
     margin-bottom: 0;
-    color: #fff;
   }
-}
-
-@keyframes rotate {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-@media (min-width: 768px) {
-  .menu-container { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
 }

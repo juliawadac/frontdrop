@@ -2,7 +2,6 @@
 
   <div class="header-premium">
     <div class="header-decoration"></div>
-    
     <div class="header-content">
       <div class="avatar-wrapper" (click)="editarFotoPerfil()">
         <div class="avatar-ring"></div>
@@ -27,37 +26,229 @@
   </div>
 
   <div class="main-content">
-    <div class="section-header">
-      <h2>MINHA CONTA</h2>
-      <div class="section-line"></div>
-    </div>
     
-    <div class="menu-container">
-      <div class="menu-item" *ngFor="let opcao of opcoesPerfil" (click)="navegarPara(opcao.rota)">
-        <div class="icon-box" [ngClass]="opcao.classe">
-          <ion-icon [name]="opcao.icone"></ion-icon>
+    <div *ngIf="secaoAtiva === 'menu'" class="animate-fade">
+      <div class="section-header">
+        <h2>MINHA CONTA</h2>
+        <div class="section-line"></div>
+      </div>
+      
+      <div class="menu-container">
+        <div class="menu-item" *ngFor="let opcao of opcoesPerfil" (click)="navegarPara(opcao.rota)">
+          <div class="menu-icon" [class]="opcao.classe">
+            <ion-icon [name]="opcao.icone"></ion-icon>
+          </div>
+          <div class="menu-text">
+            <h3>{{ opcao.titulo }}</h3>
+            <p>{{ opcao.subtitulo }}</p>
+          </div>
+          <ion-icon name="chevron-forward" class="chevron"></ion-icon>
         </div>
-        <div class="menu-text">
-          <h3>{{ opcao.titulo }}</h3>
-          <p>{{ opcao.subtitulo }}</p>
-        </div>
-        <ion-icon name="chevron-forward" class="chevron"></ion-icon>
+      </div>
+
+      <div class="logout-container">
+        <button class="logout-btn" (click)="sair()">
+          <ion-icon name="log-out-outline"></ion-icon>
+          <span>Sair da Conta</span>
+        </button>
+      </div>
+
+      <div class="version-info">
+        <p>Versão 1.0.0 • © 2026</p>
       </div>
     </div>
+
+    <div *ngIf="secaoAtiva === '/dados'" class="sub-secao animate-fade">
+      <div class="sub-header">
+        <ion-button fill="clear" class="btn-voltar" (click)="voltarAoMenu()">
+          <ion-icon name="chevron-back-outline" slot="start"></ion-icon> Voltar
+        </ion-button>
+        <h2>Meus Dados</h2>
+      </div>
+      
+      <div class="form-container">
+        <div class="input-group">
+          <label>Nome Completo</label>
+          <ion-input type="text" [(ngModel)]="dadosForm.nome" class="sub-input"></ion-input>
+        </div>
+        <div class="input-group">
+          <label>E-mail Corporativo</label>
+          <ion-input type="email" [(ngModel)]="dadosForm.email" class="sub-input"></ion-input>
+        </div>
+        <div class="input-group">
+          <label>Telefone / WhatsApp</label>
+          <ion-input type="text" [(ngModel)]="dadosForm.telefone" class="sub-input"></ion-input>
+        </div>
+        <ion-button expand="block" class="sub-btn-salvar" (click)="salvarDados()">
+          Confirmar Alterações
+        </ion-button>
+      </div>
+    </div>
+
+    <div *ngIf="secaoAtiva === '/enderecos'" class="sub-secao animate-fade">
+      <div class="sub-header">
+        <ion-button fill="clear" class="btn-voltar" (click)="voltarAoMenu()">
+          <ion-icon name="chevron-back-outline" slot="start"></ion-icon> Voltar
+        </ion-button>
+        <h2>Meus Endereços</h2>
+      </div>
+
+      <div class="empty-tab-state" *ngIf="enderecos.length === 0">
+        <ion-icon name="map-outline"></ion-icon>
+        <h3>Sem endereços salvos</h3>
+        <p>Adicione um endereço para agilizar suas compras.</p>
+      </div>
+
+      <div class="list-container" *ngIf="enderecos.length > 0">
+        <div class="card-item" *ngFor="let end of enderecos" [class.item-padrao]="end.padrao" (click)="alternarPadraoEndereco(end.id)">
+          <div class="card-icon"><ion-icon name="location-outline"></ion-icon></div>
+          <div class="card-details">
+            <h3>{{ end.tipo }} <span *ngIf="end.padrao" class="badge-padrao">Padrão</span></h3>
+            <p>{{ end.logradouro }}, {{ end.bairro }}</p>
+            <p>{{ end.cidade }}</p>
+          </div>
+          <div class="card-actions">
+            <ion-icon name="trash-outline" class="delete-icon" (click)="removerEndereco(end.id, $event)"></ion-icon>
+            <ion-icon name="checkmark-circle" class="check-icon" *ngIf="end.padrao"></ion-icon>
+          </div>
+        </div>
+      </div>
+
+      <ion-button fill="clear" class="btn-add-novo" (click)="adicionarEndereco()">
+        <ion-icon name="add-circle-outline" slot="start"></ion-icon>
+        Adicionar Novo Endereço
+      </ion-button>
+    </div>
+
+    <div *ngIf="secaoAtiva === '/pedidos'" class="sub-secao animate-fade">
+      <div class="sub-header">
+        <ion-button fill="clear" class="btn-voltar" (click)="voltarAoMenu()">
+          <ion-icon name="chevron-back-outline" slot="start"></ion-icon> Voltar
+        </ion-button>
+        <h2>Meus Pedidos</h2>
+      </div>
+
+      <div class="empty-tab-state" *ngIf="pedidos.length === 0">
+        <ion-icon name="bag-remove-outline"></ion-icon>
+        <h3>Nenhum pedido ainda</h3>
+        <p>Você ainda não realizou nenhuma compra. Seus pedidos aparecerão aqui assim que finalizar um carrinho.</p>
+        <ion-button class="action-btn" routerLink="/home">
+          Explorar Produtos
+        </ion-button>
+      </div>
+
+      <div class="list-container" *ngIf="pedidos.length > 0">
+        <div class="card-item pedido-item" *ngFor="let ped of pedidos">
+          <div class="card-details">
+            <div class="pedido-top">
+              <h3>Pedido {{ ped.id }}</h3>
+              <span class="status-badge" [class]="ped.corStatus">{{ ped.status }}</span>
+            </div>
+            <p class="pedido-meta">Data da Compra: {{ ped.data }}</p>
+            <h4 class="pedido-total">R$ {{ ped.total | number:'1.2-2' }}</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="secaoAtiva === '/pagamentos'" class="sub-secao animate-fade">
+      <div class="sub-header">
+        <ion-button fill="clear" class="btn-voltar" (click)="voltarAoMenu()">
+          <ion-icon name="chevron-back-outline" slot="start"></ion-icon> Voltar
+        </ion-button>
+        <h2>Formas de Pagamento</h2>
+      </div>
+
+      <div class="empty-tab-state" *ngIf="cartoes.length === 0">
+        <ion-icon name="wallet-outline"></ion-icon>
+        <h3>Nenhum cartão salvo</h3>
+        <p>Adicione um cartão de crédito para compras rápidas.</p>
+      </div>
+
+      <div class="list-container" *ngIf="cartoes.length > 0">
+        <div class="card-item" *ngFor="let card of cartoes" [class.item-padrao]="card.padrao" (click)="alternarPadraoCartao(card.id)">
+          <div class="card-icon"><ion-icon name="card-outline"></ion-icon></div>
+          <div class="card-details">
+            <h3>•••• •••• •••• {{ card.final }} <span *ngIf="card.padrao" class="badge-padrao">Padrão</span></h3>
+            <p>{{ card.titular }}</p>
+            <p>Expiração: {{ card.validade }}</p>
+          </div>
+          <div class="card-actions">
+            <ion-icon name="trash-outline" class="delete-icon" (click)="removerCartao(card.id, $event)"></ion-icon>
+            <ion-icon name="checkmark-circle" class="check-icon" *ngIf="card.padrao"></ion-icon>
+          </div>
+        </div>
+      </div>
+
+      <ion-button fill="clear" class="btn-add-novo" (click)="adicionarCartao()">
+        <ion-icon name="add-circle-outline" slot="start"></ion-icon>
+        Adicionar Cartão de Crédito
+      </ion-button>
+    </div>
+
+    <div *ngIf="secaoAtiva === '/ajuda'" class="sub-secao animate-fade">
+      <div class="sub-header">
+        <ion-button fill="clear" class="btn-voltar" (click)="voltarAoMenu()">
+          <ion-icon name="chevron-back-outline" slot="start"></ion-icon> Voltar
+        </ion-button>
+        <h2>Ajuda e Suporte</h2>
+      </div>
+
+      <div class="ajuda-container">
+        <div class="faq-item">
+          <h4>Como rastrear meu pedido?</h4>
+          <p>Basta clicar na sub-aba "Meus Pedidos" aqui na central de Perfil para verificar o status de entrega do seu item em tempo real.</p>
+        </div>
+        <div class="faq-item">
+          <h4>Quais são as formas de pagamento aceitas?</h4>
+          <p>Trabalhamos com Cartões de Crédito e Débito, PIX instantâneo e boleto.</p>
+        </div>
+        <ion-button expand="block" class="sub-btn-salvar" color="success">
+          <ion-icon name="logo-whatsapp" slot="start"></ion-icon> Falar no WhatsApp
+        </ion-button>
+      </div>
+    </div>
+
+    <div *ngIf="secaoAtiva === '/configuracoes'" class="sub-secao animate-fade">
+      <div class="sub-header">
+        <ion-button fill="clear" class="btn-voltar" (click)="voltarAoMenu()">
+          <ion-icon name="chevron-back-outline" slot="start"></ion-icon> Voltar
+        </ion-button>
+        <h2>Configurações</h2>
+      </div>
+
+      <div class="config-list">
+        <div class="config-item">
+          <div>
+            <h3>Notificações Push</h3>
+            <p>Receba alertas sobre pedidos</p>
+          </div>
+          <ion-toggle [(ngModel)]="configuracoes.notificacoes" (ionChange)="salvarTudoNoCelular()" color="primary"></ion-toggle>
+        </div>
+        <div class="config-item">
+          <div>
+            <h3>E-mails Informativos</h3>
+            <p>Receba cupons promocionais</p>
+          </div>
+          <ion-toggle [(ngModel)]="configuracoes.emails" (ionChange)="salvarTudoNoCelular()" color="primary"></ion-toggle>
+        </div>
+        <div class="config-item">
+          <div>
+            <h3>Tema Escuro</h3>
+            <p>Ativar interface noturna</p>
+          </div>
+          <ion-toggle [(ngModel)]="configuracoes.modoEscuro" (ionChange)="salvarTudoNoCelular()" color="primary"></ion-toggle>
+        </div>
+      </div>
+
+      <ion-button expand="block" class="sub-btn-salvar" (click)="salvarConfiguracoes()">
+        Salvar Preferências
+      </ion-button>
+    </div>
+
   </div>
 
-  <div class="logout-container">
-    <button class="logout-btn" (click)="sair()">
-      <ion-icon name="log-out-outline"></ion-icon>
-      <span>Sair da Conta</span>
-    </button>
-  </div>
-
-  <div class="version-info">
-    <p>Versão 1.0.0 • © 2026</p>
-  </div>
-
-  <div class="fixed-bottom-nav">
+ <div class="fixed-bottom-nav">
     <div class="nav-content">
       <div class="nav-item" [routerLink]="['/home']">
         <ion-icon name="home"></ion-icon>
@@ -69,19 +260,19 @@
         <span>Buscar</span>
       </div>
       
-      <div class="nav-item" [routerLink]="['/sacola']">
+       <div class="nav-item" [routerLink]="['/sacola']">
         <ion-icon name="bag-handle"></ion-icon>
         <span>Sacola</span>
       </div>
       
       <div class="nav-item active" [routerLink]="['/perfil']">
         <div class="nav-profile-icon">
-          <div *ngIf="profilePhoto" class="bg-footer-avatar" [style.backgroundImage]="'url(' + profilePhoto + ')'"></div>
+          <img *ngIf="profilePhoto" [src]="profilePhoto" class="nav-profile-photo" alt="Perfil" />
           <ion-icon *ngIf="!profilePhoto" name="person"></ion-icon>
         </div>
         <span>Perfil</span>
       </div>
     </div>
   </div>
-  
+
 </ion-content>

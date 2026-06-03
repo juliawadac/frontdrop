@@ -10,6 +10,10 @@ export interface Usuario {
   senha?: string;
   endereco?: string;
   numero_endereco?: string;
+  // NOVOS CAMPOS DO BANCO DE DADOS INTEGRADOS:
+  telefone?: string;
+  cpf?: string;
+  data_nascimento?: string;
 }
 
 export interface LoginResponse {
@@ -46,31 +50,16 @@ export class AuthService {
       return;
     }
 
-    // Carrega instantaneamente para não cair no F5
     const usuarioSalvo = localStorage.getItem('usuarioLogado');
     if (usuarioSalvo) {
       this.currentUserSubject.next(JSON.parse(usuarioSalvo));
     }
-
-    // Atualiza em segundo plano
-    this.http.get<Usuario>(`${this.API_URL}/me`, { headers: this.getAuthHeaders() })
-      .subscribe({
-        next: (usuario) => {
-          localStorage.setItem('usuarioLogado', JSON.stringify(usuario));
-          this.currentUserSubject.next(usuario);
-        },
-        error: (err) => {
-          console.error('Erro ao carregar usuário do token:', err);
-          this.logout();
-        }
-      });
   }
 
   enviarCodigo(email: string): Observable<any> {
     return this.http.post(`${this.API_URL}/enviar-codigo`, { email });
   }
 
-  // ✅ FUNÇÃO QUE TINHA SUMIDO: CADASTRAR
   cadastrar(usuario: any): Observable<any> {
     return this.http.post(`${this.API_URL}/cadastrar`, usuario);
   }
@@ -88,9 +77,24 @@ export class AuthService {
       );
   }
 
+  // ✅ NOVA FUNÇÃO: Atualiza os dados do usuário direto no MySQL via requisição PUT/HTTP
+  atualizarPerfil(id: number, dados: any): Observable<any> {
+    return this.http.put(`${this.API_URL}/${id}`, dados, { headers: this.getAuthHeaders() });
+  }
+
+  // ✅ NOVA FUNÇÃO: Atualiza a sessão ativa na memória e o cache local para atualizar o cabeçalho
+  atualizarSessaoLocal(usuarioAtualizado: Usuario): void {
+    localStorage.setItem('usuarioLogado', JSON.stringify(usuarioAtualizado));
+    this.currentUserSubject.next(usuarioAtualizado);
+  }
+
   logout(): void {
     localStorage.removeItem('token');
     localStorage.removeItem('usuarioLogado');
+    localStorage.removeItem('perfil_enderecos');
+    localStorage.removeItem('perfil_cartoes');
+    localStorage.removeItem('perfil_configuracoes');
+    localStorage.removeItem('perfil_foto');
     this.currentUserSubject.next(null);
   }
 
@@ -98,9 +102,12 @@ export class AuthService {
     return localStorage.getItem('token');
   }
 
-  // ✅ FUNÇÃO QUE TINHA SUMIDO: ISLOGGEDIN (Usada pelo seu AuthGuard)
   isLoggedIn(): boolean {
     const token = this.getToken();
-    return token !== null && token !== '';
+    return !!token;
+  }
+
+  getUsuario(): Usuario | null {
+    return this.currentUserSubject.value;
   }
 }
