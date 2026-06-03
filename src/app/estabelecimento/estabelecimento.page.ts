@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs';
 import { EstabelecimentoService, Estabelecimento, Produto } from '../services/estabelecimento.service';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from '../services/auth.service';
-import { AlertService } from '../services/alert.service';
+import { AlertService } from '../services/alert.service'; // <-- Importado o seu serviço global
 
 @Component({
   selector: 'app-estabelecimento',
@@ -30,7 +30,7 @@ export class EstabelecimentoPage implements OnInit, OnDestroy {
     private estabelecimentoService: EstabelecimentoService,
     private authService: AuthService,
     private navCtrl: NavController,
-    private alertService: AlertService
+    private alertService: AlertService // <-- Injetado o AlertService
   ) {}
 
   get cartKey(): string {
@@ -89,6 +89,18 @@ export class EstabelecimentoPage implements OnInit, OnDestroy {
       },
       error: () => this.isLoading = false
     });
+  }
+
+  // Função para formatar o preço de ponto para vírgula
+  formatarPreco(preco: number): string {
+    // 1. Se o preço for nulo ou indefinido, já retorna padrão
+    if (preco === undefined || preco === null) return '0,00';
+
+    const valorNumerico = Number(preco);
+
+    if (isNaN(valorNumerico)) return '0,00';
+
+    return valorNumerico.toFixed(2).replace('.', ',');
   }
 
   getSecaoProdutos() {
@@ -154,6 +166,9 @@ export class EstabelecimentoPage implements OnInit, OnDestroy {
     localStorage.setItem(this.cartKey, JSON.stringify(carrinho));
     this.produtos[index].quantidade = 0;
 
+    window.dispatchEvent(new Event('cartUpdated'));
+
+    // Dispara o Toast de sucesso configurado na sacola
     this.alertService.mostrarToastSucesso('Item adicionado à sacola! 🛍️');
   }
 }
