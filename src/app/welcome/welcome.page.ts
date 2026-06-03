@@ -12,7 +12,7 @@ import { RouterModule, Router } from '@angular/router';
 })
 export class WelcomePage implements OnInit {
 
-  selectedProfile: 'cliente' | 'empresa' | null = null;
+  selectedProfile: 'cliente' | 'empresa' | null = 'cliente';
 
   constructor(private router: Router) {}
 

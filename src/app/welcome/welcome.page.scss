@@ -283,6 +283,13 @@
 
   .guest-access {
     text-align: center;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    
+    &.hide-guest {
+      visibility: hidden;
+      opacity: 0;
+      pointer-events: none; /* Garante que o botão invisível não seja clicado sem querer */
+    }
 
     .guest-link {
       display: inline-flex;
