@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs';
 import { EstabelecimentoService, Estabelecimento, Produto } from '../services/estabelecimento.service';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from '../services/auth.service';
-import { AlertService } from '../services/alert.service'; // <-- 1. IMPORTADO O SEU SERVIÇO GLOBAL
+import { AlertService } from '../services/alert.service';
 
 @Component({
   selector: 'app-estabelecimento',
@@ -30,7 +30,7 @@ export class EstabelecimentoPage implements OnInit, OnDestroy {
     private estabelecimentoService: EstabelecimentoService,
     private authService: AuthService,
     private navCtrl: NavController,
-    private alertService: AlertService // <-- 2. INJETADO O ALERT SERVICE NO CONSTRUTOR
+    private alertService: AlertService
   ) {}
 
   get cartKey(): string {
@@ -154,10 +154,6 @@ export class EstabelecimentoPage implements OnInit, OnDestroy {
     localStorage.setItem(this.cartKey, JSON.stringify(carrinho));
     this.produtos[index].quantidade = 0;
 
-    // Se o seu app usar atualização automática da sacola lá no footer/header, descomente a linha abaixo:
-    // window.dispatchEvent(new Event('cartUpdated'));
-
-    // ✅ 3. DISPARA O TOAST MINIMALISTA DO SWEETALERT
     this.alertService.mostrarToastSucesso('Item adicionado à sacola! 🛍️');
   }
 }
