@@ -30,7 +30,6 @@ export type StatusPedido = 'Pendente' | 'Preparo' | 'Entregando' | 'Entregue' | 
 @Injectable({ providedIn: 'root' })
 export class DashboardService {
 
-  // Se o seu backend usa "/api", mude para: 'http://localhost:3000/api'
   private readonly BASE = 'http://localhost:3000';
 
   constructor(

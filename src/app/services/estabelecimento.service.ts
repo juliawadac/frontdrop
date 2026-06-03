@@ -30,7 +30,7 @@ export interface Estabelecimento {
   providedIn: 'root'
 })
 export class EstabelecimentoService {
-  private apiUrl = 'http://localhost:3000'; // URL correta do seu backend
+  private apiUrl = 'http://localhost:3000';
   
   private estabelecimentosSubject = new BehaviorSubject<Estabelecimento[]>([]);
   public estabelecimentos$ = this.estabelecimentosSubject.asObservable();
