@@ -267,6 +267,15 @@
           }
         }
 
+        .qty-btn {
+          --color: #ffffff !important; 
+          margin: 0;
+          
+          ion-icon {
+            font-size: 18px;
+          }
+        }
+
         .produto-actions {
           display: flex;
           align-items: center;

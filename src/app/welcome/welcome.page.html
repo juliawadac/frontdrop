@@ -88,7 +88,7 @@
         CRIAR CONTA
       </ion-button>
 
-      <div class="guest-access" *ngIf="selectedProfile !== 'empresa'">
+      <div class="guest-access" [class.hide-guest]="selectedProfile === 'empresa'">
         <a (click)="continueAsGuest()" class="guest-link">
           Continuar como visitante
           <ion-icon name="arrow-forward-outline"></ion-icon>

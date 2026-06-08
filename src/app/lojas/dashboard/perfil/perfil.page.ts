@@ -3,10 +3,11 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonicModule, AlertController } from '@ionic/angular';
+import { IonicModule } from '@ionic/angular'; // Removido o AlertController
 import { Router, RouterModule } from '@angular/router';
 import { DashboardService } from '../../../../../src/app/services/dashboard.service';
 import { LojaService, Loja } from '../../../services/loja.service';
+import { AlertService } from '../../../services/alert.service'; // Injetado o seu serviço global
 
 @Component({
   selector: 'app-perfil-loja',
@@ -44,7 +45,7 @@ export class PerfilLojaPage implements OnInit {
   constructor(
     private dashService: DashboardService,
     private lojaService: LojaService,
-    private alertCtrl: AlertController,
+    private alertService: AlertService, // Trocado AlertController pelo AlertService
     private router: Router
   ) {}
 
@@ -64,10 +65,10 @@ export class PerfilLojaPage implements OnInit {
 
   private preencherForm(loja: Loja) {
     this.form.nome            = loja.nome        ?? '';
-    this.form.localizacao     = loja.localizacao  ?? '';
+    this.form.localizacao     = loja.localizacao ?? '';
     this.form.numero_endereco = loja.numero_endereco ?? '';
-    this.form.bairro          = loja.bairro       ?? '';
-    this.form.cidade          = loja.cidade       ?? '';
+    this.form.bairro          = loja.bairro      ?? '';
+    this.form.cidade          = loja.cidade      ?? '';
     
     // Aceita URLs que comecem com http ou Base64 (data:image)
     this.logoUrl   = (loja.logo_url && (loja.logo_url.startsWith('http') || loja.logo_url.startsWith('data:'))) ? loja.logo_url : '';
@@ -96,18 +97,16 @@ export class PerfilLojaPage implements OnInit {
     reader.readAsDataURL(file);
   }
 
-  async salvarPerfil() {
+  salvarPerfil() {
+    // Alerta de validação substituído
     if (!this.form.nome.trim()) {
-      const a = await this.alertCtrl.create({
-        header: 'Atenção', message: 'O nome não pode estar vazio', buttons: ['OK']
-      });
-      await a.present();
+      this.alertService.mostrarErro('O nome não pode estar vazio');
       return;
     }
 
     this.isSaving = true;
 
-    // CORREÇÃO: Montamos o payload combinando os dados de texto com as imagens
+    // Montamos o payload combinando os dados de texto com as imagens
     const payload = {
       ...this.form,
       logo_url: this.logoUrl,
@@ -115,7 +114,7 @@ export class PerfilLojaPage implements OnInit {
     };
 
     this.dashService.atualizarPerfil(payload).subscribe({
-      next: async (response: any) => {
+      next: (response: any) => {
         this.isSaving = false;
         
         const lojaAtualizada = response?.Resultado ?? {
@@ -127,17 +126,13 @@ export class PerfilLojaPage implements OnInit {
         localStorage.setItem('currentLoja', JSON.stringify(lojaAtualizada));
         this.preencherForm(lojaAtualizada);
         
-        const a = await this.alertCtrl.create({
-          header: '✓ Salvo', message: 'Perfil atualizado com sucesso', buttons: ['OK']
-        });
-        await a.present();
+        // Alerta de sucesso substituído pelo Toast minimalista
+        this.alertService.mostrarToastSucesso('Perfil atualizado com sucesso!');
       },
-      error: async () => {
+      error: () => {
         this.isSaving = false;
-        const a = await this.alertCtrl.create({
-          header: 'Erro', message: 'Não foi possível salvar. Tente novamente.', buttons: ['OK']
-        });
-        await a.present();
+        // Alerta de erro do servidor substituído
+        this.alertService.mostrarErro('Não foi possível salvar. Tente novamente.');
       }
     });
   }

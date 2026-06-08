@@ -57,15 +57,22 @@
               <p class="produto-desc">{{ produto.descricao }}</p>
               <div class="produto-price">
                 <span class="currency">R$</span>
-                <span class="value">{{ produto.preco | number:'1.2-2' }}</span>
+                <span class="value">{{ formatarPreco(produto.preco) }}</span>
               </div>
             </div>
             <div class="produto-actions">
               <div class="quantity-controls">
-                <ion-button fill="clear" (click)="diminuirQuantidade(i)"><ion-icon name="remove-outline"></ion-icon></ion-button>
+                <ion-button fill="clear" class="qty-btn" (click)="diminuirQuantidade(i)">
+                  <ion-icon name="remove-outline"></ion-icon>
+                </ion-button>
+                
                 <span class="quantity">{{ produto.quantidade }}</span>
-                <ion-button fill="clear" (click)="aumentarQuantidade(i)"><ion-icon name="add-outline"></ion-icon></ion-button>
+                
+                <ion-button fill="clear" class="qty-btn" (click)="aumentarQuantidade(i)">
+                  <ion-icon name="add-outline"></ion-icon>
+                </ion-button>
               </div>
+              
               <ion-button (click)="adicionarAoCarrinho(i)" [disabled]="produto.quantidade === 0" class="add-to-cart-btn">
                 ADICIONAR
               </ion-button>

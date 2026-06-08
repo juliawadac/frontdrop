@@ -79,6 +79,14 @@ export class SacolaPage implements OnInit {
     }, 0);
   }
 
+  // ✅ NOVA FUNÇÃO: Formata o preço de ponto para vírgula com total segurança
+  formatarPreco(preco: any): string {
+    if (preco === undefined || preco === null) return '0,00';
+    const valorNumerico = Number(preco);
+    if (isNaN(valorNumerico)) return '0,00';
+    return valorNumerico.toFixed(2).replace('.', ',');
+  }
+
   addItem(item: CartItem) {
     const existingItemIndex = this.cartItems.findIndex(
       cartItem => cartItem.name === item.name && cartItem.store === item.store
@@ -179,11 +187,10 @@ export class SacolaPage implements OnInit {
     }
   }
   
-  // ✅ ALTERADO: Agora detecta o session_id e chama o backend para salvar o pedido
   private checkPaymentStatus() {
     const params = this.route.snapshot.queryParamMap;
     const pagamentoStatus = params.get('pagamento');
-    const sessionId = params.get('session_id'); // ✅ Pega o ID da sessão Stripe
+    const sessionId = params.get('session_id'); 
 
     if (pagamentoStatus === 'sucesso' && sessionId) {
       this.confirmarESalvarPedido(sessionId);
@@ -193,14 +200,12 @@ export class SacolaPage implements OnInit {
     }
   }
 
-  // ✅ NOVO: Chama o backend para verificar o pagamento e salvar no banco
   private confirmarESalvarPedido(sessionId: string) {
-    const cartItems = [...this.cartItems]; // Copia antes de limpar
+    const cartItems = [...this.cartItems]; 
     const usuarioId = this.usuarioId;
     const estabelecimentoId = cartItems[0]?.estabelecimentoId;
 
     if (!usuarioId || !estabelecimentoId) {
-      // Se perdeu os dados (ex: recarregou a página), só navega para home
       this.clearCart();
       this.router.navigate(['/home'], {
         replaceUrl: true,
@@ -219,7 +224,6 @@ export class SacolaPage implements OnInit {
           });
         },
         error: (err) => {
-          // Mesmo com erro ao salvar, limpa o carrinho pois o pagamento foi feito
           this.clearCart();
           this.showAlert(
             'Atenção',
