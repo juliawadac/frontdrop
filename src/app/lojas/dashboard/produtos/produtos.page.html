@@ -27,6 +27,7 @@
   </div>
 
   <div class="produtos-list" *ngIf="!isLoading && produtos.length > 0">
+    
     <div class="produto-card" *ngFor="let p of produtos">
       <div class="prod-info">
         <div class="prod-categoria">{{ p.categoria_nome }}</div>

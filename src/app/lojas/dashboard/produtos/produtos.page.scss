@@ -1,6 +1,6 @@
 .produtos-content { 
   --background: #f8f3ef; 
-  height: 100%; /* Garante que o fundo vai até ao final do ecrã */
+  height: 100%;
 }
 
 // Cabeçalho Principal
@@ -40,7 +40,7 @@
   }
 }
 
-// Estados e Botões
+// Estados
 .loading-state {
   display: flex; flex-direction: column; align-items: center; padding: 40px; color: #99521c;
   p { margin-top: 12px; font-weight: 600; font-family: "Nunito", sans-serif; }
@@ -52,7 +52,6 @@
   h3 { font-size: 20px; font-weight: 800; color: #2c1810; margin: 0 0 8px; font-family: "Nunito", sans-serif; }
   p { font-size: 14px; margin: 0 0 24px; font-family: "Nunito", sans-serif; }
   
-  // Botão original da imagem
   .empty-btn { 
     --background: #99521c; 
     --color: #ffffff;
@@ -66,9 +65,15 @@
   }
 }
 
+// Eleva o FAB para não sumir atrás do menu inferior fixo
+ion-fab {
+  margin-bottom: 80px; 
+}
+
 .fab-btn { 
   --background: #99521c; 
   --background-activated: #7a4116; 
+  --color: #ffffff; /* Força o ícone de + a ficar branco */
 }
 
 // Lista de Produtos Original
@@ -77,7 +82,7 @@
   display: flex; 
   flex-direction: column; 
   gap: 16px; 
-  padding-bottom: 100px; /* Espaço para o scroll não ficar por trás do botão flutuante */
+  padding-bottom: 100px;
   min-height: 100%;
 }
 
@@ -87,7 +92,10 @@
     flex: 1;
     .prod-categoria { font-size: 11px; color: #99521c; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; font-family: "Nunito", sans-serif; }
     .prod-nome { font-size: 16px; font-weight: 800; color: #2c1810; margin: 0 0 4px; font-family: "Nunito", sans-serif; }
-    .prod-desc { font-size: 13px; color: #888; margin: 0 0 12px; line-height: 1.4; font-family: "Nunito", sans-serif; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    
+    // Suporte corrigido para line-clamp
+    .prod-desc { font-size: 13px; color: #888; margin: 0 0 12px; line-height: 1.4; font-family: "Nunito", sans-serif; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    
     .prod-bottom {
       display: flex; align-items: center; gap: 12px;
       .prod-preco { font-size: 16px; font-weight: 800; color: #99521c; }
@@ -102,9 +110,7 @@
   }
 }
 
-// ==========================================================
 // MODAL & CAMPOS DO FORMULÁRIO
-// ==========================================================
 .custom-modal {
   --height: 85%;
   --border-radius: 24px 24px 0 0;
@@ -122,7 +128,6 @@
   overflow-y: auto;
 }
 
-/* Inputs e Select com fundo transparente e texto padronizado */
 .input-container, .select-container {
   display: flex; 
   align-items: center;
@@ -154,7 +159,7 @@
 
   .custom-input, .custom-select {
     flex: 1;
-    --color: #666666; /* COR CINZA PARA TODOS OS TEXTOS DIGITADOS E CATEGORIA */
+    --color: #666666;
     --placeholder-color: #b5a498; 
     --background: transparent;
     --highlight-color: transparent; 
@@ -168,7 +173,6 @@
     font-family: "Nunito", sans-serif;
   }
   
-  /* Garante que o texto selecionado na Categoria fique cinza também */
   .custom-select::part(text) {
     color: #666666;
   }
@@ -189,9 +193,6 @@
   }
 }
 
-// ==========================================================
-// TELA DE SUCESSO (Aparece após o cadastro)
-// ==========================================================
 .success-view {
   display: flex; flex-direction: column; align-items: center; text-align: center; padding: 40px 10px;
   
