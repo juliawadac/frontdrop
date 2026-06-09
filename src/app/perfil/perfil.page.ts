@@ -24,18 +24,13 @@ export class PerfilPage implements OnInit {
     '/dados',
     '/enderecos',
     '/pedidos',
-    '/pagamentos',
-    '/ajuda',
-    '/configuracoes',
+    // Rotas removidas daqui também
   ];
 
   opcoesPerfil = [
-    { icone: 'person-outline',       titulo: 'Meus Dados',           subtitulo: 'Edite suas informações pessoais',      rota: '/dados',          classe: 'cor1' },
+    { icone: 'person-outline',     titulo: 'Meus Dados',       subtitulo: 'Edite suas informações pessoais',      rota: '/dados',         classe: 'cor1' },
     { icone: 'location-outline',     titulo: 'Meus Endereços',       subtitulo: 'Gerencie seus endereços de entrega',   rota: '/enderecos',      classe: 'cor2' },
     { icone: 'receipt-outline',      titulo: 'Meus Pedidos',         subtitulo: 'Acompanhe seus pedidos',               rota: '/pedidos',        classe: 'cor3' },
-    { icone: 'card-outline',         titulo: 'Formas de Pagamento',  subtitulo: 'Gerencie seus cartões e pagamentos',   rota: '/pagamentos',     classe: 'cor4' },
-    { icone: 'help-circle-outline',  titulo: 'Ajuda e Suporte',      subtitulo: 'Tire suas dúvidas',                    rota: '/ajuda',          classe: 'cor5' },
-    { icone: 'settings-outline',     titulo: 'Configurações',        subtitulo: 'Preferências do aplicativo',           rota: '/configuracoes',  classe: 'cor6' },
   ];
 
   constructor(
