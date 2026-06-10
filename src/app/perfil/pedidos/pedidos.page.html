@@ -1,0 +1,58 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="custom-toolbar">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/perfil" icon="chevron-back-outline" text=""></ion-back-button>
+    </ion-buttons>
+    <ion-title class="center-title">Meus Pedidos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="pedidos-content">
+  <div class="page-header">
+    <h2>Histórico de Compras</h2>
+    <p>Acompanhe o status e os detalhes de todos os seus pedidos realizados.</p>
+  </div>
+
+  <div class="loading-state" *ngIf="isLoading">
+    <ion-spinner name="crescent"></ion-spinner>
+    <p>Carregando histórico...</p>
+  </div>
+
+  <div class="empty-state" *ngIf="!isLoading && pedidos.length === 0">
+    <ion-icon name="receipt-outline"></ion-icon>
+    <h3>Nenhum pedido encontrado</h3>
+    <p>Você ainda não fez nenhuma compra no nosso aplicativo.</p>
+  </div>
+
+  <div class="pedidos-list" *ngIf="!isLoading && pedidos.length > 0">
+    <div class="pedido-card" *ngFor="let ped of pedidos">
+      
+      <div class="card-header">
+        <div class="pedido-id">
+          <span>Pedido</span>
+          <h3>#{{ ped.id }}</h3>
+        </div>
+        <div class="status-badge" [ngClass]="getStatusColor(ped.status)">
+          {{ ped.status }}
+        </div>
+      </div>
+
+      <div class="card-body">
+        <p class="data-pedido">Realizado em: {{ ped.criado_em | date:'dd/MM/yyyy HH:mm' }}</p>
+        
+        <div class="itens-box">
+          <p class="itens-title">Itens do Pedido:</p>
+          <ul>
+            <li *ngFor="let item of ped.listaItens">{{ item }}</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card-footer">
+        <span>Total Pago:</span>
+        <h3 class="valor-total">R$ {{ ped.valor_total | number:'1.2-2' }}</h3>
+      </div>
+
+    </div>
+  </div>
+</ion-content>

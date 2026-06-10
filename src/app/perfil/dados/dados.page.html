@@ -1,0 +1,92 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="custom-toolbar">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/perfil" icon="chevron-back-outline" text=""></ion-back-button>
+    </ion-buttons>
+    <ion-title class="center-title">Meus Dados</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="dados-content">
+  <div class="form-header">
+    <h2>Informações Pessoais</h2>
+    <p>Gerencie seus dados de acesso e configurações de segurança da conta.</p>
+  </div>
+
+  <div class="form-container">
+    
+    <div class="card-container">
+      <div class="input-group">
+        <ion-label>Nome *</ion-label>
+        <div class="input-box">
+          <ion-icon name="person-outline"></ion-icon>
+          <ion-input type="text" [(ngModel)]="form.nome" placeholder="Seu primeiro nome"></ion-input>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <ion-label>Sobrenome</ion-label>
+        <div class="input-box">
+          <ion-icon name="people-outline"></ion-icon>
+          <ion-input type="text" [(ngModel)]="form.sobrenome" placeholder="Seu sobrenome"></ion-input>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <ion-label>E-mail *</ion-label>
+        <div class="input-box">
+          <ion-icon name="mail-outline"></ion-icon>
+          <ion-input type="email" [(ngModel)]="form.email" placeholder="seu@email.com"></ion-input>
+        </div>
+      </div>
+      
+      <ion-button expand="block" class="save-btn" (click)="salvar()" [disabled]="isSaving">
+        <ion-spinner name="crescent" *ngIf="isSaving"></ion-spinner>
+        <span *ngIf="!isSaving">Salvar Dados Pessoais</span>
+      </ion-button>
+    </div>
+
+    <div class="card-container security-card">
+      <div class="card-title-row">
+        <ion-icon name="lock-closed-outline"></ion-icon>
+        <h3>Segurança da Conta</h3>
+      </div>
+      
+      <p class="security-desc" *ngIf="!exibirCamposSenha">
+        Para alterar sua senha, enviaremos um código de verificação para o seu e-mail cadastrado.
+      </p>
+
+      <ion-button *ngIf="!exibirCamposSenha" expand="block" fill="outline" class="request-code-btn" (click)="alterarSenha()" [disabled]="isSendingCode">
+        <ion-spinner name="crescent" *ngIf="isSendingCode"></ion-spinner>
+        <span *ngIf="!isSendingCode">Solicitar Alteração de Senha</span>
+      </ion-button>
+
+      <div *ngIf="exibirCamposSenha" class="password-fields-animate">
+        <div class="input-group">
+          <ion-label>Código de Confirmação (E-mail) *</ion-label>
+          <div class="input-box unique-code-box">
+            <ion-icon name="key-outline"></ion-icon>
+            <ion-input type="text" [(ngModel)]="codigoVerificacao" placeholder="Digite o código de 6 dígitos"></ion-input>
+          </div>
+        </div>
+
+        <div class="input-group">
+          <ion-label>Nova Senha *</ion-label>
+          <div class="input-box">
+            <ion-icon name="lock-open-outline"></ion-icon>
+            <ion-input type="password" [(ngModel)]="novaSenha" placeholder="Mínimo 6 caracteres"></ion-input>
+          </div>
+        </div>
+
+        <div class="security-actions">
+          <ion-button fill="clear" color="medium" (click)="exibirCamposSenha = false">Cancelar</ion-button>
+          <ion-button class="confirm-password-btn" (click)="confirmarSenha()" [disabled]="isConfirmingSenha">
+            <ion-spinner name="crescent" *ngIf="isConfirmingSenha"></ion-spinner>
+            <span *ngIf="!isConfirmingSenha">Alterar Senha</span>
+          </ion-button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</ion-content>

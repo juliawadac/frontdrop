@@ -1,0 +1,112 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="custom-toolbar">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/perfil" icon="chevron-back-outline" text=""></ion-back-button>
+    </ion-buttons>
+    <ion-title class="center-title">Meus Endereços</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="enderecos-content">
+  <div class="page-header">
+    <h2>Seus Locais de Entrega</h2>
+    <p>Adicione ou gerencie os endereços onde deseja receber seus pedidos.</p>
+  </div>
+
+  <div class="add-btn-container" *ngIf="!isLoading">
+    <ion-button fill="clear" class="add-minimal-btn" (click)="abrirModalNovo()">
+      <ion-icon name="add-outline" slot="start"></ion-icon>
+      Novo Endereço
+    </ion-button>
+  </div>
+
+  <div class="loading-state" *ngIf="isLoading">
+    <ion-spinner name="crescent"></ion-spinner>
+    <p>Buscando endereços...</p>
+  </div>
+
+  <div class="empty-state" *ngIf="!isLoading && enderecos.length === 0">
+    <ion-icon name="location-outline"></ion-icon>
+    <h3>Nenhum endereço salvo</h3>
+    <p>Cadastre um endereço para facilitar suas compras.</p>
+  </div>
+
+  <div class="enderecos-list" *ngIf="!isLoading && enderecos.length > 0">
+    <div class="endereco-card" *ngFor="let end of enderecos">
+      <div class="card-icon-box">
+        <ion-icon [name]="end.titulo.toLowerCase().includes('casa') ? 'home-outline' : 'briefcase-outline'"></ion-icon>
+      </div>
+      <div class="card-info">
+        <h3>{{ end.titulo }}</h3>
+        <p>{{ end.rua }}, Nº {{ end.numero }}</p>
+        <p class="sub-detail">{{ end.bairro }} — {{ end.cidade }}</p>
+      </div>
+      <div class="card-actions">
+        <ion-button fill="clear" (click)="abrirModalEditar(end)">
+          <ion-icon name="create-outline"></ion-icon>
+        </ion-button>
+        <ion-button fill="clear" color="danger" (click)="confirmarExclusao(end.id)">
+          <ion-icon name="trash-outline"></ion-icon>
+        </ion-button>
+      </div>
+    </div>
+  </div>
+
+  <ion-modal [isOpen]="modalAberto" (didDismiss)="fecharModal()" class="custom-modal">
+    <ng-template>
+      <div class="modal-header">
+        <h2>{{ editando ? 'Editar Endereço' : 'Novo Endereço' }}</h2>
+        <ion-button fill="clear" (click)="fecharModal()">
+          <ion-icon name="close-outline"></ion-icon>
+        </ion-button>
+      </div>
+      
+      <div class="modal-content">
+        <div class="input-group">
+          <ion-label>Apelido do Local (Ex: Casa, Trabalho) *</ion-label>
+          <div class="input-box">
+            <ion-icon name="bookmark-outline"></ion-icon>
+            <ion-input type="text" [(ngModel)]="form.titulo" placeholder="Ex: Minha Casa"></ion-input>
+          </div>
+        </div>
+
+        <div class="input-group">
+          <ion-label>Rua / Logradouro *</ion-label>
+          <div class="input-box">
+            <ion-icon name="map-outline"></ion-icon>
+            <ion-input type="text" [(ngModel)]="form.rua" placeholder="Nome da rua ou avenida"></ion-input>
+          </div>
+        </div>
+
+        <div class="row-inputs">
+          <div class="input-group num-input">
+            <ion-label>Número *</ion-label>
+            <div class="input-box">
+              <ion-input type="text" [(ngModel)]="form.numero" placeholder="123"></ion-input>
+            </div>
+          </div>
+
+          <div class="input-group bairro-input">
+            <ion-label>Bairro *</ion-label>
+            <div class="input-box">
+              <ion-input type="text" [(ngModel)]="form.bairro" placeholder="Nome do bairro"></ion-input>
+            </div>
+          </div>
+        </div>
+
+        <div class="input-group">
+          <ion-label>Cidade *</ion-label>
+          <div class="input-box">
+            <ion-icon name="business-outline"></ion-icon>
+            <ion-input type="text" [(ngModel)]="form.cidade" placeholder="Nome da cidade"></ion-input>
+          </div>
+        </div>
+
+        <ion-button expand="block" class="save-btn" (click)="salvar()">
+          <span>{{ editando ? 'Atualizar Endereço' : 'Salvar Endereço' }}</span>
+        </ion-button>
+      </div>
+    </ng-template>
+  </ion-modal>
+
+</ion-content>

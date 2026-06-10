@@ -46,13 +46,11 @@ export class AuthService {
       return;
     }
 
-    // Carrega instantaneamente para não cair no F5
     const usuarioSalvo = localStorage.getItem('usuarioLogado');
     if (usuarioSalvo) {
       this.currentUserSubject.next(JSON.parse(usuarioSalvo));
     }
 
-    // Atualiza em segundo plano
     this.http.get<Usuario>(`${this.API_URL}/me`, { headers: this.getAuthHeaders() })
       .subscribe({
         next: (usuario) => {
@@ -70,9 +68,53 @@ export class AuthService {
     return this.http.post(`${this.API_URL}/enviar-codigo`, { email });
   }
 
-  // ✅ FUNÇÃO QUE TINHA SUMIDO: CADASTRAR
   cadastrar(usuario: any): Observable<any> {
     return this.http.post(`${this.API_URL}/cadastrar`, usuario);
+  }
+
+  atualizarUsuario(dados: any): Observable<any> {
+    return this.http.put(`${this.API_URL}/`, dados, { headers: this.getAuthHeaders() })
+      .pipe(
+        tap(() => {
+          const usuarioAtual = this.currentUserSubject.getValue();
+          if (usuarioAtual) {
+            const usuarioAtualizado = { 
+              ...usuarioAtual, 
+              ...dados
+            };
+            localStorage.setItem('usuarioLogado', JSON.stringify(usuarioAtualizado));
+            this.currentUserSubject.next(usuarioAtualizado);
+          }
+        })
+      );
+  }
+
+  solicitarCodigoSenha(): Observable<any> {
+    return this.http.post(`${this.API_URL}/senha/solicitar`, {}, { headers: this.getAuthHeaders() });
+  }
+
+  confirmarNovaSenha(codigo: string, novaSenha: string): Observable<any> {
+    return this.http.put(`${this.API_URL}/senha/confirmar`, { codigo, novaSenha }, { headers: this.getAuthHeaders() });
+  }
+
+  listarEnderecos(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.API_URL}/enderecos`, { headers: this.getAuthHeaders() });
+  }
+
+  cadastrarEndereco(dados: any): Observable<any> {
+    return this.http.post(`${this.API_URL}/enderecos`, dados, { headers: this.getAuthHeaders() });
+  }
+
+  atualizarEndereco(id: number, dados: any): Observable<any> {
+    return this.http.put(`${this.API_URL}/enderecos/${id}`, dados, { headers: this.getAuthHeaders() });
+  }
+
+  deletarEndereco(id: number): Observable<any> {
+    return this.http.delete(`${this.API_URL}/enderecos/${id}`, { headers: this.getAuthHeaders() });
+  }
+
+  listarPedidos(): Observable<any[]> {
+    return this.http.get<any[]>(`http://localhost:3000/pedidos/usuario`, { headers: this.getAuthHeaders() });
   }
 
   login(email: string, senha: string): Observable<LoginResponse> {
@@ -98,7 +140,6 @@ export class AuthService {
     return localStorage.getItem('token');
   }
 
-  // ✅ FUNÇÃO QUE TINHA SUMIDO: ISLOGGEDIN (Usada pelo seu AuthGuard)
   isLoggedIn(): boolean {
     const token = this.getToken();
     return token !== null && token !== '';
