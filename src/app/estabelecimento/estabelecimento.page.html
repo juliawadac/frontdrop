@@ -23,13 +23,15 @@
       <ion-icon name="location-outline" class="section-icon"></ion-icon>
       <h2>LOCALIZAÇÃO</h2>
     </div>
-    <div class="map-container">
-      <img [src]="estabelecimento.mapa_url || 'assets/mapa-placeholder.png'" 
+    <div class="map-container" *ngIf="estabelecimento">
+  
+      <img *ngIf="estabelecimento.mapa_url"
+           [src]="estabelecimento.mapa_url" 
            [alt]="'Mapa de ' + estabelecimento.nome" 
            class="map" />
       
       <div class="map-overlay">
-        <ion-button fill="outline" size="small" class="directions-btn" (click)="abrirMapa()">
+        <ion-button fill="outline" size="small" class="directions-btn" (click)="abrirMapa(estabelecimento.maps_url)">
           <ion-icon name="navigate-outline" slot="start"></ion-icon>
           Como chegar
         </ion-button>

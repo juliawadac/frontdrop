@@ -134,10 +134,71 @@ export class EstabelecimentoPage implements OnInit, OnDestroy {
   voltar() {
     this.navCtrl.back();
   }
-
-  abrirMapa() {
-    if (this.estabelecimento?.google_maps_link) {
-      window.open(this.estabelecimento.google_maps_link, '_system');
+  abrirMapa(mapaUrl: string): void {
+    // 1. PRIMEIRA TENTATIVA: Se o banco de dados enviar o link correto, usa ele
+    if (mapaUrl && mapaUrl.trim() !== '' && mapaUrl !== 'undefined') {
+      window.open(mapaUrl, '_blank');
+      return; // Para a execução aqui pois funcionou pelo banco
+    }
+  
+    // 2. PLANO B (SEGURANÇA): Se o banco falhar (undefined), usa os seus links originais diretos
+    console.warn('maps_url veio inválido do banco. Ativando os links originais de segurança...');
+    
+    const id = this.estabelecimento?.id;
+    let linkDeSeguranca = '';
+  
+    switch (id) {
+      case 1:
+        linkDeSeguranca = 'https://maps.app.goo.gl/uw3Z6eWHhgEHyiK26';
+        break;
+      case 2:
+        linkDeSeguranca = 'https://maps.app.goo.gl/RnKhxC5XGPDDUzWR8';
+        break;
+      case 3:
+        linkDeSeguranca = 'https://maps.app.goo.gl/vT7wgLN9FAWeSzUBA';
+        break;
+      case 4:
+        linkDeSeguranca = 'https://maps.app.goo.gl/q2cALvCeBBWygn3N9';
+        break;
+      case 5:
+        linkDeSeguranca = 'https://maps.app.goo.gl/cWRtdcPFXmDZMuCU7';
+        break;
+      case 6:
+        linkDeSeguranca = 'https://maps.app.goo.gl/NCB9ayxDLUMKH88b6';
+        break;
+      case 7:
+        linkDeSeguranca = 'https://maps.app.goo.gl/vxmj4KPwHtNabQdN6';
+        break;
+      case 8:
+        linkDeSeguranca = 'https://maps.app.goo.gl/aCoKcLC2fRLVJKGp8';
+        break;
+      case 9:
+        linkDeSeguranca = 'https://maps.app.goo.gl/7WXZf8r4vrK2CHVa7';
+        break;
+      case 10:
+        linkDeSeguranca = 'https://maps.app.goo.gl/avykJLBWd17yJr276';
+        break;
+      case 11:
+        linkDeSeguranca = 'https://maps.app.goo.gl/EWX4tcy9vtZJf37Y6';
+        break;
+      case 12:
+        linkDeSeguranca = 'https://maps.app.goo.gl/gFkT58uv5Tiq4W6A8';
+        break;
+      default:
+        // Caso apareça um ID novo no futuro que não esteja na lista acima
+        const lat = this.estabelecimento?.latitude;
+        const lng = this.estabelecimento?.longitude;
+        if (lat && lng) {
+          linkDeSeguranca = `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`;
+        }
+        break;
+    }
+  
+    // 3. ABRE O LINK DIRETAMENTE
+    if (linkDeSeguranca) {
+      window.open(linkDeSeguranca, '_blank');
+    } else {
+      alert('Não foi possível encontrar o mapa para este estabelecimento.');
     }
   }
 
